@@ -1,0 +1,274 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>快来预约格斗手游神作《乱斗之王》！</title>
+<meta content="<?= $keywords; ?>" name="keywords">
+<meta name="description" content="<?= $description; ?>">
+<meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1,minimum-scale=1, maximum-scale=1"/>
+<meta name="format-detection" content="telephone=no" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="author" content="乱斗之王">
+<link rel="stylesheet" href="<?php echo $full_base_url ?>/mobile/css/reset.css"/>
+<link rel="stylesheet" href="<?php echo $full_base_url ?>/mobile/css/custom.css"/>
+<link rel="stylesheet" href="<?php echo $full_base_url ?>/mobile/css/bulid.css" />
+
+<script src="<?php echo $full_base_url ?>/mobile/js/modernizr.min.js"></script>
+<script src="<?php echo $full_base_url ?>/mobile/js/jquery-1.11.0.min.js"></script>
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?9ce983a1ee9572198ea8bf47c150fc98";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+
+</head>
+
+<body>
+<p style="display:none"><img src="//act.uu.cc/subwayData/images/icon2.jpg" alt="乱斗之王"></p>
+<div id="container">
+        <section class="u-alert" id="loading">
+        <div class="alert-loading z-move">
+                <div class="cycleWrap">
+                    <span class="cycle cycle-1"></span>
+                    <span class="cycle cycle-2"></span>
+                    <span class="cycle cycle-3"></span>
+                    <span class="cycle cycle-4"></span>
+                </div>
+                <div class="lineWrap">
+                    <span class="line line-1"></span>
+                    <span class="line line-2"></span>
+                    <span class="line line-3"></span>
+                </div>
+              
+            </div>
+        </section>
+
+	<section id="main" role="main">
+	
+        <section class="scene one active" id="one">
+            <div class="cont">
+               <span class="boom"></span>
+               <span class="wz_shuang"></span>
+               <span class="wz_kuai"></span>
+               <span class="wz_king"></span>
+               <span class="wz_bt"></span>
+               <span class="fu_1"></span>
+               <span class="fu_2"></span>
+            </div>
+        	<div class="inner" id="scene_one">
+               <div class="layer" data-depth="0.6">
+                   <span class="ico_01"></span>
+                   <span class="ico_02"></span> 
+                   <span class="ico_03"></span>
+                   <span class="ico_04"></span>
+               </div>
+       		   <div class="ico_arrow"><p></p><a></a></div>
+			   <div style="position:absolute;top:0;bottom:0;left:0;right:0;width:100%;height:100%;z-index:7;" id="zhezao"></div>
+            </div>
+        </section>
+		
+    	<section class="scene two  ">
+            <div class="cont2">
+               <span class="wz_re"></span>
+               <span class="wz_xue"></span>
+               <span class="wz_king"></span>
+               <span class="wz_bt"></span>
+               <span class="fu_1"></span>
+               <span class="fu_2"></span>
+            </div>
+        	<div class="inner" id="Navigation">
+                 <div class="layer" data-depth="0.6">
+                   <span class="ico_05"></span>
+                   <span class="ico_06"></span>
+                   <span class="ico_07"></span>
+                   <span class="ico_08"></span>
+                </div>
+       		  	<div class="ico_arrow"><p></p><a></a></div> 
+            </div>
+        </section>
+		
+        <section class="scene three ">
+             <div class="cont3">
+               <span class="wz_ci"></span>
+               <span class="wz_ji"></span>
+               <span class="wz_king"></span>
+               <span class="wz_bt"></span>
+               <span class="fu_1"></span>
+               <span class="fu_2"></span>
+            </div>
+       		<div class="inner" id="dayan">
+                 <div class="layer" data-depth="0.6">
+                   <span class="ico_09"></span>
+                   <span class="ico_10"></span>
+                </div>
+       		  	<div class="ico_arrow"><p></p><a></a></div> 
+            </div>
+        </section>
+		
+        <section class="scene four ">
+            <div class="cont4">
+              <div class="wz">
+               <span class="wz_bt"></span>
+               <span class="wz_jian"></span>
+               <span class="wz_zheng"></span>
+               <span class="wz_dian"></span>
+               <span class="wz_fu"></span>
+              </div>
+              <div class="time">
+                <span class="day" endtime="6/18/2015 11:0:0"><h2></h2><em>天</em></span>
+                <span class="hours"><h2></h2><em>时</em></span>
+                <span class="minute"><h2></h2><em>分</em></span>
+                <span class="seconds"><h2></h2><em>秒</em></span>
+              </div>
+              <div class="biaodan">
+                <input type="radio" name="banben"  value="1" class="radio radio1" checked="checked"><label for="a" class="radio lab1"><img src="<?php echo $full_base_url ?>/mobile/images/p4_2.png" /></label><br>
+                <input type="radio" name="banben"  value="2" class="radio radio2"><label for="b" class="radio lab2" ><img src="<?php echo $full_base_url ?>/mobile/images/p4_1.png" /></label><br>
+                <input type="text" id="shuru" value="请输入手机号"/>
+                <a class="yuyue" href="#"></a> 
+              </div>
+			  <span class="ld_logo"></span>
+			  <span class="gzxy"></span>
+            </div>
+       		
+        </section>
+     
+    </section>
+    
+    <audio id="_audio" src="<?php echo $full_base_url ?>/mobile/music.mp3"  style="position:absolute;z-index:-9;top:-1000px;left:0;" autoplay="autoplay"  name="media" loop>
+        <!-- <source src="<?php echo $full_base_url ?>/mobile/music.ogg" type="audio/ogg">-->
+         <source src="<?php echo $full_base_url ?>/mobile/music.mp3" type="audio/mpeg">
+     </audio>
+     <aside id="music" class="music"><a href="#"></a></aside>
+     
+<!-- Container end-->
+</div>
+
+<script src="<?php echo $full_base_url ?>/mobile/js/parallax.js" type="text/javascript"></script>
+<script type="text/javascript">
+	var scene = document.getElementById('scene_one');
+	var scene2 = document.getElementById('Navigation');
+	var scene3 = document.getElementById('dayan');
+	var parallax = new Parallax(scene);
+	var parallax = new Parallax(scene2);
+	var parallax = new Parallax(scene3);
+</script>
+<script type="text/javascript">
+   function lxfEndtime(){
+                var endtime = new Date($(".day").attr("endtime")).getTime();//取结束日期(毫秒值)
+                var nowtime = new Date().getTime();        //今天的日期(毫秒值)
+                var youtime = endtime-nowtime;//还有多久(毫秒值)
+                var seconds = youtime/1000;
+                var minutes = Math.floor(seconds/60);
+                var hours = Math.floor(minutes/60);
+                var days = Math.floor(hours/24);
+                var CDay= days ;
+                var CHour= hours % 24;
+                var CMinute= minutes % 60;
+                var CSecond= Math.floor(seconds%60);//"%"是取余运算，可以理解为60进一后取余数，然后只要余数。
+                if(endtime<=nowtime){
+						$(".day h2").html("0");
+						$(".hours h2").html("0");
+						$(".minute h2").html("0");
+						$(".seconds h2").html("0");
+                        }else{  
+						$(".day h2").html(days);
+						$(".hours h2").html(CHour);
+						$(".minute h2").html(CMinute);
+						$(".seconds h2").html(CSecond);
+                        }
+   setTimeout("lxfEndtime()",1000);
+  };
+$(function(){
+      lxfEndtime();
+   });
+</script>
+<script type="text/javascript">
+$(function(){
+	var myreg = /^1[34578]\d{9}$/;
+	$('#shuru').click(function(){
+		$(this).attr('value','');
+		})
+    $('.yuyue').click(function(){
+		var phone = $('#shuru').attr('value');
+		if(phone == '请输入手机号' || phone == ''){
+			alert('请输入手机号哦！');
+			}else{
+			if(!myreg.exec(phone)){
+				alert('您输入的手机号码不对哦！');
+				}else{
+				var type = $('input:radio[name="banben"]:checked').val();
+				//alert(type + "---" + phone);
+				 $.ajax({
+					type:"POST",
+					url:"/collect_phone",
+					data:{phone:phone,type:type,collect_name:68},
+					dataType:"json",
+					success:function(res){
+						if(res.ret == 2){
+							alert("您已经参加过预约！");
+						}else if(res.ret == 0){
+							 alert("您已预约成功，我们会在首测前1天以短信形式向您发送预约礼包");
+						}else{
+						   alert("预约失败！");
+						}
+					}
+				});
+
+			}	
+		}
+	    })
+
+	//  音乐相关事件
+	var myVideo=document.getElementById("_audio");
+	$('#music').click(function(){
+		if(myVideo.paused){
+			$(this).addClass("music").css('background-position','center top');
+			myVideo.play();		
+			}else{
+			$(this).removeClass("music").css('background-position','center bottom');
+		    myVideo.pause();
+		}
+		})
+	var startX = 0, startY = 0; 
+	  //touchstart事件  
+            function touchSatrtFunc(evt) {  
+                try  
+                {  
+                    evt.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等  
+                    var touch = evt.touches[0]; //获取第一个触点  
+                    var x = Number(touch.pageX); //页面触点X坐标  
+                    var y = Number(touch.pageY); //页面触点Y坐标  
+                    //记录触点初始位置  
+                    startX = x;  
+                    startY = y;  
+                    myVideo.play();	
+					$("#zhezao").hide(); 
+                }  
+                catch (e) {  
+                    alert('touchSatrtFunc：' + e.message);  
+                }  
+            }  
+	     function bindEvent() {  
+                document.getElementById('zhezao').addEventListener('touchstart', touchSatrtFunc, false);   
+            }  
+		 function isTouchDevice() {  
+                try {  
+                    document.createEvent("TouchEvent");    
+                    bindEvent(); //绑定事件  
+                }  
+                catch (e) {    
+                }  
+            }  
+         window.onload = isTouchDevice;  
+})
+</script>
+<script src="<?php echo $full_base_url ?>/mobile/js/main.js"></script>
+<script src="<?php echo $full_base_url ?>/mobile/js/jquery-migrate-1.2.1.min.js"></script>
+<script src="<?php echo $full_base_url ?>/mobile/js/touchswipe.js"></script>
+</body>
+</html>
+  

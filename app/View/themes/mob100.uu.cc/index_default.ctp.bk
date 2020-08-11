@@ -1,0 +1,373 @@
+<?php 
+    $this->Website->init();
+    $siteId = $GLOBALS['site_id'];
+    $defaultNum = GET_BLOCK('default_baoming_num');
+    $addNumByTime = GET_BLOCK('add_num_by_time');
+    $time = time();
+    $startTime = GET_BLOCK('auto_inc_start_time');
+    $endTime = GET_BLOCK('auto_inc_end_time');
+    $addNum = 0;
+    if(!empty($startTime) && !empty($endTime) && !empty($addNumByTime)){
+        $startTime = strtotime($startTime);
+        $endTime = strtotime($endTime);
+        if($startTime < $time){
+            if($endTime >= $time){
+                $addNum = ($time - $startTime)/$addNumByTime;
+            }else{
+                $addNum = ($endTime - $startTime)/$addNumByTime;
+            }
+            $addNum = ceil($addNum);
+        }
+    }
+    $addNum += $defaultNum;
+    $realNum = GET_COLLECT_PHONE_COUNT();
+    $addNum += $realNum;
+?>
+<!doctype html>
+<html>
+<head>
+  <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<?php
+    echo '<title>'.GET_BLOCK('web_title').'</title>';
+    echo '<meta name="keywords" content="'.GET_BLOCK('web_keywords').'"/>';
+    echo '<meta name="description" content="'.GET_BLOCK('web_description').'"/>';
+?>
+  <link rel="stylesheet" type="text/css" href="//dl.gamdream.com/activity/galan/luren/css/swiper.min.css">
+  <link rel="stylesheet" type="text/css" href="//dl.gamdream.com/activity/galan/luren/css/index.css">
+  <script type="text/javascript" src="//dl.gamdream.com/activity/galan/luren/js/jquery.min.js"></script>
+  <link rel="shortcut icon" href="<?php echo GET_BLOCK('game_icon');?>" />
+</head>
+<body data-id=<?=$siteId;?>>
+<script type="text/javascript">
+    function share(){
+        // 微博分享
+        var title = '<?php echo GET_BLOCK('wb_title');?>';
+        var picurl = '<?php echo GET_BLOCK('wb_share_img');?>';
+        var sharesinastring='https://service.weibo.com/share/share.php?title='+title+'&url='+window.location.href+'&content=utf-8&sourceUrl='+window.location.href+'&pic='+picurl;
+        window.open(sharesinastring,'newwindow','height=400,width=400,top=100,left=100');
+    }
+</script>
+  <div class="pcreserve">
+    <div class="con">
+      <div class="wrap">
+        <img src="//dl.gamdream.com/activity/galan/luren/images/index_bg_01.jpg" alt="">
+        <img class="video" src="//dl.gamdream.com/activity/galan/luren/images/video.png" alt="">
+        <img class="xts_pc" src="//dl.gamdream.com/activity/galan/luren/images/xts_pc.png" style="position: absolute;left: 0;top: 320px;z-index: 100;cursor: pointer;" >
+        <div class="menu">
+          <span class="share">
+            <div class="pcShare">
+              <a href="javascript:;" onclick="share()" class="wb"></a>
+              <a href="javascript:;" class="pc_share"></a>
+            </div>
+          </span>
+          <a class="news_link" href="//mob100.uu.cc/news/1.html"></a>
+        </div>
+        <div class="btn-group">
+          <img src="//dl.gamdream.com/activity/galan/luren/images/btn_download_1.png">
+          <a href="javascript:;" class="btn-reserve show-reserve"></a>
+          <p class="join">已有<span><?php echo $addNum; ?></span>位灵能者加入</p>
+        </div>
+        <img class="person" src="//dl.gamdream.com/activity/galan/luren/images/person.png" alt="">
+        <div class="qrcode_box">
+          <div class="subBox">
+            <img src="<?php echo GET_BLOCK('weixin_qrcode');?>" class="qrcode">
+            <p class="focus">扫码关注微信号</p>
+          </div>
+          <a href="<?php echo GET_BLOCK('weibo_url');?>" class="weibo"></a>
+          <a href="<?php echo GET_BLOCK('qq_jump');?>" target="_blank" class="forum"><?php echo GET_BLOCK('qq_group');?></a>
+        </div>
+      </div>
+      <!--预约进度条-->
+      <div class="wrap">
+        <img src="//dl.gamdream.com/activity/galan/luren/images/index_bg_02.jpg" alt="">
+        <div class="milestone progress">
+          <div class="milestone-timeline">
+            <div class="now" data-num=<?php echo $addNum; ?>></div>
+            <div class="list">
+              <div class="treasure-box <?php if($addNum >= 100000){ echo "finished"; } ?>">
+                <span>10万</span>
+              </div>
+              <div class="treasure-box <?php if($addNum >= 200000){ echo "finished"; } ?>">
+                <span>20万</span>
+              </div>
+              <div class="treasure-box <?php if($addNum >= 500000){ echo "finished"; } ?>">
+                <span>50万</span>
+              </div>
+              <div class="treasure-box <?php if($addNum >= 800000){ echo "finished"; } ?>">
+                <span>80万</span>
+              </div>
+              <div class="treasure-box <?php if($addNum >= 1000000){ echo "finished"; } ?>">
+                <span>100万</span>
+              </div>
+            </div>
+          </div>
+          <div class="gift">
+            <h3 class="title">10万预约达成礼包</h3>
+            <div class="status">已达成</div>
+            <div class="package-box">
+              <div class="package">
+                <div class="package-item">
+                  <img src="//dl.gamdream.com/activity/galan/luren/images/prop_0.png" alt="" class="package-item-img" />
+                  <p class="package-item-text">官网专属头像框</p>
+                </div>
+                <div class="package-item">
+                  <img src="//dl.gamdream.com/activity/galan/luren/images/prop_1.png" alt="" class="package-item-img" />
+                  <p class="package-item-text">硬币*30000</p>
+                </div>
+              </div>
+            </div>
+            <div class="package-box">
+              <div class="package">
+                <div class="package-item">
+                  <img src="//dl.gamdream.com/activity/galan/luren/images/prop_6.png" alt="" class="package-item-img" />
+                  <p class="package-item-text">超能礼盒*5</p>
+                </div>
+                <div class="package-item">
+                  <img src="//dl.gamdream.com/activity/galan/luren/images/prop_5.png" alt="" class="package-item-img" />
+                  <p class="package-item-text">什锦面包*2</p>
+                </div>
+              </div>
+            </div>
+            <div class="package-box">
+              <div class="package">
+                <div class="package-item">
+                  <img src="//dl.gamdream.com/activity/galan/luren/images/prop_3.png" alt="" class="package-item-img" />
+                  <p class="package-item-text">高级招募券*1</p>
+                </div>
+                <div class="package-item">
+                  <img src="//dl.gamdream.com/activity/galan/luren/images/prop_1.png" alt="" class="package-item-img" />
+                  <p class="package-item-text">硬币*30000</p>
+                </div>
+              </div>
+            </div>
+            <div class="package-box">
+              <div class="package">
+                <div class="package-item">
+                  <img src="//dl.gamdream.com/activity/galan/luren/images/prop_4.png" alt="" class="package-item-img" />
+                  <p class="package-item-text">技能卡包*1</p>
+                </div>
+                <div class="package-item">
+                  <img src="//dl.gamdream.com/activity/galan/luren/images/prop_2.png" alt="" class="package-item-img" />
+                  <p class="package-item-text">蓝钻*100</p>
+                </div>
+              </div>
+            </div>
+            <div class="package-box">
+              <div class="package">
+                <div class="package-item">
+                  <img src="//dl.gamdream.com/activity/galan/luren/images/prop_3.png" alt="" class="package-item-img" />
+                  <p class="package-item-text">高级招募券*5</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--轮播图-->
+      <div class="wrap">
+        <img src="//dl.gamdream.com/activity/galan/luren/images/index_bg_03.jpg" alt="">
+        <div class="swiper-box swiper-container">
+          <span class="btn btn-pre"></span>
+          <span class="btn btn-next"></span>
+          <div class="swiper swiper-wrapper">
+            <?php
+              SHOW_DATAS('<div class="swiper-slide">
+              <img src="@@STR2@@" alt="">
+            </div>','Y-m-d',2,10);
+            ?>
+          </div>
+        </div>
+      </div>
+      <!--角色-->
+      <div class="wrap" id="role-swiper">
+        <img src="//dl.gamdream.com/activity/galan/luren/images/index_bg_04.jpg" alt="">
+        <div class="role-info">
+          <ul class="pic">
+            <li><img src="//dl.gamdream.com/activity/galan/luren/images/role/pc/2.png" alt=""></li>
+            <li><img src="//dl.gamdream.com/activity/galan/luren/images/role/pc/1.png" alt=""></li>
+            <li><img src="//dl.gamdream.com/activity/galan/luren/images/role/pc/3.png" alt=""></li>
+            <li><img src="//dl.gamdream.com/activity/galan/luren/images/role/pc/4.png" alt=""></li>
+          </ul>
+        </div>
+        <div class="role">
+          <div class="card-carousel-wrapper">
+            <div class="btn btn-pre"></div>
+            <div class="card-carousel">
+              <div class="card-carousel--overflow-container">
+                <div class="card-carousel-cards">
+                  <div class="card-carousel--card swiper-item active">
+                    <div class="role-item">
+                      <div class="role-img">
+                        <div class="mask"></div>
+                        <img src="//dl.gamdream.com/activity/galan/luren/images/role_2.png" alt="">
+                      </div>
+                      <div>
+                        <h3 class="role-name">影山茂夫</h3>
+                        <p class="role-name1">CV 伊藤节生</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-carousel--card swiper-item">
+                    <div class="role-item">
+                      <div class="role-img">
+                        <div class="mask"></div>
+                        <img src="//dl.gamdream.com/activity/galan/luren/images/role_1.png" alt="">
+                      </div>
+                      <div>
+                        <h3 class="role-name">花泽辉气</h3>
+                        <p class="role-name1">CV 松冈祯丞</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-carousel--card swiper-item">
+                    <div class="role-item">
+                      <div class="role-img">
+                        <div class="mask"></div>
+                        <img src="//dl.gamdream.com/activity/galan/luren/images/role_3.png" alt="">
+                      </div>
+                      <div>
+                        <h3 class="role-name">灵幻新隆</h3>
+                        <p class="role-name1">CV 樱井孝宏</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-carousel--card swiper-item">
+                    <div class="role-item">
+                      <div class="role-img">
+                        <div class="mask"></div>
+                        <img src="//dl.gamdream.com/activity/galan/luren/images/role_4.png" alt="">
+                      </div>
+                      <div>
+                        <h3 class="role-name">小酒窝</h3>
+                        <p class="role-name1">CV 大冢明夫</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="btn btn-next"></div>
+          </div>
+        </div>
+      </div>
+      <!--底部预约-->
+      <div class="social clearfix">
+        <div class="qrcode">
+          <img src="<?php echo GET_BLOCK('weixin_qrcode');?>" class="img"/>
+          <p class="desc">
+            扫码关注官方微信
+          </p>
+        </div>
+        <div class="qrcode">
+          <img src="//dl.gamdream.com/activity/galan/luren/images/weibo.png" class="img" />
+          <p class="desc">
+            扫码关注官方微博
+          </p>
+        </div>
+        <div style="margin-left: 80px;">
+          <a href="javascript:;" class="show-reserve">
+            <img src="//dl.gamdream.com/activity/galan/luren/images/btn-reserve.png" alt="" />
+          </a>
+          <p class="contact">
+            官方QQ群
+            <span class="qq"><?php echo GET_BLOCK('qq_group');?></span>
+            <a href="<?php echo GET_BLOCK('qq_jump');?>" target="_blank" class="joinus">加入</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--底部-->
+    <?php require_once 'footer.ctp';?>
+
+    <!--视频弹窗-->
+    <div class="dialog-video pop pop-video">
+      <div class="el-dialog" style="margin-top: 25vh; width: 675px;">
+        <div class="el-dialog__header">
+          <span class="el-dialog__title"></span>
+          <button type="button" aria-label="Close" class="el-dialog__close"></button>
+        </div>
+        <div class="el-dialog__body">
+          <video src="<?php echo GET_BLOCK('video_url');?>" controls="" preload="metadata" width="500" height="250">您的浏览器不支持 video 标签。</video>
+        </div>
+      </div>
+    </div>
+
+    <!--预约弹窗-->
+    <div class="dialog-reserve pop pop-reserve">
+      <div class="el-dialog" style="margin-top: 25vh; width: 675px;">
+        <div class="el-dialog__header"><span class="el-dialog__title">游戏预约</span>
+          <button type="button" aria-label="Close" class="el-dialog__close"></button></div>
+        <div class="el-dialog__body">
+          <div class="form">
+            <div class="form-item">
+              <label class="form-label">手机类型</label>
+              <div class="input-radio input-radio--checked" type="ios">
+                <img src="//dl.gamdream.com/activity/galan/luren/images/ios.png"><span>IOS</span></div>
+              <div class="input-radio" type="android">
+                <img src="//dl.gamdream.com/activity/galan/luren/images/android.png"><span>Android</span>
+              </div>
+            </div>
+            <div class="input-group input-group--prepend">
+              <div class="input-group__prepend">+86 中国</div>
+              <input autocomplete="off" name="phone" placeholder="请输入手机号码" class="input__inner" oninput="this.value = this.value.slice(0, 11)">
+            </div>
+            <div class="input-group input-group--append">
+              <input autocomplete="off" placeholder="请输入验证码" name="code" class="input__inner">
+              <div class="input-group__append get-code">获取验证码</div>
+            </div>
+            <div class="error-msg">该手机已经预约过啦~！</div>
+          </div>
+        </div>
+        <div class="el-dialog__footer">
+          <div class="dialog-footer">
+            <img src="//dl.gamdream.com/activity/galan/luren/images/btn-reserve1.png" alt="" class="btn-reserve sub">
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--预约成功-->
+    <div class="dialog-success pop pop-success">
+      <div class="el-dialog" style="margin-top: 25vh; width: 675px;">
+        <div class="el-dialog__header">
+          <span class="el-dialog__title">预约成功！</span>
+          <button type="button" aria-label="Close" class="el-dialog__close"></button>
+        </div>
+        <div class="el-dialog__body">
+          <img src="//dl.gamdream.com/activity/galan/luren/images/wap/pop1.png" alt="" class="figure">
+          <div class="focus_box">
+            <img src="<?php echo GET_BLOCK('weixin_qrcode');?>" alt="" class="qrcode">
+            <div class="detail">
+              <p style="margin-bottom: 30px;">扫码关注官方微信，领取专属福利！</p>
+              <div>
+                <p>微信公众号： </p>
+                <p><strong>路人超能100手游</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--分享弹窗-->
+    <div class="dialog-share pop pop-share">
+      <div class="el-dialog" style="margin-top: 25vh; width: 675px;">
+        <div class="el-dialog__header">
+          <span class="el-dialog__title">扫一扫分享给好友</span>
+          <button type="button" aria-label="Close" class="el-dialog__close"></button>
+        </div>
+        <div class="el-dialog__body">
+          <div class="focus_box">
+            <img src="<?php echo GET_BLOCK('qrCode_share');?>" alt="" class="qrcode"/>
+            <div class="detail">
+              <p style="margin-top: 20px;">用微信“扫一扫”左侧二维码，即可把网站分享给您的好友们哦。</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="//dl.gamdream.com/activity/galan/luren/js/swiper.min.js"></script>
+  <script type="text/javascript" src="//dl.gamdream.com/activity/galan/luren/js/login.js"></script>
+</body>
+
+</html>

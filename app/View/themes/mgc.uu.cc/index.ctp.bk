@@ -1,0 +1,913 @@
+<?php
+  $this->Website->init();
+  $siteId = $GLOBALS['site_id'];
+  $defaultNum = GET_BLOCK('default_num');
+  $addNumByTime = GET_BLOCK('add_num_by_time');
+  $time = time();
+  $startTime = GET_BLOCK('auto_inc_start_time');
+  $endTime = GET_BLOCK('auto_inc_end_time');
+  $addNum = 0;
+  if(!empty($startTime) && !empty($endTime) && !empty($addNumByTime)){
+      $startTime = strtotime($startTime);
+      $endTime = strtotime($endTime);
+      if($startTime < $time){
+          if($endTime >= $time){
+              $addNum = ($time - $startTime)/$addNumByTime;
+          }else{
+              $addNum = ($endTime - $startTime)/$addNumByTime;
+          }
+          $addNum = ceil($addNum);
+      }
+  }
+  $addNum += $defaultNum;
+  $realNum = GET_COLLECT_PHONE_COUNT();
+  $addNum += $realNum;
+?>
+<!DOCTYPE html>
+<html>
+<head>
+
+ 	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta name="keywords" content="《梦工厂大冒险》官方正版授权手游预约开启！！"><meta name="description" content="《路人超能100》是由艾格拉斯与日本聚逸株式会社共同获得动画IP的游戏化权利，并同成都萤火虫合力开发联合乐逗游戏共同发行的正版授权漫改手游。 游戏完美再现动漫的剧情内容，日式青春的校园场景，原汁原味的人物超能设定。在游戏中，玩家化身超能路人茂夫，可搭档灵幻新隆、律、小酒窝、花泽辉气等数十位熟悉的伙伴，进行策略对抗以及参与丰富的校园活动。超能力世界，等你一起来除灵冒险！">
+	<title>《梦工厂大冒险》官方正版授权手游预约开启！！</title>
+
+	<link rel="stylesheet" href="//dl.gamdream.com/activity/mgc_190612/test3/js/swiper.min.css">
+  	<link rel="stylesheet" type="text/css" href="//dl.gamdream.com/activity/mgc_190612/test3/css/index.css">
+	<link rel="stylesheet" type="text/css" href="//dl.gamdream.com/activity/mgc_190612/test3/css/share.css">
+	<script>
+        var baseUrl1 = "http://mgc.uu.cc/Online/";
+        var baseUrl2 = "http://192.168.4.124/";
+        var joinNum = <?php echo $addNum;?>;
+        var isPart = 0; 
+        var scrollFunction;
+	</script>
+</head>
+<body onscroll="scroll()">
+
+<!--邀请好友分享链接参数-->
+<div style="display: none">
+    <h1>梦工厂大冒险</h1>
+    <p id="share_title" pub-name="分享标题">梦工厂大冒险</p>
+    <p id="share_desc" pub-name="分享描述">梦工厂大冒险</p>
+    <img id="share_pic" pub-name="分享图片" src="https://dl.gamdream.com/activity/mgc_190612/mobile/icon.png">
+</div>
+
+
+
+	<div class = "controllerDiv">
+
+		<!-- 内容-->
+		<div class = "pcreserve">
+			<!--顶部fv-->
+			<div class="warp warp_01" id="page_1">
+
+				<div class = "game-logo">
+					<img src="//dl.gamdream.com/activity/mgc_190612/test3/images/game_logo.png">
+				</div>
+
+				<!--角色KV-->
+				<div class = "role-kv">
+					<img class = "kv-view" src="//dl.gamdream.com/activity/mgc_190612/test3/images/fv_bg_01.png" alt="">
+					<img class = "main_title" src="//dl.gamdream.com/activity/mgc_190612/test3/images/fv_title_bg.png" alt="">
+				</div>
+				<div class = "content-box">
+						<img class = "video_play" src="//dl.gamdream.com/activity/mgc_190612/test3/images/play_video_button.png" alt="" >
+						<img class="appointment_button" src="//dl.gamdream.com/activity/mgc_190612/test3/images/yuyue_button.png" alt="">
+<!-- 					<img class="appointment_button_text" src="//dl.gamdream.com/activity/mgc_190612/test3/images/yuyue_button_text.png" alt=""> -->
+					<div class="gift_content_box">
+						<img class="box_border" src="//dl.gamdream.com/activity/mgc_190612/test3/images/yuyue_gift.png" alt="">
+						<div class ="gift_list">
+							<div class = "gift_item">
+								<img class = "gift_icon"  src = "//dl.gamdream.com/activity/mgc_190612/test3/images/icon_gashapon_coin_role_1.png" alt=""></img>
+								<h3 class = "gift_title" style="font-family: W9;color:#333333">角色幸运币x1</h3>
+							</div>
+							<div class = "gift_item">
+								<img class = "gift_icon"  src = "//dl.gamdream.com/activity/mgc_190612/test3/images/icon_gashapon_coin_role_2.png" alt=""></img>
+								<h3 class = "gift_title" style="font-family: W9;color:#333333">宠物幸运币x1</h3>
+							</div>
+							<div class = "gift_item">
+								<img class = "gift_icon"  src = "//dl.gamdream.com/activity/mgc_190612/test3/images/icon_gashapon_coin_role_3.png" alt=""></img>
+								<h3 class = "gift_title" style="font-family: W9;color:#333333">贴纸幸运币x1</h3>
+							</div>
+							<div class = "gift_item">
+								<img class = "gift_icon"  src = "//dl.gamdream.com/activity/mgc_190612/test3/images/icon_coin_0.png" alt=""></img>
+								<h4 class = "gift_title" style="font-family: W9; color:#333333">金币x1万</h4>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!-- 预约内容 -->
+			<div class="warp warp_02">
+				<!-- 进度条模块 -->
+				<div class = "progress-content-view" id = "page_2">
+					<img class ="title_icon" src="//dl.gamdream.com/activity/mgc_190612/test3/images/title_01.png" alt="">
+					<div  class="appointment-tips" >
+                    	<img class ="bg_subTitle_01" src="//dl.gamdream.com/activity/mgc_190612/test3/images/assembled_tips.png" alt="">
+						<h3  id = "appointment-number" class = "appointment-number">0</h3>
+					</div>
+					<!-- 进度条内容 -->
+					<div class = "progress">
+
+						<img class = "progress_bg" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/progress_bg.png" alt="">
+
+						<!--<img class = "progress_lighting"  style="width:30%" src = ".///dl.gamdream.com/activity/mgc_190612/test3/images/progress_lighting.png" alt="">-->
+						<!--金币进度区-->
+						<div class = "progress_step_view">
+							<div class = "progress_step progress_step_20w">
+								<img class = "coin"  id = "coin_10"  src = "//dl.gamdream.com/activity/mgc_190612/test3/images/coin_2.png" alt="">
+								<img class = "coin" id = "coin_20"  src = "//dl.gamdream.com/activity/mgc_190612/test3/images/coin_0.png" alt="">
+								<img class = "finish-icon" src="//dl.gamdream.com/activity/mgc_190612/test3/images/progress-finish-icon.png">
+							</div>
+							<div class = "progress_step progress_step_50w">
+								<img class = "coin" id = "coin coin_40"  src = "//dl.gamdream.com/activity/mgc_190612/test3/images/coin_5.png" alt="">
+								<img class = "coin" id = "coin coin_50"  src = "//dl.gamdream.com/activity/mgc_190612/test3/images/coin_0.png" alt="">
+								<img class = "finish-icon" src="//dl.gamdream.com/activity/mgc_190612/test3/images/progress-finish-icon.png">
+
+							</div>
+							<div class = "progress_step progress_step_100w">
+								<img class = "coin" id = "coin_70"  src = "//dl.gamdream.com/activity/mgc_190612/test3/images/coin_1.png" alt="">
+								<img class = "coin" id = "coin_80"  src = "//dl.gamdream.com/activity/mgc_190612/test3/images/coin_0.png" alt="">
+								<img class = "coin" id = "coin_100"  src = "//dl.gamdream.com/activity/mgc_190612/test3/images/coin_0.png" alt="">
+								<img class = "finish-icon" src="//dl.gamdream.com/activity/mgc_190612/test3/images/progress-finish-icon.png">
+
+							</div>
+							<div class = "progress_step progress_step_200w">
+								<img class = "coin" id = "coin_130"  src = "//dl.gamdream.com/activity/mgc_190612/test3/images/coin_2.png" alt="">
+								<img class = "coin" id = "coin_160"  src = "//dl.gamdream.com/activity/mgc_190612/test3/images/coin_0.png" alt="">
+								<img class = "coin" id = "coin_200"  src = "//dl.gamdream.com/activity/mgc_190612/test3/images/coin_0.png" alt="">
+								<img class = "finish-icon" src="//dl.gamdream.com/activity/mgc_190612/test3/images/progress-finish-icon.png">
+							</div>
+
+						</div>
+						<img class = "panda"   src = "//dl.gamdream.com/activity/mgc_190612/test3/images/abao-runing.gif" alt="">
+						<!--道具列表-->
+						<div class="props_view_div">
+							<div class="props_view">
+									<div class="props-item">
+										<img class = "props_01" src="//dl.gamdream.com/activity/mgc_190612/test3/images/icon_gashapon_coin_role_4.png">
+										<h3 class = "props-name-01">普通幸运币x5</h3>
+									</div>
+									<div class="props-item">
+										<img class = "props_02" src="//dl.gamdream.com/activity/mgc_190612/test3/images/icon_coin_0.png">
+										<h3 class = "props-name-02">金币x2万</h3>
+									</div>
+							</div>
+							<div class="props_view">
+								<div class="props-item">
+									<img class = "props_01" src="//dl.gamdream.com/activity/mgc_190612/test3/images/icon_coin_1.png">
+									<h3 class = "props-name-01">钻石x100</h3>
+								</div>
+								<div class="props-item">
+									<img class = "props_02" src="//dl.gamdream.com/activity/mgc_190612/test3/images/icon_coin_0.png">
+									<h3 class = "props-name-02">金币x2万</h3>
+								</div>
+							</div>
+							<div class="props_view">
+								<div class="props-item">
+									<img class = "props_01" src="//dl.gamdream.com/activity/mgc_190612/test3/images/icon_gashapon_coin_role_2.png">
+									<h3 class = "props-name-01">宠物幸运币x1</h3>
+								</div>
+								<div class="props-item">
+									<img class = "props_02" src="//dl.gamdream.com/activity/mgc_190612/test3/images/icon_coin_0.png">
+									<h3 class = "props-name-02">金币x3万</h3>
+								</div>
+							</div>
+							<div class="props_view">
+								<div class="props-item">
+									<img class = "props_01" src="//dl.gamdream.com/activity/mgc_190612/test3/images/icon_gashapon_coin_role_1.png">
+									<h3 class = "props-name-01">角色幸运币x1</h3>
+								</div>
+								<div class="props-item">
+									<img class = "props_02" src="//dl.gamdream.com/activity/mgc_190612/test3/images/icon_coin_0.png">
+									<h3 class = "props-name-02">金币x4万</h3>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+					<!-- 邀请好友模块 -->
+				<div class = "invitation-friends" id = "page_3">
+
+						<img class ="title_icon" src="//dl.gamdream.com/activity/mgc_190612/test3/images/invitation_title.png" alt="">
+						<img class ="invitation_subTitle" src="//dl.gamdream.com/activity/mgc_190612/test3/images/invitation_tips.png" alt="">
+						<div>
+							<div class="invitation-person-title">已邀请<span class="border">0</span>人</div>
+						</div>
+						<div class="invitation_fv"></div>;
+						<img class="fv-role" src= "//dl.gamdream.com/activity/mgc_190612/test3/images/invitation_main_fv_role.png">;
+						<img class="invitation_button" src="//dl.gamdream.com/activity/mgc_190612/test3/images/invitation_friend_button.png" alt="">
+						<div class="invitation_gift_div">
+							<img class="gift-1" src="//dl.gamdream.com/activity/mgc_190612/test3/images/invitation-gift-1-normal.png" alt="">
+							<img class="gift-3" src="//dl.gamdream.com/activity/mgc_190612/test3/images/invitation-gift-3-normal.png" alt="">
+							<img class="gift-5" src="//dl.gamdream.com/activity/mgc_190612/test3/images/invitation-gift-5-normal.png" alt="">
+						</div>;
+
+
+				</div>
+				<!--转盘view-->
+<!-- 				<div class = "rotary-table-view" id = "page_4" >
+					<img class="title_icon" src="//dl.gamdream.com/activity/mgc_190612/test3/images/rotary_title.png" alt="">
+					<div class="title_tips">成功预约,每邀请1名好友均可获得1次抽奖机会</div>
+					<div class="title_tips">当前有<span class="border">0</span>次抽奖机会</div> -->
+					<!--查看中奖记录-->
+<!-- 					<a class="check_record"  style = "cursor : pointer;">查看中奖纪录</a>
+					<div class="rotate_ct">
+						<div class="mainbg"></div>
+						<div class="moves" id="rotate">
+							<ul class="movescon">
+								<li data-id="1"><img src=""/></li>
+								<li data-id="2"><img src=""/></li>
+								<li data-id="3"><img src=""/></li>
+								<li data-id="4"><img src=""/></li>
+								<li data-id="5"><img src=""/></li>
+								<li data-id="6"><img src=""/></li>
+								<li data-id="7"><img src=""/></li>
+								<li data-id="8"><img src=""/></li>
+							</ul>
+						</div>
+						<div class="start">
+							<i></i>
+						</div>
+						<div class="dec_header"></div>
+						<div class="lion"></div>
+						<div class="monkey"></div>
+						<div class="flower"></div>
+						<div class="rotate_bot"></div>
+				</div> -->
+
+				<!--冒险预告-->
+				<div class= "banner-swiper" id = "page_5">
+					<img class ="title_icon" src="//dl.gamdream.com/activity/mgc_190612/test3/images/swiper_title.png" alt="">
+
+					<div class= "swiper-view">
+						<img class ="swiper-border-bg" src="//dl.gamdream.com/activity/mgc_190612/test3/images/swiper_bg.png" alt="">
+						<div class="swiper-container">
+							<div class="swiper-wrapper">
+								<div class="swiper-slide">
+									<img class = "swiper-banner-image" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/swiper_banner_01.jpg">
+								</div>
+								<div class="swiper-slide">
+									<img class = "swiper-banner-image" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/swiper_banner_02.jpg">
+								</div>
+								<div class="swiper-slide">
+									<img class = "swiper-banner-image" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/swiper_banner_03.jpg">
+								</div>
+								<div class="swiper-slide">
+									<img class = "swiper-banner-image" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/swiper_banner_04.jpg">
+								</div>
+							</div>
+
+						</div>
+						<!-- 如果需要导航按钮 -->
+						<div class="swiper-button-prev">
+							<img  src = "//dl.gamdream.com/activity/mgc_190612/test3/images/swiper_arrow_left.png">
+						</div>
+						<div class="swiper-button-next">
+							<img  src = "//dl.gamdream.com/activity/mgc_190612/test3/images/swiper_arrow_right.png">
+						</div>
+						<img class = "swiper-shelf-left" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/swiper_shelf_left.png">
+						<img class = "swiper-shelf-right" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/swiper_shelf_right.png">
+					</div>
+				</div>
+				<!--全明星爆料-->
+				<div class = "all-star-view" id = "page_6">
+					<img class ="title_icon" src="//dl.gamdream.com/activity/mgc_190612/test3/images/all_star_title.png" alt="">
+					<!--全明星列表-->
+					<div class="all-star-list">
+						<ul>
+							<li class = "emtpy-star-item">
+								<!--透明占位符，让其产生交错感-->
+							</li>
+							<li>
+								<img class = "all-star-item" src= "//dl.gamdream.com/activity/mgc_190612/test3/images/star_avatar_1.png">
+								<img class = "lighting-animation" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/lighting01.png">
+							</li>
+							<li>
+								<img class = "all-star-item" src= "//dl.gamdream.com/activity/mgc_190612/test3/images/star_avatar_2.png">
+								<img class = "lighting-animation" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/lighting01.png">
+							</li>
+							<li>
+								<img class = "all-star-item" src= "//dl.gamdream.com/activity/mgc_190612/test3/images/star_avatar_3.png">
+								<img class = "lighting-animation" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/lighting01.png">
+							</li>
+							<li>
+								<img class = "all-star-item" src= "//dl.gamdream.com/activity/mgc_190612/test3/images/star_avatar_4.png">
+								<img class = "lighting-animation" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/lighting01.png">
+							</li>
+							<li>
+								<img class = "all-star-item" src= "//dl.gamdream.com/activity/mgc_190612/test3/images/star_avatar_5.png">
+								<img class = "lighting-animation" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/lighting01.png">
+							</li>
+							<li>
+								<img class = "all-star-item" src= "//dl.gamdream.com/activity/mgc_190612/test3/images/star_avatar_6.png">
+								<img class = "lighting-animation" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/lighting01.png">
+							</li>
+							<li>
+								<img class = "all-star-item" src= "//dl.gamdream.com/activity/mgc_190612/test3/images/star_avatar_7.png">
+								<img class = "lighting-animation" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/lighting01.png">
+							</li>
+							<li>
+								<img class = "all-star-item" src= "//dl.gamdream.com/activity/mgc_190612/test3/images/star_avatar_8.png">
+								<img class = "lighting-animation" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/lighting01.png">
+							</li>
+							<li>
+								<img class = "all-star-item" src= "//dl.gamdream.com/activity/mgc_190612/test3/images/star_avatar_9.png">
+								<img class = "lighting-animation" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/lighting01.png">
+							</li>
+							<li class = "emtpy-star-item">
+								<!--占位符，让其产生交错感-->
+							</li>
+							<li>
+								<img class = "all-star-item" src= "//dl.gamdream.com/activity/mgc_190612/test3/images/star_avatar_10.png">
+								<img class = "lighting-animation" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/lighting01.png">
+							</li>
+							<li>
+								<img class = "all-star-item" src= "//dl.gamdream.com/activity/mgc_190612/test3/images/star_avatar_11.png">
+								<img class = "lighting-animation" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/lighting01.png">
+							</li>
+							<li>
+								<img class = "all-star-item" src= "//dl.gamdream.com/activity/mgc_190612/test3/images/star_avatar_12.png">
+								<img class = "lighting-animation" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/lighting01.png">
+							</li>
+							<li>
+								<img class = "all-star-item" src= "//dl.gamdream.com/activity/mgc_190612/test3/images/star_avatar_13.png">
+								<img class = "lighting-animation" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/lighting01.png">
+							</li>
+
+						</ul>
+
+					</div>
+				</div>
+			</div>
+
+			</div>
+
+			<!--官方Q群 微信 二维码弹窗-->
+			<div class="qr-code-pop">
+				<div class = "qq-qrcode-pop"><img class = "qr-code"  src="//dl.gamdream.com/activity/mgc_190612/test3/images/qq-qrcode-image.png">
+				</div>
+				<div class = "weixin-qrcode-pop"><img class = "qr-code"  src="//dl.gamdream.com/activity/mgc_190612/test3/images/weixin-qrcode-image.jpg">
+				</div>
+			</div>
+			<!-- 底部信息 -->
+			<div class = "warp footer">
+
+				<div class="share-view">
+
+					<img class = "share-qq"  src="//dl.gamdream.com/activity/mgc_190612/test3/images/bottom-qq.png">
+					<a target="_blank" href="https://weibo.com/u/7048550268?topnav=1&wvr=6&topsug=1">
+						<img class = "share-weibo" src="//dl.gamdream.com/activity/mgc_190612/test3/images/bottom-weibo.png">
+					</a>
+
+					<img class = "share-weixin" src="//dl.gamdream.com/activity/mgc_190612/test3/images/bottom-weixin.png">
+				</div>
+				<div class="cooperation-list">
+					<ul>
+						<li>
+							<img  src="//dl.gamdream.com/activity/mgc_190612/test3/images/kung-fu-panda.png">
+						</li>
+						<li>
+							<img  src="//dl.gamdream.com/activity/mgc_190612/test3/images/dragon.png">
+						</li>
+						<li>
+							<img  src="//dl.gamdream.com/activity/mgc_190612/test3/images/madagascar.png">
+						</li>
+						<li>
+							<img  src="//dl.gamdream.com/activity/mgc_190612/test3/images/caroods.png">
+						</li>
+						<li>
+							<img  src="//dl.gamdream.com/activity/mgc_190612/test3/images/shrek.png">
+						</li>
+					</ul>
+
+				</div>
+				<!--网站信息-->
+				<div class="website-info">
+				 <span class="logo" >
+					<img  src="//dl.gamdream.com/activity/mgc_190612/test3/images/idreamsky-logo.png">
+					 <a style="visibility:hidden ">占</a>
+					<img  src="//dl.gamdream.com/activity/mgc_190612/test3/images/dream-works-logo.png">
+					 <a style="visibility:hidden ">占位</a>
+    			  </span>
+					<div class="cr">
+						<p class="link" style="line-height:35px">
+							<a target="_blank" href="//www.idreamsky.com/home/about">关于我们</a>   |
+							<a target="_blank" href="//idreamsky.zhiye.com/home">诚聘英才</a>   |
+							<a target="_blank" href="//www.idreamsky.com/home/about?type=contact">联系我们</a>   |
+							<a target="_blank" href="//www.idreamsky.com/home/about?type=growth">公司大事记</a>   |
+							<a target="_blank" href="//www.idreamsky.com/home/service">客服中心</a>   |
+							<a target="_blank" href="//www.idreamsky.com/home/cooperate">网站合作</a>   |
+							<a target="_blank" href="//www.idreamsky.com/home/service?type=agreement">用户协议</a>   |
+							<a target="_blank" href="//www.idreamsky.com/home/service?type=agreement">家长控制</a></p>
+						<p style="line-height:35px">
+							<span>深圳市创梦天地科技有限公司版权所有Copyright2019       粤ICP备110184838号    粤网文【2014】0153-003号</span><br>
+							<span>深圳市创梦天地科技有限公司       联系电话：4008400188       联系地址：深圳市南山区科苑北路科兴科学园A3单元16层</span>
+							<a target="_blank" href="//www.sznet110.gov.cn/netalarm/index.jsp">
+								<img src="//dl.gamdream.com/activity/galan/luren/images/shenwang.jpg" width="16" alt="深圳网络警察报警平台">
+							</a>
+							<a target="_blank" href="//www.sznet110.gov.cn/webrecord/doquery.jsp">
+								<img src="//dl.gamdream.com/activity/galan/luren/images/anwang.jpg" alt="公共信息安全网络监察" width="16">
+							</a>
+							<a target="_blank" href="//net.china.com.cn/index.htm">
+								<img src="//dl.gamdream.com/activity/galan/luren/images/jubao.jpg" alt="经营性网站备案信息" width="16">
+							</a>
+							<a target="_blank" href="//www.miitbeian.gov.cn/publish/query/indexFirst.action">
+								<img src="//dl.gamdream.com/activity/galan/luren/images/beian.jpg" alt="不良信息举报中心" width="16">
+							</a>
+							<a target="_blank" href="http://sq.ccm.gov.cn:80/ccnt/sczr/service/business/emark/gameNetTag/4028c08c5d0661f5015d11f5384d71ae">
+								<img src="//dl.gamdream.com/activity/galan/luren/images/w_foot2_icon2.png" alt="电子标签" width="16">
+							</a>
+							<div class="zg" >
+						<p style="line-height:35px">
+							<strong>健康游戏忠告：</strong>抵制不良游戏，拒绝盗版游戏。注意自我保护，谨防上当受骗。适度游戏益脑，沉迷游戏伤身。合理安排时间，享受健康生活。
+						</p>
+					</div>
+					</p>
+
+				</div>
+
+			</div>
+		</div>
+
+		<!-- 视频弹窗-->
+		<div class = "dialog-video">
+			<div class = "video-player">
+				<video id="video_id_01" width="1400" height="800" controls>
+					<source src="<?php echo GET_BLOCK('video_url');?>" >
+				</video>
+				<div class = "video-player-close-button">
+					<img src = "//dl.gamdream.com/activity/mgc_190612/test3/images/video_player_close.png">
+				</div>
+			</div>
+		</div>
+		<!--预约弹窗-->
+
+		<div class = "appointment-pop pop">
+			<div class = "pop-view">
+				<img src = "//dl.gamdream.com/activity/mgc_190612/test3/images/pop-view-bg.png">
+				<div class = "title-view">
+					<img class = "pop-title" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/login-title.png">
+				</div>
+				<a class = "pop-close-button"></a>
+
+				<div class="pop-content">
+					<div class="pop-phone-type">
+
+							<a style="color:white">手机类型:</a>
+							<div class = pop-phone-type-select-item-ios>
+								<img  src= "//dl.gamdream.com/activity/mgc_190612/test3/images/login-ios.png">
+								<img  class = "phone-type-select-ios" src= "//dl.gamdream.com/activity/mgc_190612/test3/images/login-phone-type-select.png">
+							</div>
+							<div class = pop-phone-type-select-item-android>
+								<img src= "//dl.gamdream.com/activity/mgc_190612/test3/images/login-android.png">
+								<img class = "phone-type-select-android" src= "//dl.gamdream.com/activity/mgc_190612/test3/images/login-phone-type-select.png">
+							</div>
+
+
+					</div>
+
+					<div class="pop-phone-number">
+						<span>
+						<a style="color:white">手机号码:</a>
+						<img src= "//dl.gamdream.com/activity/mgc_190612/test3/images/login-phone-text-bg.png">
+						<input autocomplete="off" name="phone" id="phone" class="phone_input__inner" oninput="this.value = this.value.slice(0, 11)">
+						</span>
+					</div>
+
+					<div class="pop-phone-code">
+						<span>
+							<a style="color:white">验证码:&nbsp;&nbsp;&nbsp;</a>
+							<img src= "//dl.gamdream.com/activity/mgc_190612/test3/images/login-code-text-bg.png">
+							 <div class="getCode">获取验证码</div>
+							<input autocomplete="off"  name="code" id="code" class="code_input__inner">
+						</span>
+					</div>
+
+					<div class = "pop-phone-commit">
+						<img src= "//dl.gamdream.com/activity/mgc_190612/test3/images/login-commit-button.png">
+					</div>
+				</div>
+			</div>
+		</div>
+
+
+		<!--邀请好友弹窗-->
+		<div class = "invitation-pop pop">
+		<div class = "pop-view">
+			<img src = "//dl.gamdream.com/activity/mgc_190612/test3/images/pop-view-bg.png">
+			<div class = "title-view">
+				<img class = "pop-title" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/pop-invitation-title.png">
+			</div>
+
+			<a class = "pop-close-button"></a>
+			<div class="pop-content">
+				<h3 style="font-size: 22px;color: #fff;top: 10px; position:relative;">恭喜您成功获得《梦工厂大冒险》的公测资格 </h3>
+				<h3 style="font-size: 22px;color: #fff; top: 5px; position:relative;">请您留意您的手机短信 </h3>
+				<br>
+				<h3 style="font-size: 20px;color: #333333;" >邀请好友可以获得更多精美礼品 </h3>
+				<div class = "special-link">
+					<h3 style="font-size: 20px;color: #333333; display: inline-block" >专属邀请链接 </h3>
+					<img src="//dl.gamdream.com/activity/mgc_190612/test3/images/pop-invitation-copy.png">
+					<h3  class="inviter-link" style="font-size: 16px;color: #fff;left:190px; top: 7px; position:absolute;"></h3>
+					<a class="js-copy" data-clipboard-target="#bar"></a>
+				</div>
+				<div class = "special-link-share">
+					<div class="share_content"></div>
+					<!--<img src=".///dl.gamdream.com/activity/mgc_190612/test3/images/pop-invitation-weixin.png">&nbsp;&nbsp;&nbsp;&nbsp;-->
+					<!--<img src=".///dl.gamdream.com/activity/mgc_190612/test3/images/pop-invitation-qq.png">&nbsp;&nbsp;&nbsp;&nbsp;-->
+					<!--<img src=".///dl.gamdream.com/activity/mgc_190612/test3/images/pop-invitation-weibo.png">-->
+				</div>
+			</div>
+		</div>
+	</div>
+		<!--邀请失败弹窗-->
+		<div class = "invitation-fail-pop pop">
+		<div class = "pop-view">
+			<img src = "//dl.gamdream.com/activity/mgc_190612/test3/images/pop-view-bg.png">
+			<div class = "title-view">
+				<img class = "pop-title" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/invitation-fail-title.png">
+			</div>
+
+			<a class = "pop-close-button"></a>
+			<div class="pop-content">
+				<h3 style="font-size: 26px;color: #fff;top: 30px; position:relative;">您还未完成邀请任务 </h3>
+
+
+				<h3 style="font-size: 20px;color: #333333;top: 60px;position:relative;" >邀请好友可以获得更多精美礼品 </h3>
+				<div class = "special-link">
+					<h3 style="font-size: 20px;color: #333333; display: inline-block" >专属邀请链接 </h3>
+					<img src="//dl.gamdream.com/activity/mgc_190612/test3/images/pop-invitation-copy.png">
+					<h3 class = "inviter-link" style="font-size: 16px;color: #fff;left:190px; top: 7px; position:absolute;"></h3>
+					<a class="js-copy" data-clipboard-target="#bar"></a>
+				</div>
+				<div class = "special-link-share">
+					<div class="share_content"></div>
+					<!--<img src=".///dl.gamdream.com/activity/mgc_190612/test3/images/pop-invitation-weixin.png">&nbsp;&nbsp;&nbsp;&nbsp;-->
+					<!--<img src=".///dl.gamdream.com/activity/mgc_190612/test3/images/pop-invitation-qq.png">&nbsp;&nbsp;&nbsp;&nbsp;-->
+					<!--<img src=".///dl.gamdream.com/activity/mgc_190612/test3/images/pop-invitation-weibo.png">-->
+				</div>
+			</div>
+			</div>
+
+		</div>
+
+		<!--中奖记录弹窗-->
+		<div class = "record-list-pop pop">
+		<div class = "pop-view">
+			<img src = "//dl.gamdream.com/activity/mgc_190612/test3/images/pop-view-bg.png">
+			<div class = "title-view">
+				<img class = "pop-title" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/record-list-title.png">
+			</div>
+
+			<a class = "pop-close-button"></a>
+			<div class="pop-content">
+				<div class = "tableView-header" style="top: 30px; position: relative">
+					<!--<h3 style="font-size: 26px;color: #fff;top: 30px; position:relative;">您还未完成邀请任务 </h3>-->
+					<a style="left:90px;  position: relative;font-size: 20px;color: #15408C; font-family:W9">序号</a>
+					<a style="left:170px;  position: relative;font-size: 20px;color: #15408C;font-family:W9">玩家</a>
+					<a style="left:270px;  position: relative;font-size: 20px;color: #15408C;font-family:W9">奖品</a>
+					<a style="left:360px;  position: relative;font-size: 20px;color: #15408C;font-family:W9">中奖日期</a>
+				</div>
+
+				<div class = "record-list" id ="superGet">
+				     <ul class="page_list">
+				      <li class="record-list-item">
+				        <div class="record-list-sub-item num">
+				         1
+				        </div>
+				        <div class="record-list-sub-item player">
+				         139****0212
+				        </div>
+				        <div class="record-list-sub-item page_awd" >
+				         钻石*50
+				        </div>
+				        <div class="record-list-sub-item date">
+				         2019.05.31
+				        </div>
+
+				      </li>
+				      <li class="record-list-item" >
+				       <div class="record-list-sub-item num">
+				        1
+				       </div>
+				       <div class="record-list-sub-item player">
+				        139****0212
+				       </div>
+				       <div class="record-list-sub-item page_awd" >
+				        钻石*50
+				       </div>
+				       <div class="record-list-sub-item date">
+				        2019.05.31
+				       </div>
+
+				      </li>
+				      <li class="record-list-item">
+
+				       <div class="record-list-sub-item num">
+				        1
+				       </div>
+				       <div class="record-list-sub-item player">
+				        139****0212
+				       </div>
+				       <div class="record-list-sub-item page_awd" >
+				        钻石*50
+				       </div>
+				       <div class="record-list-sub-item date">
+				        2019.05.31
+				       </div>
+
+
+				      </li>
+				      <li class="record-list-item" >
+				       <div class="record-list-sub-item num">
+				        1
+				       </div>
+				       <div class="record-list-sub-item player">
+				        139****0212
+				       </div>
+				       <div class="record-list-sub-item page_awd" >
+				        钻石*50
+				       </div>
+				       <div class="record-list-sub-item date">
+				        2019.05.31
+				       </div>
+				      </li>
+				      <li class="record-list-item">
+
+				       <div class="record-list-sub-item num">
+				        1
+				       </div>
+				       <div class="record-list-sub-item player">
+				        139****0212
+				       </div>
+				       <div class="record-list-sub-item page_awd" >
+				        钻石*50
+				       </div>
+				       <div class="record-list-sub-item date">
+				        2019.05.31
+				       </div>
+
+
+				      </li>
+				      <li class="record-list-item">
+				       <div class="record-list-sub-item num">
+				        1
+				       </div>
+				       <div class="record-list-sub-item player">
+				        139****0212
+				       </div>
+				       <div class="record-list-sub-item page_awd" >
+				        钻石*50
+				       </div>
+				       <div class="record-list-sub-item date">
+				        2019.05.31
+				       </div>
+				      </li>
+				     </ul>
+
+				    </div>
+
+
+
+				<div class = "pop-invitation-button">
+					<img src= "//dl.gamdream.com/activity/mgc_190612/test3/images/pop-invitation-button.png">
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+		<!--微信邀请好友弹窗-->
+		<div class = "weixin-invitation-pop pop">
+		<div class = "pop-view">
+			<img src = "//dl.gamdream.com/activity/mgc_190612/test3/images/pop-view-bg.png">
+			<div class = "title-view">
+				<img class = "pop-title" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/pop-invitation-title.png">
+			</div>
+
+			<a class = "pop-close-button"></a>
+			<div class="pop-content">
+				<h3 style="font-size: 22px;color: #fff;top: 10px; position:relative;">恭喜您成功获得《梦工厂大冒险》的公测资格 </h3>
+				<h3 style="font-size: 22px;color: #fff; top: 15px; position:relative;">请您留意您的手机短信 </h3>
+				<br>
+				<h3 style="font-size: 20px;color: #333333;" >邀请好友可以获得更多精美礼品 </h3>
+				<div class = "weixin-qrcode">
+					<img class = "qr-code" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/weixin-qrcode-image.jpg" alt="">
+				</div>
+				<div class = "special-link">
+					<h3 style="font-size: 20px;color: #333333; display: inline-block" >专属邀请链接 </h3>
+					<img src="//dl.gamdream.com/activity/mgc_190612/test3/images/pop-invitation-copy.png">
+					<h3 class="inviter-link" style="font-size: 16px;color: #fff;left:190px; top: 7px; position:absolute;"></h3>
+					<a class="js-copy" data-clipboard-target="#bar"></a>
+				</div>
+			</div>
+		</div>
+
+		</div>
+
+		<!--转盘中奖弹窗-->
+		<div class = "rotary-table-result-pop pop">
+			<div class = "pop-view">
+				<img src = "//dl.gamdream.com/activity/mgc_190612/test3/images/pop-view-bg.png">
+				<div class = "title-view">
+					<img class = "pop-title" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/rotary-table-result-title.png">
+				</div>
+
+				<a class = "pop-close-button"></a>
+				<div class="pop-content">
+					<div class = "pop-gift-div">
+					<img  class = "gift-img" src= "//dl.gamdream.com/activity/mgc_190612/test3/images/rotary-table-result-gift.png">
+					<h3 style="font-size: 20px;color: #333333;" >钻石*100 </h3>
+					</div>
+
+					<div class = "pop-invitation-button">
+						<img src= "//dl.gamdream.com/activity/mgc_190612/test3/images/pop-invitation-button.png">
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<!--转盘中奖失败弹窗-->
+		<div class = "rotary-table-fail-pop pop">
+			<div class = "pop-view">
+				<img src = "//dl.gamdream.com/activity/mgc_190612/test3/images/pop-view-bg.png">
+				<div class = "title-view">
+					<img class = "pop-title" src = "//dl.gamdream.com/activity/mgc_190612/test3/images/rotary-table-fail-title.png">
+				</div>
+
+				<a class = "pop-close-button"></a>
+				<div class="pop-content">
+					<h3 style="font-size: 28px;color: #fff;top: 60px; position:relative;">很遗憾未中奖 </h3>
+					<h3 style="font-size: 28px;color: #fff;top: 70px;position:relative;" >邀请好友可以获得更多抽奖机会 </h3>
+
+					<div class = "pop-invitation-button">
+						<img src= "//dl.gamdream.com/activity/mgc_190612/test3/images/pop-invitation-button.png">
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- 分享悬浮-->
+		<div class = "dialog-share">
+
+            <div class = "guide-item-list">
+                <ul>
+                    <li class="guide-list-item">
+						<a href = "#page_1">
+							<h style="font-size:18px; color: white;font-weight: 900;">预约有礼</h>
+						</a>
+                        <div class="item-select-line" id = "item-line-0" style="background-color:#EEEA12;opacity: 1;"></div>
+
+                    </li>
+                    <li class="guide-list-item" >
+						<a href = "#page_2">
+                        <h3 style="font-size:18px; color: white;font-weight: 900;">赛道集结</h3>
+						</a>
+                        <div class="item-select-line" id = "item-line-1" style="background-color:#EEEA12;opacity: 0;"></div>
+                    </li>
+                    <li class="guide-list-item">
+						<a href = "#page_3">
+                        <h3 style="font-size:18px; color: white;font-weight: 900;">好友接力</h3>
+						</a>
+                        <div class="item-select-line" id = "item-line-2" style="background-color:#EEEA12;opacity: 0;"></div>
+                    </li>
+                    <li class="guide-list-item" >
+						<a href = "#page_4">
+                        <h3 style="font-size:18px; color: white;font-weight: 900;">起跑福利</h3>
+						</a>
+                        <div class="item-select-line" id = "item-line-3" style="background-color:#EEEA12;opacity: 0;"></div>
+                    </li>
+                    <li class="guide-list-item">
+						<a href = "#page_5">
+                        <h3 style="font-size:18px; color: white;font-weight: 900;">冒险预告</h3>
+						</a>
+                        <div class="item-select-line" id = "item-line-4" style="background-color:#EEEA12;opacity: 0;"></div>
+                    </li>
+                    <li class="guide-list-item">
+						<a href = "#page_6">
+                        <h3 style="font-size:18px; color: white;font-weight: 900;">全明星爆料</h3>
+						</a>
+                        <div class="item-select-line"  id = "item-line-5"style="background-color:#EEEA12;opacity: 0;"></div>
+                    </li>
+                </ul>
+
+            </div>
+
+			<img class = "qr-code"  src = "//dl.gamdream.com/activity/mgc_190612/test3/images/weixin-qrcode-image.jpg" alt="">
+			<img src = "//dl.gamdream.com/activity/mgc_190612/test3/images/sidebar_bg.png" alt="">
+			<!-- 分享的透明按钮，按钮直接在图片上 ，进入官网-->
+            <a class = "join_game_home"></a>;
+		</div>
+
+		</div>
+
+	<script src="//dl.gamdream.com/activity/mgc_190612/test3/js/swiper.min.js"></script>
+					<script>
+						var swiper = new Swiper('.swiper-container', {
+							pagination: {
+								el: '.swiper-pagination',
+								type: 'fraction',
+							},
+							navigation: {
+								nextEl: '.swiper-button-next',
+								prevEl: '.swiper-button-prev',
+							},
+							hideOnClick: true,
+							autoplay:{
+								delay: 3000,
+								stopOnLastSlide: false,
+								disableOnInteraction: false,
+							},
+						});
+
+					</script>
+
+
+<script src="//dl.gamdream.com/activity/mgc_190612/test3/js/qrcode.min.js"></script>
+<script src="//dl.gamdream.com/activity/mgc_190612/test3/js/shareConfig.js"></script>
+<script>
+
+	// var shareUrl = $("#share_url").html();
+	// var sharePic = $("#share_pic").attr("src");
+	// var shareDesc = $("#share_desc").html();
+	// var shareTitle = $("#share_title").html();
+	//
+	// var config = {
+	// 	url: shareUrl,
+	// 	title: shareTitle,
+	// 	pic: sharePic,
+	// 	desc: shareDesc,
+	// 	qrCode: {
+	// 		url: "https://www.baidu.com",
+	// 		width: 128,
+	// 		height: 128,
+	// 		colorDark: "#000000",
+	// 		colorLight: "#ffffff"
+	// 	},
+	// 	share_channel: ["weibo", "qzone", "qq", "weixin"]
+	// };
+	// var obj = $(".share_content");
+	// shareConfig.init(obj, config);
+
+</script>
+<script type="text/javascript" src="//dl.gamdream.com/activity/mgc_190612/test3/js/jquery.min.js"></script>
+<script charset="utf-8" type="text/javascript" src="//dl.gamdream.com/activity/mgc_190612/test3/js/lib/common.js"></script>
+<script charset="utf-8" type="text/javascript" src="//dl.gamdream.com/activity/mgc_190612/test3/js/lib/global.js"></script>
+<script src="//dl.gamdream.com/activity/mgc_190612/test3/js/basic.js"></script>
+<script src="//dl.gamdream.com/activity/mgc_190612/test3/js/awardRotate.js"></script>
+<script src="//dl.gamdream.com/activity/mgc_190612/test3/js/lib/clipboard.min.js"></script>
+<script type="text/javascript">
+		var myGuideClick = function(v) {
+
+			if(v == 1){
+				scrollFunction(1);
+				
+			}else if(v == 2){
+				scrollFunction(2);
+			}else if(v ==5 ){
+				scrollFunction(5);
+			}
+
+			var llis = document.getElementsByTagName("li");
+
+			for(var i = 0; i < llis.length; i++) {
+
+                let lineItem = document.getElementById("item-line-"+i);
+                if(!lineItem)continue;
+                if(i == v){
+                    lineItem.style.opacity = 1;
+                }else {
+                    lineItem.style.opacity = 0;
+                }
+			}
+		}
+		function scroll(e){
+			//console.log("打印log日志");实时看下效果
+			var offsetY = document.documentElement.scrollTop;
+			if(offsetY <1000){
+				myGuideClick(0);
+			}else if(offsetY<1800){
+				myGuideClick(1);
+			}else if(offsetY<3000){
+				myGuideClick(2);
+			}else if(offsetY<4500){
+				myGuideClick(3);
+			}else if(offsetY<5500){
+				myGuideClick(4);
+			}else {
+				myGuideClick(5);
+			}
+
+
+		}
+	</script>
+
+
+</body>
+
+</html>

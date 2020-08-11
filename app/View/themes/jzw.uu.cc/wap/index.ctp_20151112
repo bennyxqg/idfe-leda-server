@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+<?php /*BLOCK*/
+$this->Website->init();
+/*BLOCK*/ ?>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="target-densitydpi=device-dpi,width=960, user-scalable=no">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="telephone=no" name="format-detection">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<?php /*SEO*/
+echo "<title>机战王 - 果宝特攻等蓝弧五大IP改编 年度超强机甲战斗手游</title>";
+echo "<meta content=\"机战王,机战王手游,果宝特攻,武战道,快乐酷宝,钢铁飞龙,超兽武装,jizhanwang,机甲,动作\" name=\"keywords\" />";
+echo "<meta content=\"《机战王》是果宝特攻、快乐酷宝、钢铁飞龙、超兽武装、武战道等五大动画改编，“高达之父”大河原邦男先生协力打造的年度超强机战手游。游戏集合了蓝弧动画10年机甲动画题材和300款机甲设定！分分钟让你变身成为强大机甲发动超强必杀，一举歼灭敌人。动画剧情无缝植入，和小宝、果宝、超兽战队等动画主角一起拯救世界吧！\" name=\"description\" />";
+/*SEO*/ ?>
+
+
+<link href="//jzw.uu.cc/jzw.uu.cc/wap/css/mobile.css" rel="stylesheet">
+<link href="//jzw.uu.cc/jzw.uu.cc/wap/css/swiper.min.css" rel="stylesheet">
+
+<script type="text/javascript" src="/manage/assets/js/edit/jquery.min.js"></script>
+<!-- CUSTOM-JS-COMPONENT -->
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?6000fe6c7a6822628de4a7937d77542c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<style type="text/css">
+.swiper-container{ padding-bottom:20px;}
+.swiper-pagination{ text-align:center; height:20px;}
+.swiper-pagination span{ display:inline-block; width:20px; height:20px; -moz-border-radius:10px;border-radius:10px;}
+.swiper-container-horizontal>.swiper-pagination .swiper-pagination-bullet{ margin:0 10px;}
+</style>
+</head>
+<body>
+    <div class="container">
+    	<header id="header">
+    		<img alt="" id="index_banner_edit" class="CUSTOM_EDIT IMG_EDIT" src="/uploads/editor_upload/images/201509231601252386.jpg" />
+    	</header>
+        <nav id="nav">
+          <a class="on" href="//jzw.uu.cc"><em></em>首页</a>
+          <a href="//jzw.uu.cc/news/224"><em></em>最新活动</a>
+          <a href="//jzw.uu.cc/news/225"><em></em>攻略指引</a>
+          <a id="luntan_edit" class="CUSTOM_EDIT A_EDIT" href="//bbs.uu.cc/forum.php?mod=forumdisplay&fid=313"><em></em>论坛</a>
+        </nav>
+        <aside id="icon_down">
+           <p>
+             <img src="//jzw.uu.cc/jzw.uu.cc/wap/images/icon.png" width="134" height="134" />
+             <span>
+               <strong id="game_name_edit" class="CUSTOM_EDIT TEXT_EDIT">机战王</strong>
+               <em id="game_size_edit" class="CUSTOM_EDIT TEXT_EDIT">游戏大小：59MB</em>
+             </span>
+           </p>
+           <a class="down_load CUSTOM_EDIT DOWNLOAD_LINK_EDIT" id="download_url_edit" href="//app.uu.cc/ledou_game/Roboking-5_v1.4_s2.4.7.2_p3.2.1.17_20151104_LE0S0N00000.apk" href_ios="//itunes.apple.com/cn/app/ji-zhan-wang-nian-du-chao/id1040491166?mt=8" href_android="//app.uu.cc/ledou_game/Roboking-5_v1.4_s2.4.7.2_p3.2.1.17_20151104_LE0S0N00000.apk"><img src="//jzw.uu.cc/jzw.uu.cc/wap/images/download.png" width="255" height="134" /></a>
+        </aside>
+        <section id="lunbo">
+             <div class="swiper-container">
+                <div class="swiper-wrapper CUSTOM_EDIT LIST_DIV_A_IMG_EDIT CAROUSEL_IMAGE" id="loop_img_edit">
+                	<div class="swiper-slide"><a href="#" target="_blank"><img src="/uploads/game/20150911140327_14a30.jpg" width="890" height="455" /></a></div>
+				    <div class="swiper-slide"><a href="#" target="_blank"><img src="/uploads/game/20150911140153_b5f80.jpg" width="890" height="455" /></a></div>
+				    <div class="swiper-slide"><a href="#" target="_blank"><img src="/uploads/game/20150911140221_9f0fa.jpg" width="890" height="455" /></a></div>
+				    <div class="swiper-slide"><a href="#" target="_blank"><img src="/uploads/game/20150911140246_f1390.jpg" width="890" height="455" /></a></div>
+				    <div class="swiper-slide"><a href="#" target="_blank"><img src="/uploads/game/20150911140306_59de1.jpg" width="890" height="455" /></a></div>
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+                <!-- Add Arrows -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+            <p id="wx_qq">
+               <span class="wx CUSTOM_EDIT TEXT_EDIT" id="weixin_edit">微信号：jizhanwang2015</span>
+               <span class="qq CUSTOM_EDIT TEXT_EDIT" id="qq_edit">玩家QQ群：513135474</span>
+            </p>
+        </section>
+        <footer id="footer">
+            <img src="//jzw.uu.cc/jzw.uu.cc/wap/images/logo.png" width="294" height="118" /><br />
+            <p>健康游戏忠告：抵制不良游戏 拒绝盗版游戏 注意自我保护 谨防上当受骗 </p>
+            <p>适度游戏益脑 沉迷游戏伤身 合理安排时间 享受健康生活</p>
+        </footer>
+    </div>
+    
+    <div class="weixin_tip" ontouchstart="document.querySelector('.weixin_tip').style.display='none';"></div>
+ <!-- Swiper JS -->
+
+<script src="//jzw.uu.cc/jzw.uu.cc/wap/js/swiper.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+
+
+$(function(){
+
+var swiper = new Swiper('.swiper-container', {
+	pagination: '.swiper-pagination',
+	nextButton: '.swiper-button-next',
+	prevButton: '.swiper-button-prev',
+	slidesPerView: 1,
+	paginationClickable: true,
+	spaceBetween: 30,
+	loop: true
+});
+
+
+	//微信下提示 浏览器打开，判断安卓 IOS
+	$(".down_load").click(function(){
+		var u = navigator.userAgent;
+		var ua = u.toLowerCase();
+		
+		if(ua.match(/MicroMessenger/i)=="micromessenger"){
+			$(".weixin_tip").show();
+			return false;
+		} else {
+			if (/(iPhone|iPad|iPod|iOS)/i.test(navigator.userAgent))
+				$(this).attr('href',$(this).attr('href_ios'));
+			else if (/(Android)/i.test(navigator.userAgent))
+				$(this).attr('href',$(this).attr('href_android'));
+		}
+	});
+
+});
+</script>
+</body>
+
+</html>

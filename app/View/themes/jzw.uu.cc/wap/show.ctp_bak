@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<?php /*BLOCK*/
+$this->Website->init();
+/*BLOCK*/ ?>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="target-densitydpi=device-dpi,width=640, user-scalable=no">
+<meta content="yes" name="apple-mobile-web-app-capable">
+<meta content="telephone=no" name="format-detection">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<?php /*SEO*/
+echo "<title>机战王-{$NEWS_TITLE}</title>";
+echo "<meta content=\"机战王,机战王手游,果宝特攻,武战道,快乐酷宝,钢铁飞龙,超兽武装,jizhanwang,机甲,动作\" name=\"keywords\" />";
+echo "<meta content=\"《机战王》是果宝特攻、快乐酷宝、钢铁飞龙、超兽武装、武战道等五大动画改编，“高达之父”大河原邦男先生协力打造的年度超强机战手游。游戏集合了蓝弧动画10年机甲动画题材和300款机甲设定！分分钟让你变身成为强大机甲发动超强必杀，一举歼灭敌人。动画剧情无缝植入，和小宝、果宝、超兽战队等动画主角一起拯救世界吧！\" name=\"description\" />";
+/*SEO*/ ?>
+
+
+<link href="//jzw.uu.cc/jzw.uu.cc/wap/css/mobile.css" rel="stylesheet">
+
+<script type="text/javascript" src="/manage/assets/js/edit/jquery.min.js"></script>
+<!-- CUSTOM-JS-COMPONENT -->
+
+<script>
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "//hm.baidu.com/hm.js?6000fe6c7a6822628de4a7937d77542c";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+</head>
+<body>
+<div class="container">
+<header id="show_h">新闻详情</header>
+<article>
+<h1><?php /*BLOCK*/ SHOW_CURRENT_NEWS_INFO('title') /*BLOCK*/ ?></h1>
+<span class="timer">时间：<?php /*BLOCK*/ echo date('Y-m-d H:i:s',GET_CURRENT_NEWS_INFO('created')); /*BLOCK*/ ?></span>
+<p>
+<?php /*BLOCK*/ SHOW_CURRENT_NEWS_INFO('content') /*BLOCK*/ ?>
+</p>
+
+</article>
+<div class="page">
+<?php /*BLOCK*/
+$prev=GET_PREV_NEWS_URL();
+$next=GET_NEXT_NEWS_URL();
+if(strcmp($prev,'#') != 0)
+	echo '<a href="'.$prev.'" class="pre"><上一页</a>';
+if(strcmp($next,'#') != 0)
+	echo '<a href="'.$next.'" class="next">下一页></a>';
+/*BLOCK*/ ?>
+</div>
+</div>
+</body>

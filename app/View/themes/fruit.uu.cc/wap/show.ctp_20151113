@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html><head>
+<?php /*BLOCK*/
+$this->Website->init();
+/*BLOCK*/ ?>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <?php /*SEO*/
+echo "<title></title>";
+echo "<meta content=\"\" name=\"keywords\" />";
+echo "<meta content=\"\" name=\"description\" />";
+/*SEO*/ ?>
+    
+    
+    <meta name="viewport" content="target-densitydpi=device-dpi,width=640, user-scalable=yes">
+    <link rel="shortcut icon" href="//fruit.uu.cc/fruit.uu.cc/favicon.ico">
+    <link media="screen" href="//fruit.uu.cc/fruit.uu.cc/css/m.css" rel="stylesheet" type="text/css">
+    
+    <script type="text/javascript" src="/manage/assets/js/edit/jquery.min.js"></script>
+	<!-- CUSTOM-JS-COMPONENT -->
+    
+	<script src="//hm.baidu.com/hm.js?bd1059138318d7c7f0b88858b83c5421"></script>
+	<script>
+	var _hmt = _hmt || [];
+	(function() {
+	  var hm = document.createElement("script");
+	  hm.src = "//hm.baidu.com/hm.js?bd1059138318d7c7f0b88858b83c5421";
+	  var s = document.getElementsByTagName("script")[0]; 
+	  s.parentNode.insertBefore(hm, s);
+	})();
+	</script>
+</head>
+<body>    
+<div class="page" style="background-color:#fff;">
+        <div class="topbar">
+        <?php /*BLOCK*/
+            echo '<a class="back" href="//fruit.uu.cc/news/'.GET_CURRENT_NEWS_INFO('news_categories_id').'.html"></a>';
+        /*BLOCK*/ ?>
+            <a class="download CUSTOM_EDIT A_EDIT" id="download_edit" href="#">游戏下载</a>
+        </div>
+        <div class="content">
+            <div class="news_tit">
+                <h3><?php /*BLOCK*/ SHOW_CURRENT_NEWS_INFO('title') /*BLOCK*/ ?></h3>
+                <p>时间：<?php /*BLOCK*/ echo date('Y-m-d H:i:s',GET_CURRENT_NEWS_INFO('title')) /*BLOCK*/ ?></p>
+            </div>
+            <div class="news_con">
+            <div>
+            	<?php /*BLOCK*/ SHOW_CURRENT_NEWS_INFO('content') /*BLOCK*/ ?>
+            </div>
+        </div>
+        <div class="bot_bar">
+        <?php /*BLOCK*/
+        echo '<a href="'.GET_PREV_NEWS_URL().'" class="fl">';
+        /*BLOCK*/ ?>
+        &lt;上一篇</a>
+        <?php /*BLOCK*/
+        echo '<a href="'.GET_NEXT_NEWS_URL().'" class="fr">';
+        /*BLOCK*/ ?>
+                        下一篇&gt;</a>        
+        </div>
+    </div>
+
+</body></html>
