@@ -31,6 +31,7 @@ class IndexController extends Controller{
 
     public function index(){
         $file_name = '/template/index';
+        $this->set('site_id',10);
         $this->render($file_name);
 
     }

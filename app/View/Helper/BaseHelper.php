@@ -477,7 +477,7 @@ class BaseHelper extends Helper
         App::uses("WebsiteConfig", "Model");
         $WebsiteConfig = new WebsiteConfig();
         $conditions['conditions'] = array('site_id' => $siteId);
-        $result = $WebsiteConfig->find('first', $conditions);
+        $result = $WebsiteConfig->find('first', $conditions);;
         if(!empty($result)){
             $config = json_decode($result['WebsiteConfig']['config_json'],1);
             return $config[$key];

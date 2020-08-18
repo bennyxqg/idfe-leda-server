@@ -21,16 +21,17 @@
     <div class="warp warp02">
         <div class="swiper-div">
             <div class="feature-swiper">
-                <?php
-                    foreach($this->Base->showData(10,'imgs') as $val){
-                        echo '<div class="swiper-wrapper" src="$val">'
-                    }
-                ?>
                 <div class="swiper-wrapper">
                   <!-- <div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="2" style="background: rgba(0, 0, 0, 0); transition-duration: 0ms; transform: translate3d(0px, 0px, -300px) rotateX(0deg) rotateY(150deg); z-index: -2;"><img class="feature-swiper-image" src="http://oaa.uu.cc/manage/upload/image/oaa.uu.cc/2019-12-30/20191230_145803_930887.jpg"><div class="swiper-slide-shadow-left" style="opacity: 3; transition-duration: 0ms;"></div><div class="swiper-slide-shadow-right" style="opacity: 0; transition-duration: 0ms;"></div></div>
                  </div> -->
                 <!-- 如果需要分页器 -->
-                <div class="swiper-pagination"></div>
+                <?php
+                    $imgsData = $this->Base->showData($site_id,'imgs');
+                    foreach ($imgsData as $img):
+                ?>
+                <div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="2" style="background: rgba(0, 0, 0, 0); transition-duration: 0ms; transform: translate3d(0px, 0px, -300px) rotateX(0deg) rotateY(150deg); z-index: -2;"><img class="feature-swiper-image" src="<?php echo $img['url'];?>"><div class="swiper-slide-shadow-left" style="opacity: 3; transition-duration: 0ms;"></div><div class="swiper-slide-shadow-right" style="opacity: 0; transition-duration: 0ms;"></div></div>
+                 </div>
+                <?php endforeach; ?> 
             </div>
             <!-- 如果需要导航按钮 -->
             <div class="swiper-button-prev"></div>
