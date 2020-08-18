@@ -472,6 +472,18 @@ class BaseHelper extends Helper
             return FALSE;
         }
     }
+
+    public function showData($siteId, $key){
+        App::uses("WebsiteConfig", "Model");
+        $WebsiteConfig = new WebsiteConfig();
+        $conditions['conditions'] = array('site_id' => $siteId);
+        $result = $WebsiteConfig->find('first', $conditions);
+        if(!empty($result)){
+            $config = json_decode($result['WebsiteConfig']['config_json'],1);
+            return $config[$key];
+        }
+        
+    }
 }
 
 

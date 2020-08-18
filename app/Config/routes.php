@@ -41,7 +41,8 @@
             )));
 
     Router::connect('/act/cmzbapply', array('controller' => 'Act', 'action' => 'cmzbapply'));
-    Router::connect('/', array('controller' => 'Online', 'action' => 'index'));
+    //Router::connect('/', array('controller' => 'Online', 'action' => 'index'));
+    Router::connect('/', array('controller' => 'Index', 'action' => 'index'));
     Router::connect('/test111', array('controller' => 'Online', 'action' => 'test111'));
     Router::connect('/m', array('controller' => 'Online', 'action' => 'index'));
     Router::connect('/hd', array('controller' => 'Online', 'action' => 'hd'));
