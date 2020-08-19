@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="telephone=no" name="format-detection">
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <link rel="stylesheet" type="text/css" href="//dl.gamdream.com/activity/storm/gamemode/css/v1.1.1/index-pc.css">
-    <!-- <link rel="stylesheet" type="text/css" href="//dl.gamdream.com/activity/galan/luren/css/swiper.min.css"> -->
     <link rel="stylesheet" href="//dl.gamdream.com/activity/storm/mob100/js/swiper.min.css">
-
+    <link rel="stylesheet" href="//<?php echo $_SERVER['HTTP_HOST']; ?>/static/css/style.css">
+    <link rel="stylesheet" href="//<?php echo $_SERVER['HTTP_HOST']; ?>/static/css/index.css">
     <link rel="shortcut icon" id="head-game-icon" href="">
     <title>网站标题</title>
     <meta name="keywords" content="弓箭手大冒险官方网站">
@@ -17,86 +17,211 @@
 </head>
 
 <body>
-<div class="pcreserve">
-    <div class="warp warp02">
-        <div class="swiper-div">
-            <div class="feature-swiper">
-                <div class="swiper-wrapper">
-                  <!-- <div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="2" style="background: rgba(0, 0, 0, 0); transition-duration: 0ms; transform: translate3d(0px, 0px, -300px) rotateX(0deg) rotateY(150deg); z-index: -2;"><img class="feature-swiper-image" src="http://oaa.uu.cc/manage/upload/image/oaa.uu.cc/2019-12-30/20191230_145803_930887.jpg"><div class="swiper-slide-shadow-left" style="opacity: 3; transition-duration: 0ms;"></div><div class="swiper-slide-shadow-right" style="opacity: 0; transition-duration: 0ms;"></div></div>
-                 </div> -->
-                <!-- 如果需要分页器 -->
-                <?php
-                    $imgsData = $this->Base->showData($site_id,'imgs');
-                    foreach ($imgsData as $img):
-                ?>
-                <div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="2" style="background: rgba(0, 0, 0, 0); transition-duration: 0ms; transform: translate3d(0px, 0px, -300px) rotateX(0deg) rotateY(150deg); z-index: -2;"><img class="feature-swiper-image" src="<?php echo $img['url'];?>"><div class="swiper-slide-shadow-left" style="opacity: 3; transition-duration: 0ms;"></div><div class="swiper-slide-shadow-right" style="opacity: 0; transition-duration: 0ms;"></div></div>
-                 </div>
-                <?php endforeach; ?> 
+    <div class="pcreserve">
+        <div class="warp warp02">
+            <!--
+            <div class="swiper-div">
+                <div class="feature-swiper">
+                    <div class="swiper-wrapper">
+                        <?php
+                        $imgsData = $this->Base->showData($site_id, 'moduleList');
+                        foreach ($imgsData as $img) :
+                        ?>
+                            <div class="swiper-slide swiper-slide-duplicate" data-swiper-slide-index="2" style="background: rgba(0, 0, 0, 0); transition-duration: 0ms; transform: translate3d(0px, 0px, -300px) rotateX(0deg) rotateY(150deg); z-index: -2;"><img class="feature-swiper-image" src="<?php echo $img['url']; ?>">
+                                <div class="swiper-slide-shadow-left" style="opacity: 3; transition-duration: 0ms;"></div>
+                                <div class="swiper-slide-shadow-right" style="opacity: 0; transition-duration: 0ms;"></div>
+                            </div>
+                    </div>
+                <?php endforeach; ?>
+                </div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
             </div>
-            <!-- 如果需要导航按钮 -->
-            <div class="swiper-button-prev"></div>
-            <div class="swiper-button-next"></div>
+            -->
+            <div class='module-list-wrap'>
+                <div class='module-item-wrap'>
+                    <div class='imgNews-wrap'>
+                        <div class="imgNews-wrap-inner">
+                            <div class="imgNews-wrap-inner-carousel">
+                                <div class="swiper-imgNews">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide">
+                                            <img src='http://oaa.uu.cc/manage/upload/image/oaa.uu.cc/2019-12-27/20191227_161637_544804.png' />
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <img src='http://oaa.uu.cc/manage/upload/image/oaa.uu.cc/2019-12-27/20191227_161637_544804.png' />
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <img src='http://oaa.uu.cc/manage/upload/image/oaa.uu.cc/2019-12-27/20191227_161637_544804.png' />
+                                        </div>
+                                    </div>
+                                    <!-- 如果需要分页器 -->
+                                    <div class="swiper-pagination"></div>
+                                </div>
+                            </div>
+                            <div class="imgNews-wrap-inner-news" style='color: #000000;'>
+                                <div class="imgNews-news-nav">
+                                    <ul>
+                                        <li class='active'>
+                                            <span>最新</span>
+                                        </li>
+                                        <li>
+                                            <span>新闻</span>
+                                        </li>
+                                        <li>
+                                            <span>攻略</span>
+                                        </li>
+                                        <li>
+                                            <span>活动</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="imgNews-news-list">
+                                    <ul class='show'>
+                                        <li>
+                                            <span class="imgNews-news-list-text">
+                                                通关干货 奇招获奇效
+                                            </span>
+                                            <span class="imgNews-news-list-time">
+                                                12-30
+                                            </span>
+                                        </li>
+                                        <li>
+                                            <span class="imgNews-news-list-text">
+                                                冷兵器时代的产物，《弓箭手大冒险》春节将至？
+                                            </span>
+                                            <span class="imgNews-news-list-time">
+                                                12-30
+                                            </span>
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li>
+                                            <span class="imgNews-news-list-text">
+                                                测试2
+                                            </span>
+                                            <span class="imgNews-news-list-time">
+                                                12-30
+                                            </span>
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li>
+                                            <span class="imgNews-news-list-text">
+                                                测试3
+                                            </span>
+                                            <span class="imgNews-news-list-time">
+                                                12-30
+                                            </span>
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li>
+                                            <span class="imgNews-news-list-text">
+                                                测试4
+                                            </span>
+                                            <span class="imgNews-news-list-time">
+                                                12-30
+                                            </span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-     </div>
-</div>
+    </div>
 
-<script type="text/javascript" src="//dl.gamdream.com/activity/storm/legend/js/jquery.min.js"></script>
-<script src="//dl.gamdream.com/activity/storm/mob100/js/swiper.min.js"></script>
+    <script type="text/javascript" src="//dl.gamdream.com/activity/storm/legend/js/jquery.min.js"></script>
+    <script src="//dl.gamdream.com/activity/storm/mob100/js/swiper.min.js"></script>
 
-<script>
- 
-    setTimeout(function(){ 
+    <script>
+        $(function() {
+            console.log(1232321, $('.swiper-imgNews'))
+            $('.swiper-imgNews').each(function(index) {
+                console.log(index)
+                var mySwiper = new Swiper(this, {
+                    loop: true, // 循环模式选项
+                    // 如果需要分页器
+                    pagination: {
+                        el: '.swiper-pagination',
+                    },
+                })
+            })
 
-    var mySwiper = new Swiper ('.warp01 .news-swiper', {
-         pagination: {
-            el: '.swiper-pagination',
-         },
-        observer:true,
-        observeParents:true
+            $('.imgNews-wrap-inner-news').each(function() {
+                var $wrapper = $(this)
+                $wrapper.find('.imgNews-news-nav li').click(function() {
+                    $(this).siblings('li').removeClass('active')
+                    $(this).addClass('active')
+                    var index = $(this).index()
+                    console.log('-----index-------', index, $wrapper)
+                    $wrapper.find('.imgNews-news-list ul').removeClass('show')
+                    $wrapper.find('.imgNews-news-list ul').eq(index).addClass('show')
+                })
 
-    });
+            })
+            // var mySwiper = new Swiper( '.swiper-imgNews', {
+            //         // loop: true, // 循环模式选项
+            //         // 如果需要分页器
+            //         pagination: {
+            //             el: '.swiper-pagination',
+            //         },
+            //     })
 
-    var feature = new Swiper ('.feature-swiper', {
-        // initialSlide :0,
-        effect: 'coverflow',
-        // grabCursor: true,
-        centeredSlides: true,
-        slidesPerView: 'auto',
-        // autoplay : true,
-        loop : true,
-         navigation: {
-         nextEl: '.swiper-button-next',
-         prevEl: '.swiper-button-prev',
-         },
-         pagination: {
-            el: '.swiper-pagination',
-         },
-        // pagination: '.feature-paination',
-        coverflow: {
-            rotate: 50,
-            stretch: 20,
-            depth: 120,
-            modifier: 1,
-            slideShadows:true
-        },
-        observer:true,//修改swiper自己或子元素时，自动初始化swiper 
-        observeParents:false,//修改swiper的父元素时，自动初始化swiper 
-        grabCursor : false,
-        onSlideChangeEnd: function(swiper){ 
-　　　     swiper.update();  
-　　　     swiper.startAutoplay();
-　　      swiper.reLoop();  
-        }
-    })
-        
+        })
 
 
-    }, 600);
+        // setTimeout(function() {
 
-    
-</script>
+        //     var mySwiper = new Swiper('.warp01 .news-swiper', {
+        //         pagination: {
+        //             el: '.swiper-pagination',
+        //         },
+        //         observer: true,
+        //         observeParents: true
+
+        //     });
+
+        //     var feature = new Swiper('.feature-swiper', {
+        //         // initialSlide :0,
+        //         effect: 'coverflow',
+        //         // grabCursor: true,
+        //         centeredSlides: true,
+        //         slidesPerView: 'auto',
+        //         // autoplay : true,
+        //         loop: true,
+        //         navigation: {
+        //             nextEl: '.swiper-button-next',
+        //             prevEl: '.swiper-button-prev',
+        //         },
+        //         pagination: {
+        //             el: '.swiper-pagination',
+        //         },
+        //         // pagination: '.feature-paination',
+        //         coverflow: {
+        //             rotate: 50,
+        //             stretch: 20,
+        //             depth: 120,
+        //             modifier: 1,
+        //             slideShadows: true
+        //         },
+        //         observer: true, //修改swiper自己或子元素时，自动初始化swiper 
+        //         observeParents: false, //修改swiper的父元素时，自动初始化swiper 
+        //         grabCursor: false,
+        //         onSlideChangeEnd: function(swiper) {
+        //             swiper.update();
+        //             swiper.startAutoplay();
+        //             swiper.reLoop();
+        //         }
+        //     })
+
+
+
+        // }, 600);
+    </script>
 </body>
 
 </html>
-
-
