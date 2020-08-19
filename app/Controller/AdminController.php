@@ -4,7 +4,7 @@ App::uses('Controller', 'Controller');
 class AdminController extends Controller{
 
     public $components = array("Redis");
-    public $uses = array('Users','Block','News','NewsCategory','NewsComment','BlogMessage','BlogUsersMessage');
+    public $uses = array('Users','Block','News','NewsCategory','NewsComment','BlogMessage','BlogUsersMessage','WebsiteConfig');
     private $params;
     private $loginFilter = array('login');
     private $session;
@@ -771,6 +771,31 @@ class AdminController extends Controller{
         }
         //unlink($file);
         $this->echoJson('success',0, array('url'=>$url));
-    }    
+    }
+
+    public function website_config_save(){
+        try{
+            $config_json=isset($this->params["config_json"])?$this->params["config_json"]:"";
+            if(empty($config_json)){
+                $this->echoJson('config_json参数不能为空', -1);
+            }
+            //检查是否有配置
+            $conditions['conditions'] = array('site_id' => $this->site_id);
+            $result = $this->WebsiteConfig->find('first', $conditions);
+            
+            if(!empty($result)){
+                $db = $this->WebsiteConfig->getDataSource();
+                $data['config_json'] = $db->value($config_json, 'string');
+                $this->WebsiteConfig->updateAll($data, array('id' => $result['WebsiteConfig']['id']));
+            }else{
+                $data = array('config_json'=>$config_json,'site_id'=>$this->site_id);
+                $this->WebsiteConfig->save($data);
+            }
+            $this->echoJson('success', 0);
+        }catch(Exception $e){
+            var_dump($e->getMessage());
+            $this->echoJson('server error',-1000);
+        }   
+    }        
 }
 
