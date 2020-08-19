@@ -4,7 +4,7 @@ App::uses('Controller', 'Controller');
 class AdminController extends Controller{
 
     public $components = array("Redis");
-    public $uses = array('Users','Block','News','NewsCategory','NewsComment','BlogMessage','BlogUsersMessage','WebsiteConfig');
+    public $uses = array('Users','Website','Block','News','NewsCategory','NewsComment','BlogMessage','BlogUsersMessage','PicGroup','PicInfo','VideoInfo','WebsiteConfig');
     private $params;
     private $loginFilter = array('login');
     private $session;
@@ -33,6 +33,9 @@ class AdminController extends Controller{
             }
             $this->tokenInfo = json_decode($userInfo,1);
             $this->site_id = $this->tokenInfo['Users']['site_id'];
+            if(isset($this->params['site_id'])){
+                $this->site_id = $this->params['site_id'];
+            }
         }
     }
 
@@ -44,6 +47,13 @@ class AdminController extends Controller{
         $ret = json_encode($return_data);
         echo $ret;
         exit();
+    }
+
+    public function user_info(){
+        $userInfo = $this->tokenInfo['Users'];
+        unset($userInfo['password']);
+        //$ret = array('info'=>$userInfo);
+        $this->echoJson('success', 0, $userInfo);
     }
 
     public function login(){
@@ -111,12 +121,6 @@ class AdminController extends Controller{
             if(empty($content)){
                 $this->echoJson('content参数不能为空', -3);
             }
-			$data = array(
-			                'title' => $title,
-			                'Abbr' => $Abbr,
-			                'content' => $content,
-			                'site_id' => $this->site_id
-			            );
             $conditions['conditions'] = array('Abbr'=>$Abbr);
             $result = $this->Block->find('first', $conditions);
             if(!empty($result)){
@@ -771,6 +775,667 @@ class AdminController extends Controller{
         }
         //unlink($file);
         $this->echoJson('success',0, array('url'=>$url));
+    }
+
+    public function site_info(){
+        try{
+            $conditions['conditions'] = array('id'=>$this->site_id);
+            $conditions['fields'] = array('id','title','keywords','description','status','icon');
+            $result = $this->Website->find('first', $conditions);
+            $this->echoJson('success', 0, $result['Website']);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }   
+    }
+
+    public function site_info_edit(){
+        try{
+            $title=isset($this->params["title"])?$this->params["title"]:"";
+            $keywords=isset($this->params["keywords"])?$this->params["keywords"]:"";
+            $description=isset($this->params["description"])?$this->params["description"]:"";
+            $icon=isset($this->params["icon"])?$this->params["icon"]:"";
+            $status=isset($this->params["status"])?$this->params["status"]:"0";
+            $db = $this->Website->getDataSource();
+            $data = array(
+                'title' => $db->value($title, 'string'),
+                'keywords' => $db->value($keywords, 'string'),
+                'description' => $db->value($description, 'string'),
+                'icon' => $db->value($icon, 'icon'),
+                'status' => $db->value($status, 'status')
+            );
+            $ret = $this->Website->updateAll($data,array('id'=>$this->site_id));
+            $this->echoJson('success', 0, $ret);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }   
+    }
+
+    public function pic_group_list(){
+        try{
+            $conditions['conditions'] = array('site_id'=>$this->site_id,'status'=>1);
+            $conditions['fields'] = array('id','name','identifer','status');
+            $result = $this->PicGroup->find('all', $conditions);
+            $ret = array();
+            if(!empty($result)){
+                foreach($result as $val){
+                    if(strpos($val['PicGroup']['id'],',')){
+                        $groupId = explode(',',$val['PicGroup']['id']);
+                    }else{
+                        $groupId = $val['PicGroup']['id'];
+                    }
+                    $conditions2['conditions'] = array('site_id'=>$this->site_id,'group_id'=>$groupId,'status'=>1);
+                    $conditions2['fields'] = array('id');
+                    $count = $this->PicInfo->find('count', $conditions2);
+                    $val['PicGroup']['count'] = $count;
+                    $ret[] = $val['PicGroup'];
+                }
+            }
+            $this->echoJson('success', 0, $ret);
+        }catch(Exception $e){
+            $dataSource->rollback();
+            $this->echoJson('server error',-1000);
+        }   
+    }
+
+    public function pic_group_add(){
+        try{
+            $name=isset($this->params["name"])?$this->params["name"]:"";
+            if(empty($name)){
+                $this->echoJson('name参数不能为空', -1);
+            }
+            $identifer=isset($this->params["identifer"])?$this->params["identifer"]:"";
+            if(empty($identifer)){
+                $this->echoJson('identifer参数不能为空', -2);
+            }
+            $status=isset($this->params["status"])?$this->params["status"]:"0";
+        
+            $conditions['conditions'] = array('identifer'=>$identifer);
+            $result = $this->PicGroup->find('first', $conditions);
+            if(!empty($result)){
+                $this->echoJson('identifer字段重复', -3);
+            }
+            $conditions2['conditions'] = array('name'=>$name);
+            $result2 = $this->PicGroup->find('first', $conditions2);
+            if(!empty($result2)){
+                $this->echoJson('name字段重复', -4);
+            }
+            $data = array(
+                'name'=>$name,
+                'identifer'=>$identifer,
+                'status'=>$status,
+                'site_id'=>$this->site_id
+            );
+            $ret = $this->PicGroup->save($data);
+            $this->echoJson('success', 0);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }   
+    }
+
+    public function pic_group_edit(){
+        try{
+            $id=isset($this->params["id"])?$this->params["id"]:"";
+            if(empty($id)){
+                $this->echoJson('id参数不能为空', -7);
+            }
+            $name=isset($this->params["name"])?$this->params["name"]:"";
+            if(empty($name)){
+                $this->echoJson('name参数不能为空', -1);
+            }
+            $identifer=isset($this->params["identifer"])?$this->params["identifer"]:"";
+            if(empty($identifer)){
+                $this->echoJson('identifer参数不能为空', -2);
+            }
+            $status=isset($this->params["status"])?$this->params["status"]:"0";
+            
+            $conditions['conditions'] = array('id'=>$id);
+            $info = $this->PicGroup->find('first', $conditions);
+            if(empty($info)){
+                $this->echoJson('id数据错误', -8);
+            }
+            $conditions2['conditions'] = array('name'=>$name);
+            $info2 = $this->PicGroup->find('first', $conditions2);
+            if($info2['PicGroup']['id'] != $id){
+                $this->echoJson('name已重复', -8);
+            }
+            $conditions3['conditions'] = array('identifer'=>$identifer);
+            $info3 = $this->PicGroup->find('first', $conditions3);
+            if($info3['PicGroup']['id'] != $id){
+                $this->echoJson('identifer已重复', -8);
+            }
+            $db = $this->PicGroup->getDataSource();
+            $data = array(
+                'name' => $db->value($name, 'string'),
+                'identifer' => $db->value($identifer, 'string'),
+                'status' => $status
+            );
+            $ret = $this->PicGroup->updateAll($data,array('id'=>$id));
+            $this->echoJson('success', 0);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }   
+    }
+
+    public function pic_group_del(){
+        try{
+            $id=isset($this->params["id"])?$this->params["id"]:"";
+            if(empty($id)){
+                $this->echoJson('id参数不能为空', -1);
+            }
+            $conditions['conditions'] = array('id'=>$id);
+            $info = $this->PicGroup->find('first', $conditions);
+            if(empty($info)){
+                $this->echoJson('id数据错误', -2);
+            }
+            $ret = $this->PicGroup->deleteAll(array('id'=>$id));
+            $this->echoJson('success', 0);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }   
+    }
+
+    public function pic_info_list(){
+        try{
+            $ret = array();
+            $conditions['conditions'] = array('site_id'=>$this->site_id,'status'=>1);
+            $conditions['fields'] = array('id','name','group_id','jump_url','url','status','desc');
+            $count = $this->PicInfo->find('count', $conditions);
+            $page=isset($this->params["page"])?$this->params["page"]:"1";
+            $limit=isset($this->params["limit"])?$this->params["limit"]:"10";
+            $offset = ($page-1)*$limit;
+            $ret['total_page'] = ceil($count/$limit);
+            $ret['per_page'] = $limit;
+            $ret['page'] = $page;
+            $conditions2['conditions'] = array('site_id'=>$this->site_id,'status'=>1);
+            $conditions2['offset'] = $offset;
+            $conditions2['limit'] = $limit;
+            $conditions2['fields'] = array('id','name','group_id','jump_url','url','status','desc');
+            $conditions2['order'] = array('created desc');
+            $result = $this->PicInfo->find('all', $conditions2);         
+            if(!empty($result)){
+                foreach($result as $val){
+                    $ret['list'][] = $val['PicInfo'];
+                }
+            }
+            $this->echoJson('success', 0, $ret);
+        }catch(Exception $e){
+            $this->echoJson('server error',-10001);
+        }      
+    }
+
+    public function pic_info_add(){
+        try{
+            $group_id=isset($this->params["group_id"])?$this->params["group_id"]:"";
+            if(empty($group_id)){
+                $this->echoJson('group_id参数不能为空', -2);
+            }
+            $name=isset($this->params["name"])?$this->params["name"]:"";
+            if(empty($name)){
+                $this->echoJson('name参数不能为空', -1);
+            }
+            $jump_url=isset($this->params["jump_url"])?$this->params["jump_url"]:"";
+            if(empty($jump_url)){
+                $this->echoJson('jump_url参数不能为空', -1);
+            }
+            $url=isset($this->params["url"])?$this->params["url"]:"";
+            if(empty($url)){
+                $this->echoJson('url参数不能为空', -1);
+            } 
+            $desc=isset($this->params["desc"])?$this->params["desc"]:"";
+            // if(empty($desc)){
+            //     $this->echoJson('desc参数不能为空', -1);
+            // }     
+            // $status=isset($this->params["status"])?$this->params["status"]:"0";
+        
+            $data = array(
+                'site_id'=>$this->site_id,
+                'name'=>$name,
+                'group_id'=>$group_id,
+                'jump_url'=>$jump_url,
+                'url'=>$url,
+                'desc'=>$desc
+            );
+            $ret = $this->PicInfo->save($data);
+            $this->echoJson('success', 0, $ret);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }   
+    }
+
+    public function pic_info_edit(){
+        try{
+            $id=isset($this->params["id"])?$this->params["id"]:"";
+            if(empty($id)){
+                $this->echoJson('id参数不能为空', -7);
+            }
+            $name=isset($this->params["name"])?$this->params["name"]:"";
+            if(empty($name)){
+                $this->echoJson('name参数不能为空', -1);
+            }
+            $group_id=isset($this->params["group_id"])?$this->params["group_id"]:"";
+            if(empty($group_id)){
+                $this->echoJson('group_id参数不能为空', -2);
+            }
+            $jump_url=isset($this->params["jump_url"])?$this->params["jump_url"]:"";
+            if(empty($jump_url)){
+                $this->echoJson('jump_url参数不能为空', -3);
+            }
+            $url=isset($this->params["url"])?$this->params["url"]:"";
+            if(empty($url)){
+                $this->echoJson('url参数不能为空', -4);
+            }
+            $desc=isset($this->params["desc"])?$this->params["desc"]:"";
+            // if(empty($desc)){
+            //     $this->echoJson('desc参数不能为空', -4);
+            // }
+            $status=isset($this->params["status"])?$this->params["status"]:"0";
+            
+            $conditions['conditions'] = array('id'=>$id);
+            $info = $this->PicInfo->find('first', $conditions);
+            if(empty($info)){
+                $this->echoJson('id数据错误', -8);
+            }
+            $db = $this->PicInfo->getDataSource();
+            $data = array(
+                'name' => $db->value($name, 'string'),
+                'group_id' => $db->value($group_id, 'string'),
+                'jump_url' => $db->value($jump_url, 'string'),
+                'url' => $db->value($url, 'string'),
+                'desc' => $db->value($desc, 'string')
+                // 'status' => $status
+            );
+            $ret = $this->PicInfo->updateAll($data,array('id'=>$id));
+            $this->echoJson('success', 0);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }   
+    }
+
+    public function pic_info_del(){
+        try{
+            $id=isset($this->params["id"])?$this->params["id"]:"";
+            if(empty($id)){
+                $this->echoJson('id参数不能为空', -1);
+            }
+            $conditions['conditions'] = array('id'=>$id);
+            $info = $this->PicInfo->find('first', $conditions);
+            if(empty($info)){
+                $this->echoJson('id数据错误', -2);
+            }
+            $ret = $this->PicInfo->deleteAll(array('id'=>$id));
+            $this->echoJson('success', 0);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }   
+    }
+
+    public function video_info_list(){
+        try{
+            $ret = array();
+            $conditions['conditions'] = array('site_id'=>$this->site_id,'status'=>1);
+            $conditions['fields'] = array('id','name','url','status','cover','desc');
+            $count = $this->VideoInfo->find('count', $conditions);
+            $page=isset($this->params["page"])?$this->params["page"]:"1";
+            $limit=isset($this->params["limit"])?$this->params["limit"]:"10";
+            $offset = ($page-1)*$limit;
+            $ret['total_page'] = ceil($count/$limit);
+            $ret['per_page'] = $limit;
+            $ret['page'] = $page;
+            $conditions2['conditions'] = array('site_id'=>$this->site_id,'status'=>1);
+            $conditions2['offset'] = $offset;
+            $conditions2['limit'] = $limit;
+            $conditions2['fields'] = array('id','name','url','status','cover','desc');
+            $conditions2['order'] = array('created desc');
+            $result = $this->VideoInfo->find('all', $conditions2);         
+            if(!empty($result)){
+                foreach($result as $val){
+                    $ret['list'][] = $val['VideoInfo'];
+                }
+            }
+            $this->echoJson('success', 0, $ret);
+        }catch(Exception $e){
+            $this->echoJson('server error',-10001);
+        }         
+    }
+
+    public function video_info_add(){
+        try{
+            $name=isset($this->params["name"])?$this->params["name"]:"";
+            if(empty($name)){
+                $this->echoJson('name参数不能为空', -1);
+            }
+            $url=isset($this->params["url"])?$this->params["url"]:"";
+            if(empty($url)){
+                $this->echoJson('url参数不能为空', -2);
+            }
+            $cover=isset($this->params["cover"])?$this->params["cover"]:"";
+            if(empty($cover)){
+                $this->echoJson('cover参数不能为空', -3);
+            }
+            $desc=isset($this->params["desc"])?$this->params["desc"]:"";
+            if(empty($desc)){
+                $this->echoJson('desc参数不能为空', -4);
+            }
+            // $status=isset($this->params["status"])?$this->params["status"]:"1";
+        
+            $data = array(
+                'name'=>$name,
+                'cover'=>$cover,
+                'desc'=>$desc,
+                'url'=>$url,
+                // 'status'=>$status,
+                'site_id'=>$this->site_id
+            );
+            $ret = $this->VideoInfo->save($data);
+            $this->echoJson('success', 0, $ret);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }   
+    }
+
+    public function video_info_edit(){
+        try{
+            $id=isset($this->params["id"])?$this->params["id"]:"";
+            if(empty($id)){
+                $this->echoJson('id参数不能为空', -7);
+            }
+            $name=isset($this->params["name"])?$this->params["name"]:"";
+            if(empty($name)){
+                $this->echoJson('name参数不能为空', -1);
+            }
+            $cover=isset($this->params["cover"])?$this->params["cover"]:"";
+            if(empty($cover)){
+                $this->echoJson('cover参数不能为空', -2);
+            }
+            $desc=isset($this->params["desc"])?$this->params["desc"]:"";
+            if(empty($desc)){
+                $this->echoJson('desc参数不能为空', -3);
+            }
+            // $status=isset($this->params["status"])?$this->params["status"]:"0";
+            
+            $conditions['conditions'] = array('id'=>$id);
+            $info = $this->VideoInfo->find('first', $conditions);
+            if(empty($info)){
+                $this->echoJson('id数据错误', -8);
+            }
+            $db = $this->VideoInfo->getDataSource();
+            $data = array(
+                'name' => $db->value($name, 'string'),
+                'cover' => $db->value($cover, 'string'),
+                'desc' => $db->value($desc, 'string'),
+                // 'status' => $status,
+            );
+            $ret = $this->VideoInfo->updateAll($data,array('id'=>$id));
+            $this->echoJson('success', 0);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }   
+    }
+
+    public function video_info_del(){
+        try{
+            $id=isset($this->params["id"])?$this->params["id"]:"";
+            if(empty($id)){
+                $this->echoJson('id参数不能为空', -1);
+            }
+            $conditions['conditions'] = array('id'=>$id);
+            $info = $this->VideoInfo->find('first', $conditions);
+            if(empty($info)){
+                $this->echoJson('id数据错误', -2);
+            }
+            $ret = $this->VideoInfo->deleteAll(array('id'=>$id));
+            $this->echoJson('success', 0);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }   
+    }
+
+    public function website_list(){
+        try{
+            $ret = array();
+            $conditions['conditions'] = array();
+            $conditions['fields'] = array('id','name','domain_name','directory_name','status');
+            $count = $this->Website->find('count', $conditions);
+            $page=isset($this->params["page"])?$this->params["page"]:"1";
+            $limit=isset($this->params["limit"])?$this->params["limit"]:"10";
+            $offset = ($page-1)*$limit;
+            $ret['total_page'] = ceil($count/$limit);
+            $ret['per_page'] = $limit;
+            $ret['page'] = $page;
+            $conditions2['conditions'] = array();
+            $conditions2['offset'] = $offset;
+            $conditions2['limit'] = $limit;
+            $conditions2['fields'] = array('id','name','domain_name','directory_name','status');
+            $conditions2['order'] = array('created desc');
+            $result = $this->Website->find('all', $conditions2);         
+            if(!empty($result)){
+                foreach($result as $val){
+                    $ret['list'][] = $val['Website'];
+                }
+            }
+            $this->echoJson('success', 0, $ret);
+        }catch(Exception $e){
+            $this->echoJson('server error',-10001);
+        }      
+    }
+
+    public function website_list_all(){
+        try{
+            $ret = array();
+            $conditions['conditions'] = array('status'=>1);
+            $conditions['fields'] = array('id','name','domain_name','directory_name','status');
+            $conditions['order'] = array('created desc');
+            $result = $this->Website->find('all', $conditions);         
+            if(!empty($result)){
+                foreach($result as $val){
+                    $ret['list'][] = $val['Website'];
+                }
+            }
+            $this->echoJson('success', 0, $ret);
+        }catch(Exception $e){
+            $this->echoJson('server error',-10001);
+        }      
+    }
+
+    public function website_add(){
+        try{
+            $name=isset($this->params["name"])?$this->params["name"]:"";
+            if(empty($name)){
+                $this->echoJson('name参数不能为空', -1);
+            }
+            $domain_name=isset($this->params["domain_name"])?$this->params["domain_name"]:"";
+            if(empty($domain_name)){
+                $this->echoJson('domain_name参数不能为空', -2);
+            }
+            $directory_name=isset($this->params["directory_name"])?$this->params["directory_name"]:"";
+            if(empty($directory_name)){
+                $this->echoJson('directory_name参数不能为空', -3);
+            }
+            $status=isset($this->params["status"])?$this->params["status"]:"0";
+        
+            $data = array(
+                'name'=>$name,
+                'domain_name'=>$domain_name,
+                'directory_name'=>$directory_name,
+                'status'=>$status
+            );
+            $ret = $this->Website->save($data);
+            $this->echoJson('success', 0);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }   
+    }
+
+    public function website_edit(){
+        try{
+            $id=isset($this->params["id"])?$this->params["id"]:"";
+            if(empty($id)){
+                $this->echoJson('id参数不能为空', -7);
+            }
+            $name=isset($this->params["name"])?$this->params["name"]:"";
+            if(empty($name)){
+                $this->echoJson('name参数不能为空', -1);
+            }
+            $domain_name=isset($this->params["domain_name"])?$this->params["domain_name"]:"";
+            if(empty($domain_name)){
+                $this->echoJson('domain_name参数不能为空', -2);
+            }
+            $directory_name=isset($this->params["directory_name"])?$this->params["directory_name"]:"";
+            if(empty($directory_name)){
+                $this->echoJson('directory_name参数不能为空', -3);
+            }
+            $status=isset($this->params["status"])?$this->params["status"]:"0";
+            
+            $conditions['conditions'] = array('id'=>$id);
+            $info = $this->Website->find('first', $conditions);
+            if(empty($info)){
+                $this->echoJson('id数据错误', -8);
+            }
+            $db = $this->Website->getDataSource();
+            $data = array(
+                'name' => $db->value($name, 'string'),
+                'domain_name' => $db->value($domain_name, 'string'),
+                'directory_name' => $db->value($directory_name, 'string'),
+                'status' => $status
+            );
+            $ret = $this->Website->updateAll($data,array('id'=>$id));
+            $this->echoJson('success', 0);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }   
+    }
+
+    public function website_del(){
+        try{
+            $id=isset($this->params["id"])?$this->params["id"]:"";
+            if(empty($id)){
+                $this->echoJson('id参数不能为空', -1);
+            }
+            $conditions['conditions'] = array('id'=>$id);
+            $info = $this->Website->find('first', $conditions);
+            if(empty($info)){
+                $this->echoJson('id数据错误', -2);
+            }
+            $ret = $this->Website->updateAll(array('status'=>-1),array('id'=>$id));
+            $this->echoJson('success', 0);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }   
+    }
+
+    public function user_list(){
+        try{
+            $ret = array();
+            $conditions['conditions'] =  array('status'=>1);
+            $conditions['fields'] = array('id','name','site_id','status');
+            $count = $this->Users->find('count', $conditions);
+            $page=isset($this->params["page"])?$this->params["page"]:"1";
+            $limit=isset($this->params["limit"])?$this->params["limit"]:"10";
+            $offset = ($page-1)*$limit;
+            $ret['total_page'] = ceil($count/$limit);
+            $ret['per_page'] = $limit;
+            $ret['page'] = $page;
+            $conditions2['conditions'] = array('status'=>1);
+            $conditions2['offset'] = $offset;
+            $conditions2['limit'] = $limit;
+            $conditions2['fields'] = array('id','name','site_id','status');
+            $result = $this->Users->find('all', $conditions2);         
+            if(!empty($result)){
+                foreach($result as $val){
+                    $ret['list'][] = $val['Users'];
+                }
+            }
+            $this->echoJson('success', 0, $ret);
+        }catch(Exception $e){
+            var_dump($e->getMessage());
+            $this->echoJson('server error',-10001);
+        }      
+    }
+
+    public function user_add(){
+        try{
+            $name=isset($this->params["name"])?$this->params["name"]:"";
+            if(empty($name)){
+                $this->echoJson('name参数不能为空', -1);
+            }
+            $password=isset($this->params["password"])?$this->params["password"]:"";
+            if(empty($password)){
+                $this->echoJson('password参数不能为空', -2);
+            }
+            $site_id=isset($this->params["website_id"])?$this->params["website_id"]:"";
+            if(empty($site_id)){
+                $this->echoJson('site_id参数不能为空', -3);
+            }
+            $status=isset($this->params["status"])?$this->params["status"]:"0";
+        
+            $data = array(
+                'name'=>$name,
+                'password'=>md5($password),
+                'site_id'=>$site_id,
+                'status'=>$status
+            );
+            $ret = $this->Users->save($data);
+            $this->echoJson('success', 0, $ret);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }   
+    }
+
+    public function user_edit(){
+        try{
+            $id=isset($this->params["id"])?$this->params["id"]:"";
+            if(empty($id)){
+                $this->echoJson('id参数不能为空', -7);
+            }
+            $name=isset($this->params["name"])?$this->params["name"]:"";
+            if(empty($name)){
+                $this->echoJson('name参数不能为空', -1);
+            }
+            $password=isset($this->params["password"])?$this->params["password"]:"";
+            $site_id=isset($this->params["website_id"])?$this->params["website_id"]:"";
+            if(empty($site_id)){
+                $this->echoJson('site_id参数不能为空', -3);
+            }
+            $status=isset($this->params["status"])?$this->params["status"]:"0";
+            
+            $conditions['conditions'] = array('id'=>$id);
+            $info = $this->Users->find('first', $conditions);
+            if(empty($info)){
+                $this->echoJson('id数据错误', -8);
+            }
+            $db = $this->Users->getDataSource();
+            $data = array(
+                'name' => $db->value($name, 'string'),
+                'site_id' => $db->value($site_id, 'string'),
+                'status' => $status
+            );
+            if(!empty($password)){
+                $data['password'] = $db->value(md5($password), 'string');
+            }
+            $ret = $this->Users->updateAll($data,array('id'=>$id));
+            $this->echoJson('success', 0);
+        }catch(Exception $e){
+            var_dump($e->getMessage());
+            $this->echoJson('server error',-1000);
+        }   
+    }
+
+    public function user_del(){
+        try{
+            $id=isset($this->params["id"])?$this->params["id"]:"";
+            if(empty($id)){
+                $this->echoJson('id参数不能为空', -1);
+            }
+            $conditions['conditions'] = array('id'=>$id);
+            $info = $this->Users->find('first', $conditions);
+            if(empty($info)){
+                $this->echoJson('id数据错误', -2);
+            }
+            $ret = $this->Users->updateAll(array('status'=>-1),array('id'=>$id));
+            $this->echoJson('success', 0);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }   
     }
 
     public function website_config_save(){
