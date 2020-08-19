@@ -796,6 +796,18 @@ class AdminController extends Controller{
             var_dump($e->getMessage());
             $this->echoJson('server error',-1000);
         }   
-    }        
+    } 
+
+    public function website_config_get(){
+        try{
+            $conditions['conditions'] = array('site_id' => $this->site_id);
+            $result = $this->WebsiteConfig->find('first', $conditions);
+            $this->echoJson('success', 0, json_decode($result['WebsiteConfig']['config_json'],1));
+        }catch(Exception $e){
+            var_dump($e->getMessage());
+            $this->echoJson('server error',-1000);
+        }   
+    } 
+
 }
 
