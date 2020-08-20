@@ -479,7 +479,7 @@ class BaseHelper extends Helper
         $conditions['conditions'] = array('site_id' => $siteId);
         $result = $WebsiteConfig->find('first', $conditions);;
         if(!empty($result)){
-            $config = json_decode($result['WebsiteConfig']['config_json'],1);
+            $config = json_decode($result['WebsiteConfig']['config_json']['moduleList'],1);
             return $config[$key];
         }
         
