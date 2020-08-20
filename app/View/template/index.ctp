@@ -45,9 +45,6 @@
                             <div class="imgNews-wrap-inner-carousel">
                                 <div class="swiper-imgNews">
                                     <div class="swiper-wrapper">
-                                        <?php
-                                            require 'news.ctp';
-                                        ?>
                                         <div class="swiper-slide">
                                             <img src='http://oaa.uu.cc/manage/upload/image/oaa.uu.cc/2019-12-27/20191227_161637_544804.png' />
                                         </div>
