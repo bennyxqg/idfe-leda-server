@@ -44,7 +44,7 @@ class AdminController extends Controller{
         }
         $this->directory_name = $this->server_info['directory_name'];
         $this->site_id = $this->server_info['id'];
-        $this->template_dir = THEMES_DIR.'.'.$this->directory_name;
+        $this->template_dir = THEMES_DIR.DS.$this->directory_name;
     }
 
     protected function echoJson($msg, $code = 0, $data = array()){
@@ -1448,9 +1448,9 @@ class AdminController extends Controller{
 
     public function website_config_save(){
         try{
-            $config_json=isset($this->params["config_json"])?$this->params["config_json"]:"";
-            if(empty($config_json)){
-                $this->echoJson('config_json参数不能为空', -1);
+            $config_json_pre=isset($this->params["config_json_pre"])?$this->params["config_json_pre"]:"";
+            if(empty($config_json_pre)){
+                $this->echoJson('config_json_pre参数不能为空', -1);
             }
             //检查是否有配置
             $conditions['conditions'] = array('site_id' => $this->site_id);
@@ -1458,10 +1458,10 @@ class AdminController extends Controller{
             
             if(!empty($result)){
                 $db = $this->WebsiteConfig->getDataSource();
-                $data['config_json'] = $db->value($config_json, 'string');
+                $data['config_json_pre'] = $db->value($config_json, 'string');
                 $this->WebsiteConfig->updateAll($data, array('id' => $result['WebsiteConfig']['id']));
             }else{
-                $data = array('config_json'=>$config_json,'site_id'=>$this->site_id);
+                $data = array('config_json_pre'=>$config_json,'site_id'=>$this->site_id);
                 $this->WebsiteConfig->save($data);
             }
             $this->echoJson('success', 0);
@@ -1475,7 +1475,7 @@ class AdminController extends Controller{
         try{
             $conditions['conditions'] = array('site_id' => $this->site_id);
             $result = $this->WebsiteConfig->find('first', $conditions);
-            $this->echoJson('success', 0, json_decode($result['WebsiteConfig']['config_json'],1));
+            $this->echoJson('success', 0, json_decode($result['WebsiteConfig']['config_json_pre'],1));
         }catch(Exception $e){
             var_dump($e->getMessage());
             $this->echoJson('server error',-1000);
@@ -1510,39 +1510,26 @@ class AdminController extends Controller{
     } 
 
     protected function genTemplate($config_json){
+        if(!is_dir($this->template_dir)){
+            $flag = mkdir($this->template_dir,0777,true);
+        }
+        $content = file_get_contents(TEMPLATE_DIR.DS.'1'.DS.'index.ctp');
+        file_put_contents($this->template_dir.DS.'index.ctp', $content);
+
         $config = json_decode($config_json,1);
         $moduleList = $config['moduleList'];
         foreach ($moduleList as $value) {
-            switch ($value['type']) {
-                case 'ImgNews':
-                    //绑定数据
-                    $this->genModule('ImgNews',$value['data']);
-                    break;
-                
-                default:
-                    # code...
-                    break;
-            }
+            $this->genModule($value['type']);
         }
-    } 
+    }
 
-    protected function genModule($type,$data){
-        switch ($type) {
-            case 'ImgNews':
-                //绑定数据
-                $this->genModuleImgNews($data);
-                break;
-            
-            default:
-                # code...
-                break;
+    protected function genModule($name){
+        $content = file_get_contents(TEMPLATE_DIR.DS.'1'.DS.$name.'.ctp');
+        if(file_exists($this->template_dir.DS.$name.'.ctp')){
+            unlink($this->template_dir.DS.$name.'.ctp');
         }
+        $res = file_put_contents($this->template_dir.DS.$name.'.ctp', $content);
+    }  
 
-    } 
-
-    protected function genModuleImgNews($data){
-        var_dump($data);exit;      
-
-    } 
 }
 

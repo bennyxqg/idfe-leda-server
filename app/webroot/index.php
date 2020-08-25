@@ -50,6 +50,9 @@ if (!defined('APP_DIR')) {
 if (!defined('THEMES_DIR')) {
 	define('THEMES_DIR',ROOT.DS. APP_DIR . DS.'View'.DS.'themes');
 }
+if (!defined('TEMPLATE_DIR')) {
+	define('TEMPLATE_DIR',ROOT.DS. APP_DIR . DS.'View'.DS.'template');
+}
 /**
  * The absolute path to the "cake" directory, WITHOUT a trailing DS.
  *
