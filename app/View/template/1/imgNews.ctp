@@ -6,7 +6,7 @@
                         <div class="swiper-imgNews">
                             <div class="swiper-wrapper">
                             <?php
-                                $imgs = $this->Base->showImgs($site_id,11);
+                                $imgs = $this->Base->showImgs($site_id,$module['data']['imgs']['groupId']);
                                 foreach($imgs as $img):
                             ?>
                                 <div class="swiper-slide">

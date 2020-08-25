@@ -20,7 +20,11 @@
     <div class="pcreserve">
         <div class="warp warp02">
             <?php
-                require 'ImgNews.ctp';
+                $module_list = $config_json['moduleList'];
+                foreach($module_list as $module){
+                    $type = $module['type'];
+                    require $type.'.ctp';
+                }
             ?>
         </div>
     </div>
