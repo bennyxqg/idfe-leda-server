@@ -4,7 +4,7 @@ App::uses('Controller', 'Controller');
 class IndexController extends Controller{
 
     public $components = array("Redis");
-    public $uses = array('WebsiteConfig');
+    public $uses = array('Website','WebsiteConfig');
     private $params;
     private $site_id;
     private $micro_config;
@@ -17,6 +17,13 @@ class IndexController extends Controller{
         header("Access-Control-Allow-Methods:PUT,POST,GET,DELETE,OPTIONS"); //请求方式
         //参数
         $this->params = array_merge((array)$this->request->query, (array)$this->request->data);
+        $this->server_info = $this->Website->get_website_info_by_name(str_replace('https','http',FULL_BASE_URL));
+        if(!$this->server_info){
+            $redirect_url = FULL_BASE_URL."/404.html";
+            $this->redirect($redirect_url);
+        }
+        $this->directory_name = $this->server_info['directory_name'];
+        $this->site_id = $this->server_info['id'];
     }
 
     protected function echoJson($msg, $code = 0, $data = array()){
@@ -30,9 +37,9 @@ class IndexController extends Controller{
     }
 
     public function index(){
-        $file_name = '/template/index';
+        $file_name = '/themes/'.$this->directory_name.'/index';
         $this->layout = false;
-        $this->set('site_id',10);
+        $this->set('site_id',$this->site_id);
         $this->render($file_name);
     }
 }

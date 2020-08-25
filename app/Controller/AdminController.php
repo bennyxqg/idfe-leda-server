@@ -37,6 +37,14 @@ class AdminController extends Controller{
                 $this->site_id = $this->params['site_id'];
             }
         }
+        $this->server_info = $this->Website->get_website_info_by_name(str_replace('https','http',FULL_BASE_URL));
+        if(!$this->server_info){
+            $redirect_url = FULL_BASE_URL."/404.html";
+            $this->redirect($redirect_url);
+        }
+        $this->directory_name = $this->server_info['directory_name'];
+        $this->site_id = $this->server_info['id'];
+        $this->template_dir = THEMES_DIR.'.'.$this->directory_name;
     }
 
     protected function echoJson($msg, $code = 0, $data = array()){
@@ -1472,7 +1480,69 @@ class AdminController extends Controller{
             var_dump($e->getMessage());
             $this->echoJson('server error',-1000);
         }   
+    }
+
+    public function website_config_publish(){
+        try{
+            $config_json=isset($this->params["config_json"])?$this->params["config_json"]:"";
+            if(empty($config_json)){
+                $this->echoJson('config_json参数不能为空', -1);
+            }
+            //检查是否有配置
+            $conditions['conditions'] = array('site_id' => $this->site_id);
+            $result = $this->WebsiteConfig->find('first', $conditions);
+            //保存配置
+            if(!empty($result)){
+                $db = $this->WebsiteConfig->getDataSource();
+                $data['config_json'] = $db->value($config_json, 'string');
+                $this->WebsiteConfig->updateAll($data, array('id' => $result['WebsiteConfig']['id']));
+            }else{
+                $data = array('config_json'=>$config_json,'site_id'=>$this->site_id);
+                $this->WebsiteConfig->save($data);
+            }
+            //生成动态模板
+            $this->genTemplate($config_json);
+            $this->echoJson('success', 0);
+        }catch(Exception $e){
+            var_dump($e->getMessage());
+            $this->echoJson('server error',-1000);
+        }   
     } 
 
+    protected function genTemplate($config_json){
+        $config = json_decode($config_json,1);
+        $moduleList = $config['moduleList'];
+        foreach ($moduleList as $value) {
+            switch ($value['type']) {
+                case 'ImgNews':
+                    //绑定数据
+                    $this->genModule('ImgNews',$value['data']);
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
+        }
+    } 
+
+    protected function genModule($type,$data){
+        switch ($type) {
+            case 'ImgNews':
+                //绑定数据
+                $this->genModuleImgNews($data);
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+
+    } 
+
+    protected function genModuleImgNews($data){
+        var_dump($data);exit;      
+
+    } 
 }
 

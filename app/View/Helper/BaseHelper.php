@@ -473,16 +473,62 @@ class BaseHelper extends Helper
         }
     }
 
-    public function showData($siteId, $key){
-        App::uses("WebsiteConfig", "Model");
-        $WebsiteConfig = new WebsiteConfig();
-        $conditions['conditions'] = array('site_id' => $siteId);
-        $result = $WebsiteConfig->find('first', $conditions);;
+    public function showImgs($siteId, $groupId){
+        App::uses("PicInfo", "Model");
+        $PcInfo = new PicInfo();
+        $conditions['conditions'] = array('site_id' => $siteId, "group_id like '%".$groupId."%'");
+        $result = $PcInfo->find('all', $conditions);;
+        $ret = array();
         if(!empty($result)){
-            $config = json_decode($result['WebsiteConfig']['config_json']['moduleList'],1);
-            return $config[$key];
+            foreach($result as $val){
+                $ret[] = $val['PicInfo'];
+            }
         }
-        
+        return $ret;
+    }
+
+    public function showNewsCategory($siteId){
+        App::uses("NewsCategory", "Model");
+        $NewsCategory = new NewsCategory();
+        $conditions['conditions'] = array('site_id' => $siteId);
+        $result = $NewsCategory->find('all', $conditions);;
+        $ret = array();
+        if(!empty($result)){
+            foreach($result as $val){
+                $ret[] = $val['NewsCategory'];
+            }
+        }
+        return $ret;
+    }
+
+    public function showNews($categoryId,$limit){
+        App::uses("News", "Model");
+        $News = new News();
+        $conditions['conditions'] = array('news_categories_id' => $categoryId);
+        $conditions['limit'] = $limit;
+        $result = $News->find('all', $conditions);;
+        $ret = array();
+        if(!empty($result)){
+            foreach($result as $val){
+                $ret[] = $val['News'];
+            }
+        }
+        return $ret;
+    }
+
+    public function showNewsLatest($siteId,$limit){
+        App::uses("News", "Model");
+        $News = new News();
+        $conditions['conditions'] = array('site_id' => $siteId);
+        $conditions['limit'] = $limit;
+        $result = $News->find('all', $conditions);;
+        $ret = array();
+        if(!empty($result)){
+            foreach($result as $val){
+                $ret[] = $val['News'];
+            }
+        }
+        return $ret;
     }
 }
 
