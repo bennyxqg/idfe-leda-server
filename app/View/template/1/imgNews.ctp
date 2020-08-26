@@ -1,9 +1,12 @@
+<?php
+    $styleData = $module['data']['style'];
+?>
 <div class='module-list-wrap'>
         <div class='module-item-wrap'>
             <div class='imgNews-wrap'>
                 <div class="imgNews-wrap-inner">
                     <div class="imgNews-wrap-inner-carousel">
-                        <div class="swiper-imgNews">
+                        <div class="swiper-imgNews" data-json='<?php echo json_encode($styleData['carousel']) ?>'>
                             <div class="swiper-wrapper">
                             <?php
                                 $imgs = $this->Base->showImgs($site_id,$module['data']['imgs']['groupId']);
@@ -18,9 +21,11 @@
                             <div class="swiper-pagination"></div>
                         </div>
                     </div>
-                    <div class="imgNews-wrap-inner-news" style='color: #000000;'>
+                    <div class="imgNews-wrap-inner-news" 
+                        style='background-color: <?php echo $styleData['bg']['color'] ?>;'                
+                    >
                         <div class="imgNews-news-nav">
-                            <ul>
+                            <ul style='color: <?php echo $styleData['news']['nav']['fontColor'] ?>;font-size: <?php echo $styleData['news']['nav']['fontSize'] ?>px;font-weight: <?php echo $styleData['news']['nav']['isBold']?'bold':'normal' ?>;'>
                                 <li class='active'>
                                     <span>最新</span>
                                 </li>
@@ -42,7 +47,9 @@
                                     foreach($newsArr as $news):
                                 ?>
                                 <li>
-                                    <span class="imgNews-news-list-text">
+                                    <span class="imgNews-news-list-text"
+                                        style="color: <?php echo $styleData['news']['list']['fontColor'] ?>;fontSize: <?php echo $styleData['news']['list']['fontSize'] ?>px; fontWeight: <?php echo $styleData['news']['list']['isBold']?'bold':'normal' ?>;letterSpacing: <?php echo $styleData['news']['list']['letterSpacing'] ?>px;"
+                                    >
                                         <?php echo $news['title']?>
                                     </span>
                                     <span class="imgNews-news-list-time">
