@@ -41,7 +41,7 @@ class AdminController extends Controller{
                 $redirect_url = FULL_BASE_URL."/404.html";
                 $this->redirect($redirect_url);
             }
-            $this->directory_name = $this->server_info['directory_name'];
+            $this->directory_name = $this->server_info[0]['directory_name'];
             $this->template_dir = THEMES_DIR.DS.$this->directory_name;
         }
     }
@@ -1454,10 +1454,9 @@ class AdminController extends Controller{
             //检查是否有配置
             $conditions['conditions'] = array('site_id' => $this->site_id);
             $result = $this->WebsiteConfig->find('first', $conditions);
-            
             if(!empty($result)){
                 $db = $this->WebsiteConfig->getDataSource();
-                $data['config_json_pre'] = $db->value($config_json, 'string');
+                $data['config_json_pre'] = $db->value($config_json_pre, 'string');
                 $this->WebsiteConfig->updateAll($data, array('id' => $result['WebsiteConfig']['id']));
             }else{
                 $data = array('config_json_pre'=>$config_json,'site_id'=>$this->site_id);
