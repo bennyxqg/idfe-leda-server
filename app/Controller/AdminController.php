@@ -36,15 +36,14 @@ class AdminController extends Controller{
             if(isset($this->params['site_id'])){
                 $this->site_id = $this->params['site_id'];
             }
+            $this->server_info = $this->Website->get_website_info($this->site_id);
+            if(!$this->server_info){
+                $redirect_url = FULL_BASE_URL."/404.html";
+                $this->redirect($redirect_url);
+            }
+            $this->directory_name = $this->server_info['directory_name'];
+            $this->template_dir = THEMES_DIR.DS.$this->directory_name;
         }
-        $this->server_info = $this->Website->get_website_info_by_name(str_replace('https','http',FULL_BASE_URL));
-        if(!$this->server_info){
-            $redirect_url = FULL_BASE_URL."/404.html";
-            $this->redirect($redirect_url);
-        }
-        $this->directory_name = $this->server_info['directory_name'];
-        $this->site_id = $this->server_info['id'];
-        $this->template_dir = THEMES_DIR.DS.$this->directory_name;
     }
 
     protected function echoJson($msg, $code = 0, $data = array()){
