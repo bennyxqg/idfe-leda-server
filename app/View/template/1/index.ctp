@@ -34,14 +34,33 @@
 
     <script>
         $(function() {
-            console.log(1232321, $('.swiper-imgNews'))
             $('.swiper-imgNews').each(function(index) {
-                console.log(index)
+                console.log($(this).attr('data-json'))
+                var configData = $(this).attr('data-json')
+                if(configData) {
+                    configData = JSON.parse(configData)
+                } else {
+                    configData = {
+                        autoPlay: true,
+                        delay: 3000,
+                        nav: {type: "1", color: "#ffffff"}
+                    }
+                }
+                if(configData.nav.type == '1') {
+                    configData.nav.className = 'line-dots'
+                } else {
+                    configData.nav.className = 'circle-dots'
+                }
                 var mySwiper = new Swiper(this, {
                     loop: true, // 循环模式选项
+                    autoplay:  configData.autoPlay,
+                    delay:  configData.delay,
                     // 如果需要分页器
                     pagination: {
                         el: '.swiper-pagination',
+                        renderBullet: function (index, className) {
+                            return '<span class="' + className + " " + configData.nav.className + '" style="background-color:'+ configData.nav.color +'"></span>';
+                        },
                     },
                 })
             })
@@ -52,7 +71,6 @@
                     $(this).siblings('li').removeClass('active')
                     $(this).addClass('active')
                     var index = $(this).index()
-                    console.log('-----index-------', index, $wrapper)
                     $wrapper.find('.imgNews-news-list ul').removeClass('show')
                     $wrapper.find('.imgNews-news-list ul').eq(index).addClass('show')
                 })
