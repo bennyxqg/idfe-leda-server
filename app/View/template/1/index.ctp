@@ -19,13 +19,15 @@
 <body>
     <div class="pcreserve">
         <div class="warp warp02">
-            <?php
-                $module_list = $config_json['moduleList'];
-                foreach($module_list as $module){
-                    $type = $module['type'];
-                    require $type.'.ctp';
-                }
-            ?>
+            <div class='module-list-wrap'>
+                <?php
+                    $module_list = $config_json['moduleList'];
+                    foreach($module_list as $module){
+                        $type = $module['type'];
+                        require $type.'.ctp';
+                    }
+                ?>
+            </div>
         </div>
     </div>
 
@@ -61,6 +63,7 @@
                         renderBullet: function (index, className) {
                             return '<span class="' + className + " " + configData.nav.className + '" style="background-color:'+ configData.nav.color +'"></span>';
                         },
+                        clickable: true,
                     },
                 })
             })
