@@ -44,7 +44,7 @@ $styleData = $module['data']['style'];
                         foreach ($newsArr as $news) :
                         ?>
                             <li>
-                                <span class="imgNews-news-list-text" style="color: <?php echo $styleData['news']['list']['fontColor'] ?>;fontSize: <?php echo $styleData['news']['list']['fontSize'] ?>px; fontWeight: <?php echo $styleData['news']['list']['isBold'] ? 'bold' : 'normal' ?>;letterSpacing: <?php echo $styleData['news']['list']['letterSpacing'] ?>px;">
+                                <span class="imgNews-news-list-text" style="color: <?php echo $styleData['news']['list']['fontColor'] ?>;font-size: <?php echo $styleData['news']['list']['fontSize'] ?>px; font-weight: <?php echo $styleData['news']['list']['isBold'] ? 'bold' : 'normal' ?>;letter-spacing: <?php echo $styleData['news']['list']['letterSpacing'] ?>px;">
                                     <?php echo $news['title'] ?>
                                 </span>
                                 <span class="imgNews-news-list-time">
