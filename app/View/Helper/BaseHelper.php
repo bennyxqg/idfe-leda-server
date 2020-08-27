@@ -476,9 +476,9 @@ class BaseHelper extends Helper
     public function showImgs($siteId, $groupId){
         App::uses("PicInfo", "Model");
         $PcInfo = new PicInfo();
-        $conditions['conditions'] = array('site_id' => $siteId, 'status'=>1, "group_id like '%".$groupId."%'");
+        $conditions['conditions'] = array('site_id' => $siteId, 'status'=>1, "FIND_IN_SET('".$groupId."',group_id)");
         $conditions['order'] = array('created desc');
-        $result = $PcInfo->find('all', $conditions);;
+        $result = $PcInfo->find('all', $conditions);
         $ret = array();
         if(!empty($result)){
             foreach($result as $val){
