@@ -47,7 +47,7 @@ $styleData = $module['data']['style'];
                                 <span class="imgNews-news-list-text" style="color: <?php echo $styleData['news']['list']['fontColor'] ?>;font-size: <?php echo $styleData['news']['list']['fontSize'] ?>px; font-weight: <?php echo $styleData['news']['list']['isBold'] ? 'bold' : 'normal' ?>;letter-spacing: <?php echo $styleData['news']['list']['letterSpacing'] ?>px;">
                                     <?php echo $news['title'] ?>
                                 </span>
-                                <span class="imgNews-news-list-time">
+                                <span class="imgNews-news-list-time" style="font-size: <?php echo $styleData['news']['list']['fontSize'] ?>px;">
                                     <?php echo date('m-d', $news['created']); ?>
                                 </span>
                             </li>
