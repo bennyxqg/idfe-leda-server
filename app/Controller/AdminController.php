@@ -42,6 +42,7 @@ class AdminController extends Controller{
                 $this->redirect($redirect_url);
             }
             $this->directory_name = $this->server_info[0]['directory_name'];
+            $this->domain_name = $this->server_info[0]['domain_name'];
             $this->template_dir = THEMES_DIR.DS.$this->directory_name;
         }
     }
@@ -1527,7 +1528,20 @@ class AdminController extends Controller{
             unlink($this->template_dir.DS.$name.'.ctp');
         }
         $res = file_put_contents($this->template_dir.DS.$name.'.ctp', $content);
-    }  
+    }
+
+    public function website_address(){
+        try{
+            $data = array(
+                'index'=> $this->domain_name,
+                'index_pre'=> $this->domain_name.'/index_pre'
+            );
+            $this->echoJson('success', 0, $data);
+        }catch(Exception $e){
+            var_dump($e->getMessage());
+            $this->echoJson('server error',-1000);
+        }   
+    }
 
 }
 

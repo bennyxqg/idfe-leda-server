@@ -36,6 +36,7 @@
 
    
     Router::connect('/', array('controller' => 'Index', 'action' => 'index'));
+    Router::connect('/index_pre', array('controller' => 'Index', 'action' => 'index_pre'));
 
 
     //Router::connect('/jnh_news', array('controller' => 'Online', 'action' => 'jnh_news'));

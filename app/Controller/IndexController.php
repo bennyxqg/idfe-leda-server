@@ -30,7 +30,8 @@ class IndexController extends Controller{
         $return_data['msg']         = $msg;
         $return_data['error_code']  = $code;
         $return_data['data']        = $data;
-        
+      
+
         $ret = json_encode($return_data);
         echo $ret;
         exit();
@@ -47,7 +48,7 @@ class IndexController extends Controller{
     }
 
     public function index_pre(){
-        $file_name = '/themes/'.$this->directory_name.'/index';
+        $file_name = '/themes/'.$this->directory_name.'.pre/index';
         $this->layout = false;
         $this->set('site_id',$this->site_id);
         $conditions['conditions'] = array('site_id' => $this->site_id);
