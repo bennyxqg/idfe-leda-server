@@ -1452,17 +1452,19 @@ class AdminController extends Controller{
             if(empty($config_json_pre)){
                 $this->echoJson('config_json_pre参数不能为空', -1);
             }
-            //检查是否有配置
-            $conditions['conditions'] = array('site_id' => $this->site_id);
-            $result = $this->WebsiteConfig->find('first', $conditions);
-            if(!empty($result)){
-                $db = $this->WebsiteConfig->getDataSource();
-                $data['config_json_pre'] = $db->value($config_json_pre, 'string');
-                $this->WebsiteConfig->updateAll($data, array('id' => $result['WebsiteConfig']['id']));
-            }else{
-                $data = array('config_json_pre'=>$config_json,'site_id'=>$this->site_id);
-                $this->WebsiteConfig->save($data);
+            $id=isset($this->params["id"])?$this->params["id"]:"";
+            if(empty($id)){
+                $this->echoJson('id参数不能为空', -2);
             }
+            //检查是否有配置
+            $conditions['conditions'] = array('id' => $id);
+            $result = $this->WebsiteConfig->find('first', $conditions);
+            if(empty($result)){
+                $this->echoJson('数据不存在', -3);
+            }
+            $db = $this->WebsiteConfig->getDataSource();
+            $data['config_json_pre'] = $db->value($config_json_pre, 'string');
+            $this->WebsiteConfig->updateAll($data, array('id' => $result['WebsiteConfig']['id']));
             //生成动态模板
             $this->genTemplatePre($config_json_pre);
             $this->echoJson('success', 0);
