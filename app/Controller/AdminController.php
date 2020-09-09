@@ -1569,5 +1569,39 @@ class AdminController extends Controller{
         }   
     }
 
+    public function website_page_list(){
+        try{
+            $conditions['conditions'] = array('site_id'=>$this->site_id, 'type'=>0);
+            $result = $this->WebsiteConfig->find('all', $conditions);
+            $ret = array();
+            if(!empty($result)){
+                foreach($result as $val){
+                    $ret[] = $val['WebsiteConfig'];
+                }
+            }
+            $this->echoJson('success', 0, $ret);
+        }catch(Exception $e){
+            $dataSource->rollback();
+            $this->echoJson('server error',-1000);
+        }   
+    }
+
+    public function website_popup_list(){
+        try{
+            $conditions['conditions'] = array('site_id'=>$this->site_id, 'type'=>1);
+            $result = $this->WebsiteConfig->find('all', $conditions);
+            $ret = array();
+            if(!empty($result)){
+                foreach($result as $val){
+                    $ret[] = $val['WebsiteConfig'];
+                }
+            }
+            $this->echoJson('success', 0, $ret);
+        }catch(Exception $e){
+            $dataSource->rollback();
+            $this->echoJson('server error',-1000);
+        }   
+    }
+
 }
 
