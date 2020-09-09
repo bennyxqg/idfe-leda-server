@@ -1464,7 +1464,7 @@ class AdminController extends Controller{
             }
             $db = $this->WebsiteConfig->getDataSource();
             $data['config_json_pre'] = $db->value($config_json_pre, 'string');
-            $this->WebsiteConfig->updateAll($data, array('id' => $result['WebsiteConfig']['id']));
+            $this->WebsiteConfig->updateAll($data, array('id' => $id));
             //生成动态模板
             $this->genTemplatePre($config_json_pre);
             $this->echoJson('success', 0);
