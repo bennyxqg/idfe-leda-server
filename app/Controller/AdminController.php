@@ -1474,9 +1474,13 @@ class AdminController extends Controller{
 
     public function website_config_get(){
         try{
-            $conditions['conditions'] = array('site_id' => $this->site_id);
+            $id=isset($this->params["id"])?$this->params["id"]:"";
+            if(empty($id)){
+                $this->echoJson('id参数不能为空', -1);
+            }
+            $conditions['conditions'] = array('id'=>$id);
             $result = $this->WebsiteConfig->find('first', $conditions);
-            $this->echoJson('success', 0, json_decode($result['WebsiteConfig']['config_json_pre'],1));
+            $this->echoJson('success', 0, $result['WebsiteConfig']);
         }catch(Exception $e){
             var_dump($e->getMessage());
             $this->echoJson('server error',-1000);
