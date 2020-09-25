@@ -1520,7 +1520,7 @@ class AdminController extends Controller{
         if(!is_dir($this->template_dir)){
             $flag = mkdir($this->template_dir,0777,true);
         }
-        $content = file_get_contents(TEMPLATE_DIR.DS.'1'.DS.'index.ctp');
+        $content = file_get_contents(TEMPLATE_DIR.DS.DS.'index.ctp');
         file_put_contents($this->template_dir.DS.'index.ctp', $content);
 
         $config = json_decode($config_json,1);
@@ -1531,7 +1531,7 @@ class AdminController extends Controller{
     }
 
     protected function genModule($name){
-        $content = file_get_contents(TEMPLATE_DIR.DS.'1'.DS.$name.'.ctp');
+        $content = file_get_contents(TEMPLATE_DIR.DS.DS.$name.'.ctp');
         if(file_exists($this->template_dir.DS.$name.'.ctp')){
             unlink($this->template_dir.DS.$name.'.ctp');
         }
@@ -1543,7 +1543,7 @@ class AdminController extends Controller{
         if(!is_dir($template_dir_pre)){
             $flag = mkdir($template_dir_pre,0777,true);
         }
-        $content = file_get_contents(TEMPLATE_DIR.DS.'1'.DS.'index.ctp');
+        $content = file_get_contents(TEMPLATE_DIR.DS.DS.'index.ctp');
         file_put_contents($template_dir_pre.DS.'index.ctp', $content);
 
         $config = json_decode($config_json,1);
@@ -1554,9 +1554,10 @@ class AdminController extends Controller{
     }
 
     protected function genModulePre($name){
-        $content = file_get_contents(TEMPLATE_DIR.DS.'1'.DS.$name.'.ctp');
+        $content = file_get_contents(TEMPLATE_DIR.DS.DS.$name.'.ctp');
         $template_dir_pre = $this->template_dir.'.pre';  
         if(file_exists($template_dir_pre.DS.$name.'.ctp')){
+            unlink($template_dir_pre.DS.$name.'.ctp');
             unlink($template_dir_pre.DS.$name.'.ctp');
         }
         $res = file_put_contents($template_dir_pre.DS.$name.'.ctp', $content);
