@@ -1,15 +1,32 @@
-/** 模块--图文信息 **/
-.imgNews-wrap {
-  width: 970px;
-  margin: auto;
-  height: 300px;
-  background-color: white;
-  text-align: center;
-  border: 1px solid #e8e8e8;
+.module-item-wrap {
+  min-width: 1200px;
 }
 
-.imgNews-wrap .imgNews-wrap-inner{
+/** 中心点 **/
+.center-dot {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 1px;
+}
+
+/** 模块--图文信息 **/
+.imgNews-wrap {
+
+}
+.imgNews-wrap .imgNews-wrap-inner {
+  position: relative;
+}
+
+.imgNews-wrap .imgNews-wrap-item{
+  margin: auto;
+  width: 970px;
+  height: 300px;
+  border: 1px solid #e8e8e8;
   display: flex;
+  background-color: white;
+  text-align: center;
 }
 
 .imgNews-wrap .imgNews-wrap-inner .imgNews-wrap-inner-carousel{
@@ -116,4 +133,304 @@
 
 .imgNews-news-list ul li .imgNews-news-list-time{
   color: #999999;
+}
+
+/** 空白模块 **/
+.blankSection-wrap .blankSection-wrap-item {
+  position: relative;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/** 导航模块 **/
+.navSection-wrap {
+  position: relative;
+  top: 0;
+  width: 100%;
+  z-index: 10;
+  box-shadow: 0px 2px 6px -2px #A8A8A8;
+}
+
+.navSection-wrap .navSection-wrap-inner{
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.navSection-wrap .navSection-wrap-item{
+  width: 1200px;
+  margin: auto;
+  display: flex;
+}
+
+.navSection-wrap .navSection-wrap-item.navSection-full-screen{
+  width: 100%;
+  padding: 0 38px;
+}
+
+.navSection-wrap .navSection-wrap-item .navSection-navbar-left{
+  display: flex;
+  align-items: center;
+}
+
+.navSection-wrap .navSection-wrap-item .navSection-navbar-left img{
+  max-width: 172px;
+  max-height: 60px;
+}
+
+.navSection-wrap .navSection-wrap-item .navSection-navbar-right{
+  flex: 1;
+}
+
+.navSection-wrap .navSection-wrap-item .navSection-navbar-right ul{
+  display: inline-block;
+}
+
+.navSection-wrap .navSection-wrap-item .navSection-navbar-right ul li{
+  line-height: 58px;
+  margin-left: 56px;
+  float: left;
+}
+
+.navSection-wrap .navSection-wrap-item .navSection-navbar-right ul li span.nav-menu-item{
+  cursor: pointer;
+  position: relative;
+}
+
+.navSection-wrap .navSection-wrap-item .navSection-navbar-right ul li span.nav-menu-item.active span.active-line {
+  display: block;
+  width: 80%;
+  height: 2px;
+  position: absolute;
+  left: 10%;
+  bottom: -10px;
+  background: #2469f2;
+  transition: .2s;
+}
+
+.navSection-wrap .navSection-navbar-right ul li span.nav-menu-item .nav-label.active{
+  display: none;
+}
+
+.navSection-wrap .navSection-navbar-right ul li span.nav-menu-item.active .nav-label{
+  display: none;
+}
+
+.navSection-wrap .navSection-navbar-right ul li span.nav-menu-item.active .nav-label.active{
+  display: inline;
+}
+
+/*** 轮播图 ***/
+.carouselSection-wrap .swiper-container-outer{
+  margin: auto;
+  position: relative;
+}
+.carouselSection-wrap .swiper-pagination .line-dots {
+  width: 20px;
+  height: 4px;
+  border-radius: 0;
+}
+.carouselSection-wrap .swiper-buttons .swiper-button{
+  position: absolute;
+  top: 50%;
+  width: 27px;
+  height: 44px;
+  cursor: pointer;
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.carouselSection-wrap .swiper-buttons .swiper-button:focus{
+  outline: 0; 
+}
+.carouselSection-wrap .swiper-buttons .swiper-button.swiper-button-bg{
+  width: 44px;
+  height: 70px;
+}
+.carouselSection-wrap .swiper-buttons .swiper-button-prev {
+  left: 0;
+}
+.carouselSection-wrap .swiper-buttons .swiper-button-next {
+  right: 0;
+}
+
+/*** 弹窗通用 ***/
+.popup-html-wrap {
+  background-color: rgb(248, 248, 248);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.popup-close-btn {
+  width: 84px;
+  height: 84px;
+  top: 0;
+  right: -84px;
+  position: absolute;
+  display: inline-block;
+  cursor: pointer;
+}
+
+#popup-wrapper .submit-button {
+  cursor: pointer;
+}
+
+
+/*** 预约弹窗 ***/
+.subscribePopup-wrap-item .subscribePopup-phone-select{
+  position: relative;
+  margin-bottom: 24px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.subscribePopup-wrap-item .subscribePopup-phone-select .subscribePopup-phone-select-item {
+  font-size: 24px;
+  font-weight: bold;
+  width: 100px;
+  height: 100px;
+  color: #999999;
+  display: inline-block;
+  position: relative;
+  line-height: 140px;
+  text-align: center;
+  margin-left: 35px;
+  margin-right: 35px;
+  cursor: pointer;
+}
+
+.subscribePopup-phone-select .subscribePopup-phone-select-item.active:after {
+  width: 90%;
+  height: 3px;
+  position: absolute;
+  left: 5%;
+  bottom: -4px;
+  content: "";
+  background: #3A90C2;
+  transition: .2s;
+}
+
+.subscribePopup-wrap-item .subscribePopup-input {
+  width: 614px;
+  height: 108px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.subscribePopup-wrap-item .subscribePopup-input .input-text{
+  width: 518px;
+  height: 60px;
+  font-size: 16px;
+  color: #757575;
+  position: relative;
+  outline: none;
+  top: 24px;
+  vertical-align: top;
+  left: 48px;
+  display: inline-block;
+  background: white;
+  border: 0;
+  padding-left: 10px;
+}
+
+.subscribePopup-wrap-item .subscribePopup-input .get-code-button{
+  color: #666666;
+  font-size: 16px;
+  width: 150px;
+  height: 60px;
+  background: #e1e1e1;
+  line-height: 60px;
+  display: inline-block;
+  position: absolute;
+  text-align: center;
+  right: 24px;
+  top: 24px;
+}
+
+.subscribePopup-wrap-item .subscribePopup-submit-button{
+  text-align: center;
+  margin-top: 24px;
+  cursor: pointer;
+}
+
+/*** 申请弹窗 ***/
+
+.popup-box-header {
+  height: 64px;
+  line-height: 64px;
+  border-bottom: 1px solid #E8EAEC;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333333;
+  padding-left: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 32px;
+}
+
+.popup-box-header .icon-close {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+}
+
+.applyPopup-wrap-inner {
+  padding: 32px;
+}
+
+.applyPopup-wrap-inner .form-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  color: #666666;
+}
+
+.applyPopup-wrap-inner .form-item input[type='text'] {
+  width: 360px;
+  height: 32px;
+  padding-left: 8px;
+  border-radius: 4px;
+  border: 1px solid #D0D0D0;
+  outline: none;
+}
+
+
+.applyPopup-wrap-inner .form-item .radio-group {
+  width: 360px;
+  text-align: left;
+  display: flex;
+}
+
+.applyPopup-wrap-inner .form-item .radio-group .radio-group-item {
+  margin-right: 20px;
+}
+
+.applyPopup-wrap-inner .form-item .radio-group input[type='radio'] {
+  margin-right: 10px;
+}
+
+.applyPopup-wrap-inner .form-item .label {
+  padding-top: 5px;
+}
+
+.applyPopup-wrap-inner .form-item .must {
+  color: #FF0606;
+  margin-right: 4px;
+}
+
+.applyPopup-wrap-inner .wrong-input input {
+  border: 1px solid #FF0606 !important;
+}
+
+.applyPopup-wrap-inner .form-item .err-tips {
+  visibility: hidden;
+  color: #FF0606;
+  font-size: 12px;
+  height: 14px;
+}
+
+.applyPopup-wrap-inner .form-item .err-tips.show {
+  visibility: visible;
+  color: #FF0606;
+  font-size: 12px;
+  height: 14px;
 }
