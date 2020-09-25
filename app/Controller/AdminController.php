@@ -1587,7 +1587,6 @@ class AdminController extends Controller{
             }
             $this->echoJson('success', 0, $ret);
         }catch(Exception $e){
-            $dataSource->rollback();
             $this->echoJson('server error',-1000);
         }   
     }
@@ -1604,7 +1603,6 @@ class AdminController extends Controller{
             }
             $this->echoJson('success', 0, $ret);
         }catch(Exception $e){
-            $dataSource->rollback();
             $this->echoJson('server error',-1000);
         }   
     }
