@@ -1,0 +1,27 @@
+<div class='subscribePopup-wrap-inner'>
+  <div class='subscribePopup-wrap-item popup-wrap-item'
+      style='height:{{style.height}}px;width:{{style.width}}px;'
+  >
+      <div class='subscribePopup-phone-select'>
+          {{each platForm as value i}}
+              <div class='subscribePopup-{{value}}-select subscribePopup-phone-select-item 
+              {{if(i == 0)}}
+                  active
+              {{/if}}
+              '>
+                  <span>{{value}}</span>
+              </div>
+          {{/each}}
+      </div>
+      <div class='form-item subscribePopup-phone-input subscribePopup-input'>
+          <input class="input-text" placeholder="请输入手机号码" />
+      </div>
+      <div class='form-item subscribePopup-code-input subscribePopup-input'>
+          <input class="input-text" placeholder="请输入验证码" />
+            <div class="get-code-button">获取验证码</div>
+      </div>
+      <div class='submit-button subscribePopup-submit-button'>
+          <img src='{{submitBtn.imgUrl}}' alt='' />
+      </div>
+  </div>
+</div>
