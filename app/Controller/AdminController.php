@@ -6,7 +6,7 @@ class AdminController extends Controller{
     public $components = array("Redis");
     public $uses = array('Users','Website','Block','News','NewsCategory','NewsComment','BlogMessage','BlogUsersMessage','PicGroup','PicInfo','VideoInfo','WebsiteConfig');
     private $params;
-    private $loginFilter = array('login');
+    private $loginFilter = array('login','test');
     private $session;
     private $token;
     private $tokenInfo;
@@ -110,7 +110,6 @@ class AdminController extends Controller{
             }
             $this->echoJson('success', 0, $ret);
         }catch(Exception $e){
-            $dataSource->rollback();
             $this->echoJson('server error',-1000);
         }   
     }
@@ -134,8 +133,7 @@ class AdminController extends Controller{
             if(!empty($result)){
                 $this->echoJson('字段重复', -4);
             }
-            $ret = $this->Block->save($data);
-            $this->echoJson('success', 0, $ret);
+            $this->echoJson('success', 0);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
         }   
@@ -209,7 +207,6 @@ class AdminController extends Controller{
             }
             $this->echoJson('success', 0, $name);
         }catch(Exception $e){
-            $dataSource->rollback();
             $this->echoJson('server error',-1000);
         }   
     }
@@ -1466,13 +1463,13 @@ class AdminController extends Controller{
             $data['config_json_pre'] = $db->value($config_json_pre, 'string');
             $this->WebsiteConfig->updateAll($data, array('id' => $id));
             //生成动态模板
-            $this->genTemplatePre($config_json_pre);
+            $this->copydir(TEMPLATE_DIR,$this->template_dir.'.pre');
             $this->echoJson('success', 0);
         }catch(Exception $e){
             var_dump($e->getMessage());
             $this->echoJson('server error',-1000);
         }   
-    } 
+    }
 
     public function website_config_get(){
         try{
@@ -1508,60 +1505,80 @@ class AdminController extends Controller{
                 $this->WebsiteConfig->save($data);
             }
             //生成动态模板
-            $this->genTemplate($config_json);
+            $this->copydir(TEMPLATE_DIR,$this->template_dir);
             $this->echoJson('success', 0);
         }catch(Exception $e){
             var_dump($e->getMessage());
             $this->echoJson('server error',-1000);
         }   
-    } 
+    }
 
-    protected function genTemplate($config_json){
-        if(!is_dir($this->template_dir)){
-            $flag = mkdir($this->template_dir,0777,true);
+    protected function copydir($srcdir,$dstdir)
+    {
+        if (!file_exists($dstdir)) {
+            mkdir($dstdir);
         }
-        $content = file_get_contents(TEMPLATE_DIR.DS.DS.'index.ctp');
-        file_put_contents($this->template_dir.DS.'index.ctp', $content);
+        $files = scandir($srcdir);
 
-        $config = json_decode($config_json,1);
-        $moduleList = $config['moduleList'];
-        foreach ($moduleList as $value) {
-            $this->genModule($value['type']);
+        foreach ($files as $file) {
+            if ($file != '.' && $file != '..') {
+                $srcf = $srcdir . '/' . $file;
+                $dstf = $dstdir . '/' . $file;
+                if (is_dir($srcf)) {
+                    $this->copydir($srcf, $dstf);
+                } else {
+                    copy($srcf, $dstf);
+                }
+            }
         }
     }
 
-    protected function genModule($name){
-        $content = file_get_contents(TEMPLATE_DIR.DS.DS.$name.'.ctp');
-        if(file_exists($this->template_dir.DS.$name.'.ctp')){
-            unlink($this->template_dir.DS.$name.'.ctp');
-        }
-        $res = file_put_contents($this->template_dir.DS.$name.'.ctp', $content);
-    }
-
-    protected function genTemplatePre($config_json){
-        $template_dir_pre = $this->template_dir.'.pre';  
-        if(!is_dir($template_dir_pre)){
-            $flag = mkdir($template_dir_pre,0777,true);
-        }
-        $content = file_get_contents(TEMPLATE_DIR.DS.DS.'index.ctp');
-        file_put_contents($template_dir_pre.DS.'index.ctp', $content);
-
-        $config = json_decode($config_json,1);
-        $moduleList = $config['moduleList'];
-        foreach ($moduleList as $value) {
-            $this->genModulePre($value['type']);
-        }
-    }
-
-    protected function genModulePre($name){
-        $content = file_get_contents(TEMPLATE_DIR.DS.DS.$name.'.ctp');
-        $template_dir_pre = $this->template_dir.'.pre';  
-        if(file_exists($template_dir_pre.DS.$name.'.ctp')){
-            unlink($template_dir_pre.DS.$name.'.ctp');
-            unlink($template_dir_pre.DS.$name.'.ctp');
-        }
-        $res = file_put_contents($template_dir_pre.DS.$name.'.ctp', $content);
-    }
+//    protected function genTemplate($config_json){
+//        if(!is_dir($this->template_dir)){
+//            $flag = mkdir($this->template_dir,0777,true);
+//        }
+//        $content = file_get_contents(TEMPLATE_DIR.DS.DS.'index.ctp');
+//        file_put_contents($this->template_dir.DS.'index.ctp', $content);
+//
+//        $config = json_decode($config_json,1);
+//        $moduleList = $config['moduleList'];
+//        foreach ($moduleList as $value) {
+//            $this->genModule($value['type']);
+//        }
+//    }
+//
+//    protected function genModule($name){
+//        $content = file_get_contents(TEMPLATE_DIR.DS.DS.$name.'.ctp');
+//        if(file_exists($this->template_dir.DS.$name.'.ctp')){
+//            unlink($this->template_dir.DS.$name.'.ctp');
+//        }
+//        $res = file_put_contents($this->template_dir.DS.$name.'.ctp', $content);
+//    }
+//
+//    protected function genTemplatePre($config_json){
+//        $template_dir_pre = $this->template_dir.'.pre';
+//        if(!is_dir($template_dir_pre)){
+//            $flag = mkdir($template_dir_pre,0777,true);
+//        }
+//        $content = file_get_contents(TEMPLATE_DIR.DS.DS.'index.ctp');
+//        file_put_contents($template_dir_pre.DS.'index.ctp', $content);
+//
+//        $config = json_decode($config_json,1);
+//        $moduleList = $config['moduleList'];
+//        foreach ($moduleList as $value) {
+//            $this->genModulePre($value['type']);
+//        }
+//    }
+//
+//    protected function genModulePre($name){
+//        $content = file_get_contents(TEMPLATE_DIR.DS.DS.$name.'.ctp');
+//        $template_dir_pre = $this->template_dir.'.pre';
+//        if(file_exists($template_dir_pre.DS.$name.'.ctp')){
+//            unlink($template_dir_pre.DS.$name.'.ctp');
+//            unlink($template_dir_pre.DS.$name.'.ctp');
+//        }
+//        $res = file_put_contents($template_dir_pre.DS.$name.'.ctp', $content);
+//    }
 
     public function website_address(){
         try{
