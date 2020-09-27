@@ -1274,7 +1274,7 @@ class AdminController extends Controller{
                 array('site_id'=>$site_id,'type'=>0,'identifer'=>'application','name'=>'申请弹窗','desc'=>'申请弹窗','created'=>time()),
             );
             foreach ($webConfig as $config){
-                $this->$webConfig->save($config);
+                $this->webSiteConfig->save($config);
             }
             $this->echoJson('success', 0);
         }catch(Exception $e){
