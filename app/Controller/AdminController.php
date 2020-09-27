@@ -498,6 +498,9 @@ class AdminController extends Controller{
         try{
             $ret = array();
             $conditions['conditions'] = array();
+            if(isset($this->params['site_id'])){
+                $conditions['conditions']['site_id'] = $this->params['site_id'];
+            }
             if(isset($this->params['start_time']) && isset($this->params['end_time'])){
                 $conditions['conditions']['created >= '] = $this->params['start_time'];
                 $conditions['conditions']['created <= '] = $this->params['end_time'];
@@ -664,6 +667,9 @@ class AdminController extends Controller{
         try{
             $ret = array();
             $conditions['conditions'] = array();
+            if(isset($this->params['site_id'])){
+                $conditions['conditions']['site_id'] = $this->params['site_id'];
+            }
             if(isset($this->params['start_time']) && isset($this->params['end_time'])){
                 $conditions['conditions']['created >= '] = $this->params['start_time'];
                 $conditions['conditions']['created <= '] = $this->params['end_time'];

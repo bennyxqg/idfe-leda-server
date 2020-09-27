@@ -531,6 +531,31 @@ class BaseHelper extends Helper
         }
         return $ret;
     }
+
+    public function getSiteInfo($siteId){
+        App::uses("Website", "Model");
+        $Website = new Website();
+        $conditions['conditions'] = array('id' => $siteId);
+        $result = $Website->find('first', $conditions);
+        if($result){
+            return $result['Website'];
+        }
+        return array();
+    }
+
+    public function getPopupInfo($siteId){
+        App::uses("WebsiteConfig", "Model");
+        $WebsiteConfig = new WebsiteConfig();
+        $conditions['conditions'] = array('site_id' => $siteId);
+        $result = $WebsiteConfig->find('all', $conditions);;
+        $ret = array();
+        if(!empty($result)){
+            foreach($result as $val){
+                $ret[] = $val['WebsiteConfig'];
+            }
+        }
+        return $ret;
+    }
 }
 
 
