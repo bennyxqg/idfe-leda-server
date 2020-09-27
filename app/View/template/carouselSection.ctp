@@ -30,24 +30,27 @@ $wrap_outer_width = '';
 $wrap_outer_width_style = '';
 if($styleData['img']['width']) {
   $wrap_width = $styleData['img']['width'];
-  if($styleData['swiper']['type'] == 2) {
+  if($styleData['type'] == 2) {
     $wrap_width = $styleData['img']['width'] * 1.53;
   }
   $wrap_width_style = 'width: ' . $wrap_width . 'px;';
   if($styleData['swiper']['navBtn']) {
     if($styleData['swiper']['navBtn']['show']) {
       $wrap_outer_width = $wrap_width;
-      if($styleData['swiper']['type'] == 2) {
+      if($styleData['type'] == 2) {
         $wrap_outer_width = $wrap_width + 200;
       }
       $wrap_outer_width_style = 'width: ' . $wrap_outer_width . 'px;';
     }
   }
 }
-
+$imgs = $this->Base->showImgs($site_id, $module['data']['imgs']['groupId'])
 
 ?>
 <div class='module-item-wrap' id='section_<?php echo $module['sectionId'] ?>'>
+  <?php
+    if($imgs && count($imgs) > 0) {
+  ?>
   <div class='<?php echo $sectionName ?>-wrap'>
     <div class='<?php echo $sectionName ?>-wrap-inner <?php echo $sectionName ?>-wrap-inner-<?php echo $module['sectionId'] ?>'>
       <div class='<?php echo $sectionName ?>-wrap-item' style='<?php echo $bg_styleStr ?><?php echo $wrap_styleStr ?>'>
@@ -63,8 +66,7 @@ if($styleData['img']['width']) {
               <div class="swiper-wrapper" 
                 style="<?php echo $el_img_styleStr ?>" >
                 <?php
-                $imgs = $this->Base->showImgs($site_id, $module['data']['imgs']['groupId']);
-                foreach ($imgs as $img) :
+                  foreach ($imgs as $img) :
                 ?>
                   <div class="swiper-slide" style="<?php echo $el_img_styleStr ?>">
                     <img src='<?php echo $img['url'] ?>' style="<?php echo $el_img_styleStr ?>" />
@@ -97,4 +99,7 @@ if($styleData['img']['width']) {
       </div>
     </div>
   </div>
+  <?php
+    }
+  ?>
 </div>
