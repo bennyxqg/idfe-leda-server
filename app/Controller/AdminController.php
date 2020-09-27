@@ -1265,6 +1265,17 @@ class AdminController extends Controller{
                 'status'=>$status
             );
             $ret = $this->Website->save($data);
+            $site_id = $ret['Website']['id'];
+            //增加模板官网默认数据
+            $webConfig = array(
+                array('site_id'=>$site_id,'type'=>0,'identifer'=>'index','name'=>'首页','desc'=>'首页','created'=>time()),
+                array('site_id'=>$site_id,'type'=>0,'identifer'=>'news_detail','name'=>'新闻详情页','desc'=>'新闻详情页','created'=>time()),
+                array('site_id'=>$site_id,'type'=>1,'identifer'=>'yuyue','name'=>'预约弹窗','desc'=>'预约弹窗','created'=>time()),
+                array('site_id'=>$site_id,'type'=>0,'identifer'=>'application','name'=>'申请弹窗','desc'=>'申请弹窗','created'=>time()),
+            );
+            foreach ($webConfig as $config){
+                $this->$webConfig->save($config);
+            }
             $this->echoJson('success', 0);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
