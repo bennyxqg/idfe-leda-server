@@ -1203,7 +1203,7 @@ class AdminController extends Controller{
     public function website_list(){
         try{
             $ret = array();
-            $conditions['conditions'] = array('status'=>1);
+            $conditions['conditions'] = array('status'=>array(0,1));
             $conditions['fields'] = array('id','name','domain_name','directory_name','status');
             $count = $this->Website->find('count', $conditions);
             $page=isset($this->params["page"])?$this->params["page"]:"1";
@@ -1212,7 +1212,7 @@ class AdminController extends Controller{
             $ret['total_page'] = ceil($count/$limit);
             $ret['per_page'] = $limit;
             $ret['page'] = $page;
-            $conditions2['conditions'] = array('status'=>1);
+            $conditions2['conditions'] = array('status'=>array(0,1));
             $conditions2['offset'] = $offset;
             $conditions2['limit'] = $limit;
             $conditions2['fields'] = array('id','name','domain_name','directory_name','status');
