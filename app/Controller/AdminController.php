@@ -6,17 +6,17 @@ class AdminController extends Controller{
     public $components = array("Redis");
     public $uses = array('Users','Website','Block','News','NewsCategory','NewsComment','BlogMessage','BlogUsersMessage','PicGroup','PicInfo','VideoInfo','WebsiteConfig');
     private $params;
-    private $loginFilter = array('login');
+    private $loginFilter = array('login','test');
     private $session;
     private $token;
     private $tokenInfo;
     private $site_id;
-   
+
     public function beforefilter(){
         // 允许所有跨域请求
         header("Access-Control-Allow-Origin: *");
         header("Access-Control-Allow-Headers:X-Requested-With");
-        header('Access-Control-Allow-Headers:x-requested-with,content-type');  
+        header('Access-Control-Allow-Headers:x-requested-with,content-type');
         header("Access-Control-Allow-Methods:PUT,POST,GET,DELETE,OPTIONS"); //请求方式
         //参数
         $this->params = array_merge((array)$this->request->query, (array)$this->request->data);
@@ -51,7 +51,7 @@ class AdminController extends Controller{
         $return_data['msg']         = $msg;
         $return_data['error_code']  = $code;
         $return_data['data']        = $data;
-        
+
         $ret = json_encode($return_data);
         echo $ret;
         exit();
@@ -85,7 +85,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0, $ret);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function login_out(){
@@ -94,7 +94,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0, $res);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function basic_config_list(){
@@ -110,9 +110,8 @@ class AdminController extends Controller{
             }
             $this->echoJson('success', 0, $ret);
         }catch(Exception $e){
-            $dataSource->rollback();
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function basic_config_add(){
@@ -134,11 +133,10 @@ class AdminController extends Controller{
             if(!empty($result)){
                 $this->echoJson('字段重复', -4);
             }
-            $ret = $this->Block->save($data);
-            $this->echoJson('success', 0, $ret);
+            $this->echoJson('success', 0);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function basic_config_edit(){
@@ -176,7 +174,7 @@ class AdminController extends Controller{
         }catch(Exception $e){
             var_dump($e->getMessage());
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function basic_config_del(){
@@ -194,7 +192,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function news_category_list(){
@@ -209,9 +207,8 @@ class AdminController extends Controller{
             }
             $this->echoJson('success', 0, $name);
         }catch(Exception $e){
-            $dataSource->rollback();
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function news_category_add(){
@@ -228,7 +225,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function news_category_edit(){
@@ -254,7 +251,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function news_category_del(){
@@ -272,7 +269,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function news_list_all(){
@@ -290,7 +287,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0, $ret);
         }catch(Exception $e){
             $this->echoJson('server error',-10001);
-        }   
+        }
     }
 
     public function news_list(){
@@ -328,7 +325,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0, $ret);
         }catch(Exception $e){
             $this->echoJson('server error',-10001);
-        }   
+        }
     }
 
     public function news_detail(){
@@ -349,11 +346,11 @@ class AdminController extends Controller{
             foreach($result2 as $category){
                 $name[$category['NewsCategory']['id']] = $category['NewsCategory']['name'];
             }
-            $result['News']['category_name'] = $name[$result['News']['news_categories_id']];     
+            $result['News']['category_name'] = $name[$result['News']['news_categories_id']];
             $this->echoJson('success', 0, $result['News']);
         }catch(Exception $e){
             $this->echoJson('server error',-10001);
-        }   
+        }
     }
 
     public function news_add(){
@@ -395,7 +392,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function news_edit(){
@@ -447,7 +444,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function news_del(){
@@ -465,11 +462,11 @@ class AdminController extends Controller{
             $this->echoJson('success', 0);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function news_top(){
-       try{
+        try{
             $id=isset($this->params["id"])?$this->params["id"]:"";
             if(empty($id)){
                 $this->echoJson('id参数不能为空', -1);
@@ -494,11 +491,11 @@ class AdminController extends Controller{
             $this->echoJson('success', 0);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function news_comment_list(){
-       try{
+        try{
             $ret = array();
             $conditions['conditions'] = array();
             if(isset($this->params['start_time']) && isset($this->params['end_time'])){
@@ -564,11 +561,11 @@ class AdminController extends Controller{
             $this->echoJson('success', 0, $ret);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
-     public function news_comment_deal(){
-       try{
+    public function news_comment_deal(){
+        try{
             $id=isset($this->params["id"])?$this->params["id"]:"";
             if(empty($id)){
                 $this->echoJson('id参数不能为空', -1);
@@ -654,17 +651,17 @@ class AdminController extends Controller{
                 $commentData2['created'] = time();
                 $ret2 = $this->BlogUsersMessage->save($commentData2);
                 //给评论增加热度
-                $this->NewsComment->updateAll(array('hot'=>"hot+3"),array('id'=>$info["NewsComment"]["parent_id"]));   
-            }        
+                $this->NewsComment->updateAll(array('hot'=>"hot+3"),array('id'=>$info["NewsComment"]["parent_id"]));
+            }
             $this->echoJson('success', 0, $ret);
         }catch(Exception $e){
             var_dump($e->getMessage());
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function blog_message_list(){
-       try{
+        try{
             $ret = array();
             $conditions['conditions'] = array();
             if(isset($this->params['start_time']) && isset($this->params['end_time'])){
@@ -709,11 +706,11 @@ class AdminController extends Controller{
             $this->echoJson('success', 0, $ret);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
-     public function blog_message_deal(){
-       try{
+    public function blog_message_deal(){
+        try{
             $id=isset($this->params["id"])?$this->params["id"]:"";
             if(empty($id)){
                 $this->echoJson('id参数不能为空', -1);
@@ -744,7 +741,7 @@ class AdminController extends Controller{
                 if(isset($reply_info)){
                     $db = $this->BlogMessage->getDataSource();
                     $data['reply_info'] = $db->value($reply_info, 'string');
-                }   
+                }
             }
             $conditions['conditions'] = array('id'=>$id);
             $info = $this->BlogMessage->find('first', $conditions);
@@ -761,12 +758,12 @@ class AdminController extends Controller{
                     'message'=>$info['BlogMessage']['message']
                 );
             }
-            
+
             $this->BlogUsersMessage->save($commentData);
             $this->echoJson('success', 0);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function uploadImg(){
@@ -793,7 +790,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0, $result['Website']);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function site_info_edit(){
@@ -815,7 +812,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0, $ret);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function pic_group_list(){
@@ -842,7 +839,7 @@ class AdminController extends Controller{
         }catch(Exception $e){
             $dataSource->rollback();
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function pic_group_add(){
@@ -856,7 +853,7 @@ class AdminController extends Controller{
                 $this->echoJson('identifer参数不能为空', -2);
             }
             $status=isset($this->params["status"])?$this->params["status"]:"0";
-        
+
             $conditions['conditions'] = array('identifer'=>$identifer);
             $result = $this->PicGroup->find('first', $conditions);
             if(!empty($result)){
@@ -877,7 +874,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function pic_group_edit(){
@@ -895,7 +892,7 @@ class AdminController extends Controller{
                 $this->echoJson('identifer参数不能为空', -2);
             }
             $status=isset($this->params["status"])?$this->params["status"]:"0";
-            
+
             $conditions['conditions'] = array('id'=>$id);
             $info = $this->PicGroup->find('first', $conditions);
             if(empty($info)){
@@ -921,7 +918,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function pic_group_del(){
@@ -939,7 +936,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function pic_info_list(){
@@ -959,7 +956,7 @@ class AdminController extends Controller{
             $conditions2['limit'] = $limit;
             $conditions2['fields'] = array('id','name','group_id','jump_url','url','status','desc');
             $conditions2['order'] = array('created desc');
-            $result = $this->PicInfo->find('all', $conditions2);         
+            $result = $this->PicInfo->find('all', $conditions2);
             if(!empty($result)){
                 foreach($result as $val){
                     $ret['list'][] = $val['PicInfo'];
@@ -968,7 +965,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0, $ret);
         }catch(Exception $e){
             $this->echoJson('server error',-10001);
-        }      
+        }
     }
 
     public function pic_info_add(){
@@ -988,13 +985,13 @@ class AdminController extends Controller{
             $url=isset($this->params["url"])?$this->params["url"]:"";
             if(empty($url)){
                 $this->echoJson('url参数不能为空', -1);
-            } 
+            }
             $desc=isset($this->params["desc"])?$this->params["desc"]:"";
             // if(empty($desc)){
             //     $this->echoJson('desc参数不能为空', -1);
-            // }     
+            // }
             // $status=isset($this->params["status"])?$this->params["status"]:"0";
-        
+
             $data = array(
                 'site_id'=>$this->site_id,
                 'name'=>$name,
@@ -1007,7 +1004,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0, $ret);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function pic_info_edit(){
@@ -1037,7 +1034,7 @@ class AdminController extends Controller{
             //     $this->echoJson('desc参数不能为空', -4);
             // }
             $status=isset($this->params["status"])?$this->params["status"]:"0";
-            
+
             $conditions['conditions'] = array('id'=>$id);
             $info = $this->PicInfo->find('first', $conditions);
             if(empty($info)){
@@ -1056,7 +1053,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function pic_info_del(){
@@ -1074,7 +1071,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function video_info_list(){
@@ -1094,7 +1091,7 @@ class AdminController extends Controller{
             $conditions2['limit'] = $limit;
             $conditions2['fields'] = array('id','name','url','status','cover','desc');
             $conditions2['order'] = array('created desc');
-            $result = $this->VideoInfo->find('all', $conditions2);         
+            $result = $this->VideoInfo->find('all', $conditions2);
             if(!empty($result)){
                 foreach($result as $val){
                     $ret['list'][] = $val['VideoInfo'];
@@ -1103,7 +1100,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0, $ret);
         }catch(Exception $e){
             $this->echoJson('server error',-10001);
-        }         
+        }
     }
 
     public function video_info_add(){
@@ -1125,7 +1122,7 @@ class AdminController extends Controller{
                 $this->echoJson('desc参数不能为空', -4);
             }
             // $status=isset($this->params["status"])?$this->params["status"]:"1";
-        
+
             $data = array(
                 'name'=>$name,
                 'cover'=>$cover,
@@ -1138,7 +1135,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0, $ret);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function video_info_edit(){
@@ -1160,7 +1157,7 @@ class AdminController extends Controller{
                 $this->echoJson('desc参数不能为空', -3);
             }
             // $status=isset($this->params["status"])?$this->params["status"]:"0";
-            
+
             $conditions['conditions'] = array('id'=>$id);
             $info = $this->VideoInfo->find('first', $conditions);
             if(empty($info)){
@@ -1177,7 +1174,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function video_info_del(){
@@ -1195,13 +1192,13 @@ class AdminController extends Controller{
             $this->echoJson('success', 0);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function website_list(){
         try{
             $ret = array();
-            $conditions['conditions'] = array();
+            $conditions['conditions'] = array('status'=>1);
             $conditions['fields'] = array('id','name','domain_name','directory_name','status');
             $count = $this->Website->find('count', $conditions);
             $page=isset($this->params["page"])?$this->params["page"]:"1";
@@ -1215,7 +1212,7 @@ class AdminController extends Controller{
             $conditions2['limit'] = $limit;
             $conditions2['fields'] = array('id','name','domain_name','directory_name','status');
             $conditions2['order'] = array('created desc');
-            $result = $this->Website->find('all', $conditions2);         
+            $result = $this->Website->find('all', $conditions2);
             if(!empty($result)){
                 foreach($result as $val){
                     $ret['list'][] = $val['Website'];
@@ -1224,7 +1221,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0, $ret);
         }catch(Exception $e){
             $this->echoJson('server error',-10001);
-        }      
+        }
     }
 
     public function website_list_all(){
@@ -1233,7 +1230,7 @@ class AdminController extends Controller{
             $conditions['conditions'] = array('status'=>1);
             $conditions['fields'] = array('id','name','domain_name','directory_name','status');
             $conditions['order'] = array('created desc');
-            $result = $this->Website->find('all', $conditions);         
+            $result = $this->Website->find('all', $conditions);
             if(!empty($result)){
                 foreach($result as $val){
                     $ret['list'][] = $val['Website'];
@@ -1242,7 +1239,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0, $ret);
         }catch(Exception $e){
             $this->echoJson('server error',-10001);
-        }      
+        }
     }
 
     public function website_add(){
@@ -1260,7 +1257,7 @@ class AdminController extends Controller{
                 $this->echoJson('directory_name参数不能为空', -3);
             }
             $status=isset($this->params["status"])?$this->params["status"]:"0";
-        
+
             $data = array(
                 'name'=>$name,
                 'domain_name'=>$domain_name,
@@ -1268,10 +1265,22 @@ class AdminController extends Controller{
                 'status'=>$status
             );
             $ret = $this->Website->save($data);
+            $site_id = $ret['Website']['id'];
+            //增加模板官网默认数据
+            $webConfig = array(
+                array('site_id'=>$site_id,'type'=>0,'identifer'=>'index','name'=>'首页','desc'=>'首页','created'=>time()),
+                array('site_id'=>$site_id,'type'=>0,'identifer'=>'news_detail','name'=>'新闻详情页','desc'=>'新闻详情页','created'=>time()),
+                array('site_id'=>$site_id,'type'=>1,'identifer'=>'yuyue','name'=>'预约弹窗','desc'=>'预约弹窗','created'=>time()),
+                array('site_id'=>$site_id,'type'=>1,'identifer'=>'application','name'=>'申请弹窗','desc'=>'申请弹窗','created'=>time()),
+            );
+            foreach ($webConfig as $config){
+                $this->WebsiteConfig->saveAll($config);
+            }
             $this->echoJson('success', 0);
         }catch(Exception $e){
+            var_dump($e->getTraceAsString());
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function website_edit(){
@@ -1293,7 +1302,7 @@ class AdminController extends Controller{
                 $this->echoJson('directory_name参数不能为空', -3);
             }
             $status=isset($this->params["status"])?$this->params["status"]:"0";
-            
+
             $conditions['conditions'] = array('id'=>$id);
             $info = $this->Website->find('first', $conditions);
             if(empty($info)){
@@ -1310,7 +1319,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function website_del(){
@@ -1328,7 +1337,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function user_list(){
@@ -1347,7 +1356,7 @@ class AdminController extends Controller{
             $conditions2['offset'] = $offset;
             $conditions2['limit'] = $limit;
             $conditions2['fields'] = array('id','name','site_id','status');
-            $result = $this->Users->find('all', $conditions2);         
+            $result = $this->Users->find('all', $conditions2);
             if(!empty($result)){
                 foreach($result as $val){
                     $ret['list'][] = $val['Users'];
@@ -1357,7 +1366,7 @@ class AdminController extends Controller{
         }catch(Exception $e){
             var_dump($e->getMessage());
             $this->echoJson('server error',-10001);
-        }      
+        }
     }
 
     public function user_add(){
@@ -1375,7 +1384,7 @@ class AdminController extends Controller{
                 $this->echoJson('site_id参数不能为空', -3);
             }
             $status=isset($this->params["status"])?$this->params["status"]:"0";
-        
+
             $data = array(
                 'name'=>$name,
                 'password'=>md5($password),
@@ -1386,7 +1395,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0, $ret);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function user_edit(){
@@ -1405,7 +1414,7 @@ class AdminController extends Controller{
                 $this->echoJson('site_id参数不能为空', -3);
             }
             $status=isset($this->params["status"])?$this->params["status"]:"0";
-            
+
             $conditions['conditions'] = array('id'=>$id);
             $info = $this->Users->find('first', $conditions);
             if(empty($info)){
@@ -1425,7 +1434,7 @@ class AdminController extends Controller{
         }catch(Exception $e){
             var_dump($e->getMessage());
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function user_del(){
@@ -1443,7 +1452,7 @@ class AdminController extends Controller{
             $this->echoJson('success', 0);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function website_config_save(){
@@ -1452,35 +1461,41 @@ class AdminController extends Controller{
             if(empty($config_json_pre)){
                 $this->echoJson('config_json_pre参数不能为空', -1);
             }
-            //检查是否有配置
-            $conditions['conditions'] = array('site_id' => $this->site_id);
-            $result = $this->WebsiteConfig->find('first', $conditions);
-            if(!empty($result)){
-                $db = $this->WebsiteConfig->getDataSource();
-                $data['config_json_pre'] = $db->value($config_json_pre, 'string');
-                $this->WebsiteConfig->updateAll($data, array('id' => $result['WebsiteConfig']['id']));
-            }else{
-                $data = array('config_json_pre'=>$config_json,'site_id'=>$this->site_id);
-                $this->WebsiteConfig->save($data);
+            $id=isset($this->params["id"])?$this->params["id"]:"";
+            if(empty($id)){
+                $this->echoJson('id参数不能为空', -2);
             }
+            //检查是否有配置
+            $conditions['conditions'] = array('id' => $id);
+            $result = $this->WebsiteConfig->find('first', $conditions);
+            if(empty($result)){
+                $this->echoJson('数据不存在', -3);
+            }
+            $db = $this->WebsiteConfig->getDataSource();
+            $data['config_json_pre'] = $db->value($config_json_pre, 'string');
+            $this->WebsiteConfig->updateAll($data, array('id' => $id));
             //生成动态模板
-            $this->genTemplatePre($config_json_pre);
+            $this->copydir(TEMPLATE_DIR,$this->template_dir.'.pre');
             $this->echoJson('success', 0);
         }catch(Exception $e){
             var_dump($e->getMessage());
             $this->echoJson('server error',-1000);
-        }   
-    } 
+        }
+    }
 
     public function website_config_get(){
         try{
-            $conditions['conditions'] = array('site_id' => $this->site_id);
+            $id=isset($this->params["id"])?$this->params["id"]:"";
+            if(empty($id)){
+                $this->echoJson('id参数不能为空', -1);
+            }
+            $conditions['conditions'] = array('id'=>$id);
             $result = $this->WebsiteConfig->find('first', $conditions);
-            $this->echoJson('success', 0, json_decode($result['WebsiteConfig']['config_json_pre'],1));
+            $this->echoJson('success', 0, $result['WebsiteConfig']);
         }catch(Exception $e){
             var_dump($e->getMessage());
             $this->echoJson('server error',-1000);
-        }   
+        }
     }
 
     public function website_config_publish(){
@@ -1489,72 +1504,92 @@ class AdminController extends Controller{
             if(empty($config_json)){
                 $this->echoJson('config_json参数不能为空', -1);
             }
+            $id=isset($this->params["id"])?$this->params["id"]:"";
+            if(empty($id)){
+                $this->echoJson('id参数不能为空', -2);
+            }
             //检查是否有配置
-            $conditions['conditions'] = array('site_id' => $this->site_id);
+            $conditions['conditions'] = array('id' => $id);
             $result = $this->WebsiteConfig->find('first', $conditions);
             //保存配置
-            if(!empty($result)){
-                $db = $this->WebsiteConfig->getDataSource();
-                $data['config_json'] = $db->value($config_json, 'string');
-                $this->WebsiteConfig->updateAll($data, array('id' => $result['WebsiteConfig']['id']));
-            }else{
-                $data = array('config_json'=>$config_json,'site_id'=>$this->site_id);
-                $this->WebsiteConfig->save($data);
-            }
+            $db = $this->WebsiteConfig->getDataSource();
+            $data['config_json'] = $db->value($config_json, 'string');
+            $this->WebsiteConfig->updateAll($data, array('id' => $result['WebsiteConfig']['id']));
             //生成动态模板
-            $this->genTemplate($config_json);
+            $this->copydir(TEMPLATE_DIR,$this->template_dir);
             $this->echoJson('success', 0);
         }catch(Exception $e){
             var_dump($e->getMessage());
             $this->echoJson('server error',-1000);
-        }   
-    } 
-
-    protected function genTemplate($config_json){
-        if(!is_dir($this->template_dir)){
-            $flag = mkdir($this->template_dir,0777,true);
-        }
-        $content = file_get_contents(TEMPLATE_DIR.DS.'1'.DS.'index.ctp');
-        file_put_contents($this->template_dir.DS.'index.ctp', $content);
-
-        $config = json_decode($config_json,1);
-        $moduleList = $config['moduleList'];
-        foreach ($moduleList as $value) {
-            $this->genModule($value['type']);
         }
     }
 
-    protected function genModule($name){
-        $content = file_get_contents(TEMPLATE_DIR.DS.'1'.DS.$name.'.ctp');
-        if(file_exists($this->template_dir.DS.$name.'.ctp')){
-            unlink($this->template_dir.DS.$name.'.ctp');
+    protected function copydir($srcdir,$dstdir)
+    {
+        if (!file_exists($dstdir)) {
+            mkdir($dstdir);
         }
-        $res = file_put_contents($this->template_dir.DS.$name.'.ctp', $content);
-    }
+        $files = scandir($srcdir);
 
-    protected function genTemplatePre($config_json){
-        $template_dir_pre = $this->template_dir.'.pre';  
-        if(!is_dir($template_dir_pre)){
-            $flag = mkdir($template_dir_pre,0777,true);
-        }
-        $content = file_get_contents(TEMPLATE_DIR.DS.'1'.DS.'index.ctp');
-        file_put_contents($template_dir_pre.DS.'index.ctp', $content);
-
-        $config = json_decode($config_json,1);
-        $moduleList = $config['moduleList'];
-        foreach ($moduleList as $value) {
-            $this->genModulePre($value['type']);
+        foreach ($files as $file) {
+            if ($file != '.' && $file != '..') {
+                $srcf = $srcdir . '/' . $file;
+                $dstf = $dstdir . '/' . $file;
+                if (is_dir($srcf)) {
+                    $this->copydir($srcf, $dstf);
+                } else {
+                    copy($srcf, $dstf);
+                }
+            }
         }
     }
 
-    protected function genModulePre($name){
-        $content = file_get_contents(TEMPLATE_DIR.DS.'1'.DS.$name.'.ctp');
-        $template_dir_pre = $this->template_dir.'.pre';  
-        if(file_exists($template_dir_pre.DS.$name.'.ctp')){
-            unlink($template_dir_pre.DS.$name.'.ctp');
-        }
-        $res = file_put_contents($template_dir_pre.DS.$name.'.ctp', $content);
-    }
+//    protected function genTemplate($config_json){
+//        if(!is_dir($this->template_dir)){
+//            $flag = mkdir($this->template_dir,0777,true);
+//        }
+//        $content = file_get_contents(TEMPLATE_DIR.DS.DS.'index.ctp');
+//        file_put_contents($this->template_dir.DS.'index.ctp', $content);
+//
+//        $config = json_decode($config_json,1);
+//        $moduleList = $config['moduleList'];
+//        foreach ($moduleList as $value) {
+//            $this->genModule($value['type']);
+//        }
+//    }
+//
+//    protected function genModule($name){
+//        $content = file_get_contents(TEMPLATE_DIR.DS.DS.$name.'.ctp');
+//        if(file_exists($this->template_dir.DS.$name.'.ctp')){
+//            unlink($this->template_dir.DS.$name.'.ctp');
+//        }
+//        $res = file_put_contents($this->template_dir.DS.$name.'.ctp', $content);
+//    }
+//
+//    protected function genTemplatePre($config_json){
+//        $template_dir_pre = $this->template_dir.'.pre';
+//        if(!is_dir($template_dir_pre)){
+//            $flag = mkdir($template_dir_pre,0777,true);
+//        }
+//        $content = file_get_contents(TEMPLATE_DIR.DS.DS.'index.ctp');
+//        file_put_contents($template_dir_pre.DS.'index.ctp', $content);
+//
+//        $config = json_decode($config_json,1);
+//        $moduleList = $config['moduleList'];
+//        foreach ($moduleList as $value) {
+//            $this->genModulePre($value['type']);
+//        }
+//    }
+//
+//    protected function genModulePre($name){
+//        $content = file_get_contents(TEMPLATE_DIR.DS.DS.$name.'.ctp');
+//        $template_dir_pre = $this->template_dir.'.pre';
+//        if(file_exists($template_dir_pre.DS.$name.'.ctp')){
+//            unlink($template_dir_pre.DS.$name.'.ctp');
+//            unlink($template_dir_pre.DS.$name.'.ctp');
+//        }
+//        $res = file_put_contents($template_dir_pre.DS.$name.'.ctp', $content);
+//    }
 
     public function website_address(){
         try{
@@ -1566,7 +1601,39 @@ class AdminController extends Controller{
         }catch(Exception $e){
             var_dump($e->getMessage());
             $this->echoJson('server error',-1000);
-        }   
+        }
+    }
+
+    public function website_page_list(){
+        try{
+            $conditions['conditions'] = array('site_id'=>$this->site_id, 'type'=>0);
+            $result = $this->WebsiteConfig->find('all', $conditions);
+            $ret = array();
+            if(!empty($result)){
+                foreach($result as $val){
+                    $ret[] = $val['WebsiteConfig'];
+                }
+            }
+            $this->echoJson('success', 0, $ret);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }
+    }
+
+    public function website_popup_list(){
+        try{
+            $conditions['conditions'] = array('site_id'=>$this->site_id, 'type'=>1);
+            $result = $this->WebsiteConfig->find('all', $conditions);
+            $ret = array();
+            if(!empty($result)){
+                foreach($result as $val){
+                    $ret[] = $val['WebsiteConfig'];
+                }
+            }
+            $this->echoJson('success', 0, $ret);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }
     }
 
 }

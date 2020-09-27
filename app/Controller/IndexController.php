@@ -56,5 +56,15 @@ class IndexController extends Controller{
         $this->set('config_json', json_decode($result['WebsiteConfig']['config_json_pre'],1));
         $this->render($file_name);
     }
+
+    public function news_detail(){
+        $file_name = '/themes/'.$this->directory_name.'/index';
+        $this->layout = false;
+        $this->set('site_id',$this->site_id);
+        $conditions['conditions'] = array('site_id' => $this->site_id,'identifer'=>'news_detail');
+        $result = $this->WebsiteConfig->find('first', $conditions);
+        $this->set('config_json', json_decode($result['WebsiteConfig']['config_json'],1));
+        $this->render($file_name);
+    }
 }
 
