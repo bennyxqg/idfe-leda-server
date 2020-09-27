@@ -57,7 +57,7 @@ class IndexController extends Controller{
         $this->render($file_name);
     }
 
-    public function news_datail(){
+    public function news_detail(){
         $file_name = '/themes/'.$this->directory_name.'/index';
         $this->layout = false;
         $this->set('site_id',$this->site_id);
