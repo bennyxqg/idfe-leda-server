@@ -546,7 +546,7 @@ class BaseHelper extends Helper
     public function getPopupInfo($siteId){
         App::uses("WebsiteConfig", "Model");
         $WebsiteConfig = new WebsiteConfig();
-        $conditions['conditions'] = array('site_id' => $siteId);
+        $conditions['conditions'] = array('site_id' => $siteId,'type'=>1);
         $result = $WebsiteConfig->find('all', $conditions);;
         $ret = array();
         if(!empty($result)){
