@@ -843,7 +843,6 @@ class AdminController extends Controller{
             }
             $this->echoJson('success', 0, $ret);
         }catch(Exception $e){
-            $dataSource->rollback();
             $this->echoJson('server error',-1000);
         }
     }
@@ -1213,7 +1212,7 @@ class AdminController extends Controller{
             $ret['total_page'] = ceil($count/$limit);
             $ret['per_page'] = $limit;
             $ret['page'] = $page;
-            $conditions2['conditions'] = array();
+            $conditions2['conditions'] = array('status'=>1);
             $conditions2['offset'] = $offset;
             $conditions2['limit'] = $limit;
             $conditions2['fields'] = array('id','name','domain_name','directory_name','status');

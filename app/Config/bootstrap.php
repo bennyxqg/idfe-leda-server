@@ -108,6 +108,13 @@ CakeLog::config('error', array(
 	'file' => 'error',
 ));
 
+// 20170816 redis 配置
+Configure::write("redis_config_default", array(
+	'host' => '192.168.4.124',
+	'port' => 6380,
+	'password' => 123456,
+	'timeout' => 300,
+));
 
 if(!function_exists('array_column')){
     function array_column($input, $columnKey, $indexKey = NULL) {
