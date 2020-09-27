@@ -1198,7 +1198,7 @@ class AdminController extends Controller{
     public function website_list(){
         try{
             $ret = array();
-            $conditions['conditions'] = array();
+            $conditions['conditions'] = array('status'=>1);
             $conditions['fields'] = array('id','name','domain_name','directory_name','status');
             $count = $this->Website->find('count', $conditions);
             $page=isset($this->params["page"])?$this->params["page"]:"1";
