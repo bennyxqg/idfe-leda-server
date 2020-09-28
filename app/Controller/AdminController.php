@@ -78,8 +78,8 @@ class AdminController extends Controller{
             if(empty($result)){
                 $this->echoJson('用户名或密码不匹配', -3);
             }
-            if($result['site_id']){
-                $siteArr = explode(',',$result['site_id']);
+            if($result['Users']['site_id']){
+                $siteArr = explode(',',$result['Users']['site_id']);
                 $newArr = array();
                 foreach ($siteArr as $siteId){
                     $conditions['conditions'] = array('id'=>$siteId,'status'=>array(0,1));
@@ -88,7 +88,7 @@ class AdminController extends Controller{
                         $newArr[] = $siteId;
                     }
                 }
-                $result['site_id'] = implode(',',$newArr);
+                $result['Users']['site_id'] = implode(',',$newArr);
             }
             $token = uniqid();
             $this->Redis->set($token,json_encode($result),3600);
