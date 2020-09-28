@@ -38,8 +38,7 @@ class AdminController extends Controller{
             }
             $this->server_info = $this->Website->get_website_info($this->site_id);
             if(!$this->server_info){
-                $redirect_url = FULL_BASE_URL."/404.html";
-                $this->redirect($redirect_url);
+                $this->echoJson('站点不存在', -9999);
             }
             $this->directory_name = $this->server_info[0]['directory_name'];
             $this->domain_name = $this->server_info[0]['domain_name'];
