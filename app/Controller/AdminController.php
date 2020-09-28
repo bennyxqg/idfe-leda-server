@@ -858,12 +858,12 @@ class AdminController extends Controller{
             }
             $status=isset($this->params["status"])?$this->params["status"]:"0";
 
-            $conditions['conditions'] = array('identifer'=>$identifer);
+            $conditions['conditions'] = array('site_id'=>$this->site_id, 'identifer'=>$identifer);
             $result = $this->PicGroup->find('first', $conditions);
             if(!empty($result)){
                 $this->echoJson('identifer字段重复', -3);
             }
-            $conditions2['conditions'] = array('name'=>$name);
+            $conditions2['conditions'] = array('site_id'=>$this->site_id, 'name'=>$name);
             $result2 = $this->PicGroup->find('first', $conditions2);
             if(!empty($result2)){
                 $this->echoJson('name字段重复', -4);
