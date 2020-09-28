@@ -1,6 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php 
+    $baseInfo = $this->Base->getSiteInfo($site_id);
+    $title = '网站标题';
+    $keywords = '';
+    $description = '';
+    $icon = '';
+    if($baseInfo) {
+        if($baseInfo['name']) {
+            $title = $baseInfo['name'];
+        }
+        if($baseInfo['keywords']) {
+            $keywords = $baseInfo['keywords'];
+        }
+        if($baseInfo['description']) {
+            $description = $baseInfo['description'];
+        }
+        if($baseInfo['icon']) {
+            $icon = $baseInfo['icon'];
+        }
+    }
+?>
+
 <head>
     <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
     <meta content="yes" name="apple-mobile-web-app-capable">
@@ -9,10 +31,10 @@
     <link rel="stylesheet" href="//dl.gamdream.com/activity/storm/mob100/js/swiper.min.css">
     <link rel="stylesheet" href="//<?php echo $_SERVER['HTTP_HOST']; ?>/static/css/style.css">
     <link rel="stylesheet" href="//<?php echo $_SERVER['HTTP_HOST']; ?>/static/css/index.css">
-    <link rel="shortcut icon" id="head-game-icon" href="">
-    <title>网站标题</title>
-    <meta name="keywords" content="弓箭手大冒险官方网站">
-    <meta name="description" content="2020年新款清新奇幻射箭创意游戏！！">
+    <link rel="icon" href="http:<?php echo($icon);?>" type="image/x-icon">
+    <title><?php echo($title);?></title>
+    <meta name="keywords" content="<?php echo($keywords);?>">
+    <meta name="description" content="<?php echo($description);?>">
 
 </head>
 
@@ -38,6 +60,15 @@
     <script src="//<?php echo $_SERVER['HTTP_HOST']; ?>/static/js/index.js"></script>
     <script>
         var hostDomain = "//<?php echo $_SERVER['HTTP_HOST']; ?>"
+        // var_dump($site_id);
+        var popupList = []
+        <?php 
+            $popupList = $this->Base->getPopupInfo($site_id);
+            if($popupList && count($popupList) > 0) {
+                echo 'popupList='.json_encode($popupList);
+            }
+        ?>
+        
     </script>
     <script>
         
