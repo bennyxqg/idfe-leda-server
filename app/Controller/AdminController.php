@@ -73,7 +73,7 @@ class AdminController extends Controller{
             if(empty($name)){
                 $this->echoJson('password参数不能为空', -2);
             }
-            $conditions['conditions'] = array('name' => $name, 'password' => md5($password));
+            $conditions['conditions'] = array('name' => $name, 'password' => md5($password),'status'=>1);
             $result = $this->Users->find('first', $conditions);
             if(empty($result)){
                 $this->echoJson('用户名或密码不匹配', -3);
