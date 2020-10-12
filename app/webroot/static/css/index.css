@@ -219,7 +219,11 @@
   display: inline;
 }
 
+
 /*** 轮播图 ***/
+.carouselSection-wrap .carouselSection-wrap-inner {
+  position: relative;
+}
 .carouselSection-wrap .swiper-container-outer{
   margin: auto;
   position: relative;
@@ -253,13 +257,98 @@
   right: 0;
 }
 
+/*** 元素--表单 ***/
+.el-form-wrap {
+  font-size: 14px;
+}
+
+.el-form-wrap .el-form-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  color: #666666;
+}
+.el-form-wrap .el-form-item .must {
+  color: #FF0606;
+  margin-right: 4px;
+}
+.el-form-wrap .el-form-item-widget {
+  width: 60%;
+}
+.el-form-wrap .el-form-item-widget .widget-item { 
+  width: 100%;
+}
+.el-form-wrap .el-form-item-widget .common-input {
+  height: 32px;
+  padding-left: 8px;
+  border-radius: 4px;
+  border: 1px solid #D0D0D0;
+  outline: none;
+}
+.el-form-wrap .el-form-item-widget .common-textarea {
+  border-radius: 4px;
+  border: 1px solid #D0D0D0;
+  outline: none;
+  font-size: 14px;
+  padding: 4px 8px 4px 8px;
+}
+.el-form-wrap .el-form-item-widget .select-wrap select {
+  height: 32px;
+  padding-left: 8px;
+  border-radius: 4px;
+  border: 1px solid #D0D0D0;
+  outline: none;
+}
+.el-form-wrap .el-form-item-widget .radio-group {
+  text-align: left;
+  display: flex;
+}
+.el-form-wrap .el-form-item-widget .radio-group .radio-group-item{
+  margin-right: 20px;
+}
+.el-form-wrap .el-form-item-widget .checkbox-group {
+  text-align: left;
+  display: flex;
+}
+.el-form-wrap .el-form-item-widget .checkbox-group .checkbox-group-item{
+  margin-right: 20px;
+}
+
+.el-form-wrap .wrong-input input {
+  border: 1px solid #FF0606 !important;
+}
+
+.el-form-wrap .wrong-input textarea {
+  border: 1px solid #FF0606 !important;
+}
+
+.el-form-wrap .wrong-input select {
+  border: 1px solid #FF0606 !important;
+}
+
+.el-form-wrap .el-form-item .err-tips {
+  visibility: hidden;
+  color: #FF0606;
+  font-size: 12px;
+  height: 14px;
+}
+
+.el-form-wrap .el-form-item .err-tips.show {
+  visibility: visible;
+  color: #FF0606;
+  font-size: 12px;
+  height: 14px;
+}
+
+
+
 /*** 弹窗通用 ***/
 .popup-html-wrap {
   background-color: rgb(248, 248, 248);
   background-repeat: no-repeat;
   background-position: center;
 }
-.popup-close-btn {
+.popup-outer-close-btn {
   width: 84px;
   height: 84px;
   top: 0;
@@ -268,8 +357,27 @@
   display: inline-block;
   cursor: pointer;
 }
+.popup-wrapper {
+  display: none;
+}
 
-#popup-wrapper .submit-button {
+.popup-wrapper .popup-box-header {
+  height: 64px;
+  line-height: 64px;
+  border-bottom: 1px solid #E8EAEC;
+  font-size: 16px;
+  font-weight: bold;
+  color: #333333;
+  padding-left: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-right: 32px;
+}
+
+.popup-wrapper .popup-box-header .icon-close {
+  width: 22px;
+  height: 22px;
   cursor: pointer;
 }
 
@@ -351,86 +459,4 @@
   cursor: pointer;
 }
 
-/*** 申请弹窗 ***/
 
-.popup-box-header {
-  height: 64px;
-  line-height: 64px;
-  border-bottom: 1px solid #E8EAEC;
-  font-size: 16px;
-  font-weight: bold;
-  color: #333333;
-  padding-left: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-right: 32px;
-}
-
-.popup-box-header .icon-close {
-  width: 22px;
-  height: 22px;
-  cursor: pointer;
-}
-
-.applyPopup-wrap-inner {
-  padding: 32px;
-}
-
-.applyPopup-wrap-inner .form-item {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 24px;
-  color: #666666;
-}
-
-.applyPopup-wrap-inner .form-item input[type='text'] {
-  width: 360px;
-  height: 32px;
-  padding-left: 8px;
-  border-radius: 4px;
-  border: 1px solid #D0D0D0;
-  outline: none;
-}
-
-
-.applyPopup-wrap-inner .form-item .radio-group {
-  width: 360px;
-  text-align: left;
-  display: flex;
-}
-
-.applyPopup-wrap-inner .form-item .radio-group .radio-group-item {
-  margin-right: 20px;
-}
-
-.applyPopup-wrap-inner .form-item .radio-group input[type='radio'] {
-  margin-right: 10px;
-}
-
-.applyPopup-wrap-inner .form-item .label {
-  padding-top: 5px;
-}
-
-.applyPopup-wrap-inner .form-item .must {
-  color: #FF0606;
-  margin-right: 4px;
-}
-
-.applyPopup-wrap-inner .wrong-input input {
-  border: 1px solid #FF0606 !important;
-}
-
-.applyPopup-wrap-inner .form-item .err-tips {
-  visibility: hidden;
-  color: #FF0606;
-  font-size: 12px;
-  height: 14px;
-}
-
-.applyPopup-wrap-inner .form-item .err-tips.show {
-  visibility: visible;
-  color: #FF0606;
-  font-size: 12px;
-  height: 14px;
-}
