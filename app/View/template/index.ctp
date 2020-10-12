@@ -51,6 +51,27 @@
                 ?>
             </div>
         </div>
+
+        <div class="popup-list">
+            <?php
+                $popupList = $this->Base->getPopupInfo($site_id);
+                
+                foreach ($popupList as $popupListItem) {
+                    if($popupListItem['config_json'] && count(json_decode($popupListItem['config_json'])) !== 0) {
+                        // 参数为true时可使用[]
+                        $popupListItemObj = json_decode($popupListItem['config_json'], true);
+                        // var_dump($popupListItemObj->moduleList);
+                        // var_dump($popupListItemObj['moduleList']);
+                        $popupModuleList = $popupListItemObj['moduleList'];
+                        if($popupModuleList  && count($popupModuleList) > 0) {
+                            foreach ($popupModuleList as $popupData) {
+                                require 'popup/index.ctp';
+                            }
+                        }
+                    }
+                }
+            ?>
+        </div>
     </div>
 
     <script type="text/javascript" src="//dl.gamdream.com/activity/storm/legend/js/jquery.min.js"></script>
@@ -61,75 +82,14 @@
     <script>
         var hostDomain = "//<?php echo $_SERVER['HTTP_HOST']; ?>"
         // var_dump($site_id);
-        var popupList = []
-        <?php 
-            $popupList = $this->Base->getPopupInfo($site_id);
-            if($popupList && count($popupList) > 0) {
-                echo 'popupList='.json_encode($popupList);
-            }
-        ?>
+        // var popupList = []
+        // <php 
+        //     $popupList = $this->Base->getPopupInfo($site_id);
+        //     if($popupList && count($popupList) > 0) {
+        //         echo 'popupList='.json_encode($popupList);
+        //     }
+        // ?>
         
-    </script>
-    <script>
-        
-        $(function() {
-            // var mySwiper = new Swiper( '.swiper-imgNews', {
-            //         // loop: true, // 循环模式选项
-            //         // 如果需要分页器
-            //         pagination: {
-            //             el: '.swiper-pagination',
-            //         },
-            //     })
-        })
-
-
-        // setTimeout(function() {
-
-        //     var mySwiper = new Swiper('.warp01 .news-swiper', {
-        //         pagination: {
-        //             el: '.swiper-pagination',
-        //         },
-        //         observer: true,
-        //         observeParents: true
-
-        //     });
-
-        //     var feature = new Swiper('.feature-swiper', {
-        //         // initialSlide :0,
-        //         effect: 'coverflow',
-        //         // grabCursor: true,
-        //         centeredSlides: true,
-        //         slidesPerView: 'auto',
-        //         // autoplay : true,
-        //         loop: true,
-        //         navigation: {
-        //             nextEl: '.swiper-button-next',
-        //             prevEl: '.swiper-button-prev',
-        //         },
-        //         pagination: {
-        //             el: '.swiper-pagination',
-        //         },
-        //         // pagination: '.feature-paination',
-        //         coverflow: {
-        //             rotate: 50,
-        //             stretch: 20,
-        //             depth: 120,
-        //             modifier: 1,
-        //             slideShadows: true
-        //         },
-        //         observer: true, //修改swiper自己或子元素时，自动初始化swiper 
-        //         observeParents: false, //修改swiper的父元素时，自动初始化swiper 
-        //         grabCursor: false,
-        //         onSlideChangeEnd: function(swiper) {
-        //             swiper.update();
-        //             swiper.startAutoplay();
-        //             swiper.reLoop();
-        //         }
-        //     })
-
-
-
-        // }, 600);
     </script>
 </body>
 
