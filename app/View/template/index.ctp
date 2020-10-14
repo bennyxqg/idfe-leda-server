@@ -21,13 +21,18 @@
             $icon = $baseInfo['icon'];
         }
     }
+
+    // pc || wap
+    $pageKind = 'pc'
 ?>
 
 <head>
-    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <!-- <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"> -->
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta name="viewport" content="width=375, user-scalable=no, minimal-ui, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="telephone=no" name="format-detection">
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <link rel="stylesheet" href="//dl.gamdream.com/activity/storm/mob100/js/swiper.min.css">
     <link rel="stylesheet" href="//<?php echo $_SERVER['HTTP_HOST']; ?>/static/css/style.css">
     <link rel="stylesheet" href="//<?php echo $_SERVER['HTTP_HOST']; ?>/static/css/index.css">
@@ -38,7 +43,7 @@
 
 </head>
 
-<body>
+<body class="body-page-kind-<?php echo $pageKind ?>">
     <div class="pcreserve">
         <div class="warp warp02">
             <div class='module-list-wrap'>
