@@ -1659,7 +1659,7 @@ class AdminController extends Controller{
             $ret = array();
             if(!empty($result)){
                 foreach($result as $val){
-                    $val['WebsiteConfig']['address'] = '/download?id='.base64_encode($val['WebsiteConfig']['id']);
+                    $val['WebsiteConfig']['address'] = '/download?id='.base64_encode('id:'.$val['WebsiteConfig']['id']);
                     $ret[] = $val['WebsiteConfig'];
                 }
             }
