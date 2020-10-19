@@ -44,6 +44,7 @@ class IndexController extends Controller{
         $conditions['conditions'] = array('site_id' => $this->site_id);
         $result = $this->WebsiteConfig->find('first', $conditions);
         $this->set('config_json', json_decode($result['WebsiteConfig']['config_json'],1));
+        $this->set('type', $result['WebsiteConfig']['type']);
         $this->render($file_name);
     }
 
@@ -54,6 +55,7 @@ class IndexController extends Controller{
         $conditions['conditions'] = array('site_id' => $this->site_id);
         $result = $this->WebsiteConfig->find('first', $conditions);
         $this->set('config_json', json_decode($result['WebsiteConfig']['config_json_pre'],1));
+        $this->set('type', $result['WebsiteConfig']['type']);
         $this->render($file_name);
     }
 
@@ -64,6 +66,7 @@ class IndexController extends Controller{
         $conditions['conditions'] = array('site_id' => $this->site_id,'identifer'=>'news_detail');
         $result = $this->WebsiteConfig->find('first', $conditions);
         $this->set('config_json', json_decode($result['WebsiteConfig']['config_json'],1));
+        $this->set('type', $result['WebsiteConfig']['type']);
         $this->render($file_name);
     }
 
@@ -74,6 +77,7 @@ class IndexController extends Controller{
         $conditions['conditions'] = array('id' => $this->params['id']);
         $result = $this->WebsiteConfig->find('first', $conditions);
         $this->set('config_json', json_decode($result['WebsiteConfig']['config_json'],1));
+        $this->set('type', $result['WebsiteConfig']['type']);
         $this->render($file_name);
     }
 }   
