@@ -1742,5 +1742,21 @@ class AdminController extends Controller{
             $this->echoJson('server error',-1000);
         }
     }
+
+    public function website_cofig_list(){
+        try{
+            $conditions['conditions'] = array('site_id'=>$this->site_id);
+            $result = $this->WebsiteConfig->find('all', $conditions);
+            $ret = array();
+            if(!empty($result)){
+                foreach($result as $val){
+                    $ret[] = $val['WebsiteConfig'];
+                }
+            }
+            $this->echoJson('success', 0, $ret);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }
+    }
 }
 
