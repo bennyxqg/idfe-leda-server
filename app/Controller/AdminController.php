@@ -1702,6 +1702,10 @@ class AdminController extends Controller{
             if(empty($id)){
                 $this->echoJson('id参数不能为空', -7);
             }
+            $name=isset($this->params["name"])?$this->params["name"]:"";
+            if(empty($name)){
+                $this->echoJson('name参数不能为空', -1);
+            }
             $desc=isset($this->params["desc"])?$this->params["desc"]:"";
             if(empty($desc)){
                 $this->echoJson('desc参数不能为空', -2);
