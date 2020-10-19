@@ -1659,6 +1659,7 @@ class AdminController extends Controller{
             $ret = array();
             if(!empty($result)){
                 foreach($result as $val){
+                    $val['WebsiteConfig']['address'] = '/download?id='.$val['WebsiteConfig']['id'];
                     $ret[] = $val['WebsiteConfig'];
                 }
             }
@@ -1678,15 +1679,10 @@ class AdminController extends Controller{
             if(empty($desc)){
                 $this->echoJson('desc参数不能为空', -2);
             }
-            $config_json=isset($this->params["config_json"])?$this->params["config_json"]:"";
-            if(empty($config_json)){
-                $this->echoJson('config_json参数不能为空', -3);
-            }
             $data = array(
                 'type' => 2,
                 'name'=>$name,
                 'desc'=>$desc,
-                'config_json'=>$config_json,
                 'site_id'=>$this->site_id
             );
             $ret = $this->WebsiteConfig->save($data);
@@ -1710,10 +1706,6 @@ class AdminController extends Controller{
             if(empty($desc)){
                 $this->echoJson('desc参数不能为空', -2);
             }
-            $config_json=isset($this->params["config_json"])?$this->params["config_json"]:"";
-            if(empty($config_json)){
-                $this->echoJson('config_json参数不能为空', -3);
-            }
 
             $conditions['conditions'] = array('id'=>$id);
             $info = $this->WebsiteConfig->find('first', $conditions);
@@ -1724,8 +1716,7 @@ class AdminController extends Controller{
             $db = $this->WebsiteConfig->getDataSource();
             $data = array(
                 'name' => $db->value($name, 'string'),
-                'desc' => $db->value($desc, 'string'),
-                'config_json' => $db->value($config_json, 'string')
+                'desc' => $db->value($desc, 'string')
             );
             $ret = $this->WebsiteConfig->updateAll($data,array('id'=>$id));
             $this->echoJson('success', 0);
