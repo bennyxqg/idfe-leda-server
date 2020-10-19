@@ -66,5 +66,15 @@ class IndexController extends Controller{
         $this->set('config_json', json_decode($result['WebsiteConfig']['config_json'],1));
         $this->render($file_name);
     }
-}
+
+    public function download(){
+        $file_name = '/themes/'.$this->directory_name.'/download';
+        $this->layout = false;
+        $this->set('site_id',$this->site_id);
+        $conditions['conditions'] = array('id' => $this->params['id']);
+        $result = $this->WebsiteConfig->find('first', $conditions);
+        $this->set('config_json', json_decode($result['WebsiteConfig']['config_json'],1));
+        $this->render($file_name);
+    }
+}   
 

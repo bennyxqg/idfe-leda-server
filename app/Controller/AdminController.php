@@ -1652,5 +1652,100 @@ class AdminController extends Controller{
         }
     }
 
+    public function download_page_list(){
+        try{
+            $conditions['conditions'] = array('site_id'=>$this->site_id, 'type'=>2);
+            $result = $this->WebsiteConfig->find('all', $conditions);
+            $ret = array();
+            if(!empty($result)){
+                foreach($result as $val){
+                    $ret[] = $val['WebsiteConfig'];
+                }
+            }
+            $this->echoJson('success', 0, $ret);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }
+    }
+
+    public function download_page_add(){
+        try{
+            $name=isset($this->params["name"])?$this->params["name"]:"";
+            if(empty($name)){
+                $this->echoJson('name参数不能为空', -1);
+            }
+            $desc=isset($this->params["desc"])?$this->params["desc"]:"";
+            if(empty($desc)){
+                $this->echoJson('desc参数不能为空', -2);
+            }
+            $config_json=isset($this->params["config_json"])?$this->params["config_json"]:"";
+            if(empty($config_json)){
+                $this->echoJson('config_json参数不能为空', -3);
+            }
+            $data = array(
+                'type' => 2,
+                'name'=>$name,
+                'desc'=>$desc,
+                'config_json'=>$config_json,
+                'site_id'=>$this->site_id
+            );
+            $ret = $this->WebsiteConfig->save($data);
+            $this->echoJson('success', 0);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }
+    }
+
+    public function download_page_edit(){
+        try{
+            $id=isset($this->params["id"])?$this->params["id"]:"";
+            if(empty($id)){
+                $this->echoJson('id参数不能为空', -7);
+            }
+            $desc=isset($this->params["desc"])?$this->params["desc"]:"";
+            if(empty($desc)){
+                $this->echoJson('desc参数不能为空', -2);
+            }
+            $config_json=isset($this->params["config_json"])?$this->params["config_json"]:"";
+            if(empty($config_json)){
+                $this->echoJson('config_json参数不能为空', -3);
+            }
+
+            $conditions['conditions'] = array('id'=>$id);
+            $info = $this->WebsiteConfig->find('first', $conditions);
+            if(empty($info)){
+                $this->echoJson('id数据错误', -8);
+            }
+            
+            $db = $this->WebsiteConfig->getDataSource();
+            $data = array(
+                'name' => $db->value($name, 'string'),
+                'desc' => $db->value($desc, 'string'),
+                'config_json' => $db->value($config_json, 'string')
+            );
+            $ret = $this->WebsiteConfig->updateAll($data,array('id'=>$id));
+            $this->echoJson('success', 0);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }
+    }
+
+    public function download_page_del(){
+        try{
+            $id=isset($this->params["id"])?$this->params["id"]:"";
+            if(empty($id)){
+                $this->echoJson('id参数不能为空', -1);
+            }
+            $conditions['conditions'] = array('id'=>$id);
+            $info = $this->WebsiteConfig->find('first', $conditions);
+            if(empty($info)){
+                $this->echoJson('id数据错误', -2);
+            }
+            $ret = $this->WebsiteConfig->deleteAll(array('id'=>$id));
+            $this->echoJson('success', 0);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }
+    }
 }
 
