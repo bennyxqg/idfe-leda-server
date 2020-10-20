@@ -36,7 +36,7 @@ class RedisComponent extends Component
 //			$this->isConnected=$this->do_connect(self::$config['host'], self::$config['port'], self::$config['timeout']);
 		if(!$this->isConnected){
 			// 20171102 jerry.hua redis 配置从配置文件读取
-			$config = Configure::read('reids_config_default');
+			$config = Configure::read('redis_config_default');
 			if ($config) {
 				self::$config = $config;
 			}

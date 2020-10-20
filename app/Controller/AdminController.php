@@ -38,8 +38,7 @@ class AdminController extends Controller{
             }
             $this->server_info = $this->Website->get_website_info($this->site_id);
             if(!$this->server_info){
-                $redirect_url = FULL_BASE_URL."/404.html";
-                $this->redirect($redirect_url);
+                $this->echoJson('站点不存在', -9999);
             }
             $this->directory_name = $this->server_info[0]['directory_name'];
             $this->domain_name = $this->server_info[0]['domain_name'];
@@ -74,10 +73,22 @@ class AdminController extends Controller{
             if(empty($name)){
                 $this->echoJson('password参数不能为空', -2);
             }
-            $conditions['conditions'] = array('name' => $name, 'password' => md5($password));
+            $conditions['conditions'] = array('name' => $name, 'password' => md5($password),'status'=>1);
             $result = $this->Users->find('first', $conditions);
             if(empty($result)){
                 $this->echoJson('用户名或密码不匹配', -3);
+            }
+            if($result['Users']['site_id']){
+                $siteArr = explode(',',$result['Users']['site_id']);
+                $newArr = array();
+                foreach ($siteArr as $siteId){
+                    $conditions['conditions'] = array('id'=>$siteId,'status'=>array(0,1));
+                    $res = $this->Website->find('first', $conditions);
+                    if(!empty($res)){
+                        $newArr[] = $siteId;
+                    }
+                }
+                $result['Users']['site_id'] = implode(',',$newArr);
             }
             $token = uniqid();
             $this->Redis->set($token,json_encode($result),3600);
@@ -843,7 +854,6 @@ class AdminController extends Controller{
             }
             $this->echoJson('success', 0, $ret);
         }catch(Exception $e){
-            $dataSource->rollback();
             $this->echoJson('server error',-1000);
         }
     }
@@ -860,12 +870,12 @@ class AdminController extends Controller{
             }
             $status=isset($this->params["status"])?$this->params["status"]:"0";
 
-            $conditions['conditions'] = array('identifer'=>$identifer);
+            $conditions['conditions'] = array('site_id'=>$this->site_id, 'identifer'=>$identifer);
             $result = $this->PicGroup->find('first', $conditions);
             if(!empty($result)){
                 $this->echoJson('identifer字段重复', -3);
             }
-            $conditions2['conditions'] = array('name'=>$name);
+            $conditions2['conditions'] = array('site_id'=>$this->site_id, 'name'=>$name);
             $result2 = $this->PicGroup->find('first', $conditions2);
             if(!empty($result2)){
                 $this->echoJson('name字段重复', -4);
@@ -1204,7 +1214,7 @@ class AdminController extends Controller{
     public function website_list(){
         try{
             $ret = array();
-            $conditions['conditions'] = array('status'=>1);
+            $conditions['conditions'] = array('status'=>array(0,1));
             $conditions['fields'] = array('id','name','domain_name','directory_name','status');
             $count = $this->Website->find('count', $conditions);
             $page=isset($this->params["page"])?$this->params["page"]:"1";
@@ -1213,7 +1223,7 @@ class AdminController extends Controller{
             $ret['total_page'] = ceil($count/$limit);
             $ret['per_page'] = $limit;
             $ret['page'] = $page;
-            $conditions2['conditions'] = array();
+            $conditions2['conditions'] = array('status'=>array(0,1));
             $conditions2['offset'] = $offset;
             $conditions2['limit'] = $limit;
             $conditions2['fields'] = array('id','name','domain_name','directory_name','status');
@@ -1642,5 +1652,111 @@ class AdminController extends Controller{
         }
     }
 
+    public function download_page_list(){
+        try{
+            $conditions['conditions'] = array('site_id'=>$this->site_id, 'type'=>2);
+            $result = $this->WebsiteConfig->find('all', $conditions);
+            $ret = array();
+            if(!empty($result)){
+                foreach($result as $val){
+                    $val['WebsiteConfig']['address'] = '/download?id='.base64_encode('id:'.$val['WebsiteConfig']['id']);
+                    $ret[] = $val['WebsiteConfig'];
+                }
+            }
+            $this->echoJson('success', 0, $ret);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }
+    }
+
+    public function download_page_add(){
+        try{
+            $name=isset($this->params["name"])?$this->params["name"]:"";
+            if(empty($name)){
+                $this->echoJson('name参数不能为空', -1);
+            }
+            $desc=isset($this->params["desc"])?$this->params["desc"]:"";
+            if(empty($desc)){
+                $this->echoJson('desc参数不能为空', -2);
+            }
+            $data = array(
+                'type' => 2,
+                'name'=>$name,
+                'desc'=>$desc,
+                'site_id'=>$this->site_id
+            );
+            $ret = $this->WebsiteConfig->save($data);
+            $this->echoJson('success', 0);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }
+    }
+
+    public function download_page_edit(){
+        try{
+            $id=isset($this->params["id"])?$this->params["id"]:"";
+            if(empty($id)){
+                $this->echoJson('id参数不能为空', -7);
+            }
+            $name=isset($this->params["name"])?$this->params["name"]:"";
+            if(empty($name)){
+                $this->echoJson('name参数不能为空', -1);
+            }
+            $desc=isset($this->params["desc"])?$this->params["desc"]:"";
+            if(empty($desc)){
+                $this->echoJson('desc参数不能为空', -2);
+            }
+
+            $conditions['conditions'] = array('id'=>$id);
+            $info = $this->WebsiteConfig->find('first', $conditions);
+            if(empty($info)){
+                $this->echoJson('id数据错误', -8);
+            }
+            
+            $db = $this->WebsiteConfig->getDataSource();
+            $data = array(
+                'name' => $db->value($name, 'string'),
+                'desc' => $db->value($desc, 'string')
+            );
+            $ret = $this->WebsiteConfig->updateAll($data,array('id'=>$id));
+            $this->echoJson('success', 0);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }
+    }
+
+    public function download_page_del(){
+        try{
+            $id=isset($this->params["id"])?$this->params["id"]:"";
+            if(empty($id)){
+                $this->echoJson('id参数不能为空', -1);
+            }
+            $conditions['conditions'] = array('id'=>$id);
+            $info = $this->WebsiteConfig->find('first', $conditions);
+            if(empty($info)){
+                $this->echoJson('id数据错误', -2);
+            }
+            $ret = $this->WebsiteConfig->deleteAll(array('id'=>$id));
+            $this->echoJson('success', 0);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }
+    }
+
+    public function website_config_list(){
+        try{
+            $conditions['conditions'] = array('site_id'=>$this->site_id);
+            $result = $this->WebsiteConfig->find('all', $conditions);
+            $ret = array();
+            if(!empty($result)){
+                foreach($result as $val){
+                    $ret[] = $val['WebsiteConfig'];
+                }
+            }
+            $this->echoJson('success', 0, $ret);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }
+    }
 }
 

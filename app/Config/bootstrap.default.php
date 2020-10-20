@@ -89,8 +89,8 @@ Cache::config('default', array('engine' => 'File'));
  * ));
  */
 Configure::write('Dispatcher.filters', array(
-	'AssetDispatcher',
-	'CacheDispatcher'
+    'AssetDispatcher',
+    'CacheDispatcher'
 ));
 
 /**
@@ -98,43 +98,58 @@ Configure::write('Dispatcher.filters', array(
  */
 App::uses('CakeLog', 'Log');
 CakeLog::config('debug', array(
-	'engine' => 'FileLog',
-	'types' => array('notice', 'info', 'debug'),
-	'file' => 'debug',
+    'engine' => 'FileLog',
+    'types' => array('info', 'debug'),
+    'file' => 'debug',
 ));
 CakeLog::config('error', array(
-	'engine' => 'FileLog',
-	'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
-	'file' => 'error',
+    'engine' => 'FileLog',
+    'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
+    'file' => 'error',
 ));
-
-//图片类型配置
-Configure::write("img_type",array(
-    '1'=>'首页大图',
-    '2'=>'三张小图',
-    '3'=>'图片欣赏'
-));
-
-Configure::write("text_type",array(
-    1=>'友情链接',
-    2=>"媒体列表"
-));
-define("PHOTO_URL","http://tp2.uu.cc/uploads/");
 
 // 20170816 redis 配置
-Configure::write("reids_config_default", array(
-	'host' => '192.168.141.237',
-	'port' => 6379,
-	'timeout' => 300,
+Configure::write("redis_config_default", array(
+    'host' => '192.168.4.124',
+    'port' => 6380,
+    'password' => 123456,
+    'timeout' => 300,
 ));
 
-Configure::write("reids_config_log", array(
-	'host' => '192.168.141.237',
-	'port' => 6379,
-	'timeout' => 300,
+if(!function_exists('array_column')){
+    function array_column($input, $columnKey, $indexKey = NULL) {
+        $columnKeyIsNumber  = (is_numeric($columnKey))?true:false;
+        $indexKeyIsNull            = (is_null($indexKey))?true :false;
+        $indexKeyIsNumber     = (is_numeric($indexKey))?true:false;
+        $result                         = array();
+        foreach((array)$input as $key=>$row){
+            if($columnKeyIsNumber){
+                $tmp= array_slice($row, $columnKey, 1);
+                $tmp= (is_array($tmp) && !empty($tmp))?current($tmp):null;
+            }else{
+                $tmp= isset($row[$columnKey])?$row[$columnKey]:null;
+            }
+            if(!$indexKeyIsNull){
+                if($indexKeyIsNumber){
+                    $key = array_slice($row, $indexKey, 1);
+                    $key = (is_array($key) && !empty($key))?current($key):null;
+                    $key = is_null($key)?0:$key;
+                }else{
+                    $key = isset($row[$indexKey])?$row[$indexKey]:0;
+                }
+            }
+            $result[$key] = $tmp;
+        }
+        return $result;
+    }
+}
+Configure::write("ftp_config", array(
+    'host' => 'txy.ftp.idreamsky.com',    //ip地址
+    'port' => '21',            //端口
+    'ssl' => '0',                //http模式,0=http  1=https
+    'username' => 'idreamsky-gamdream-gimg',        //ftp用户名
+    'password' => 'dblBJG7ULX',        //ftp密码
+    'timeout' => '30',            //超时时间
+    'attachdir' => '/website/image/',    //远程附件目录的绝对路径或相对于 FTP 主目录的相对路径，结尾不要加斜杠“/”，“.”表示 FTP 主目录
+    'pasv' => '1',
 ));
-
-// 彩虹数据上报 debug 开关
-Configure::write("edata_post_debug", FALSE);
-// 彩虹数据上报接口地址
-Configure::write("edata_post_api", 'http://actsdk.idreamsky.com');
