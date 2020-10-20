@@ -83,7 +83,6 @@ $(function () {
     } else {
       $(this).parents('.swiper-container-wrap').find('.swiper-buttons').hide()
     }
-    console.log('-----swiperOpt------', swiperOpt)
     var mySwiper = new Swiper(this, swiperOpt)
   })
 
@@ -97,8 +96,248 @@ $(function () {
       $wrapper.find('.imgNews-news-list ul').removeClass('show')
       $wrapper.find('.imgNews-news-list ul').eq(index).addClass('show')
     })
-
   })
+
+  // 弹窗模块
+  // 关闭操作
+  $('.popup-wrapper .popup-close-btn').on('click', function() {
+    $(this).parents('.popup-wrapper').hide()
+  })
+
+  // 表单元素
+  $('.el-form-wrap').each(function () {
+    var reqUrl = $(this).data('req-url')
+    if(!reqUrl) {
+      return true
+    }
+    var $that = $(this)
+    
+    $(this).find('.el-form-submit-btn img').on('click', function() {
+      var formValid = formValidate($that)
+      if(formValid && formValid.isValid) {
+        formSubmit({
+          url: reqUrl,
+          method: 'POST',
+          data: formValid.data,
+          successCB: function(res) {
+            alert("提交申请成功");
+          },
+          errorCB: function(res) {
+            alert(res.message);
+          },
+        })
+      }
+    })
+  })
+
+  // function formValidate(formRef) {
+  //   var prefix = 'el-'
+  //   var isValid = true // 是否通过校验
+  //   formRef.find('.' + prefix + 'form-item').each(function () {
+  //     var $formItem = $(this)
+  //     $formItem.find('.' + prefix + 'form-item-input').removeClass('wrong-input')
+  //     $formItem.find('.err-tips').removeClass('show')
+  //     $formItem.find('.err-tips').html('')
+  //     var rules = $(this).attr('rules')
+  //     var rulesExist = false
+  //     if ($(this).attr('rules')) {
+  //       try {
+  //         // rules = JSON.parse(rules)
+  //         rules = eval('(' + rules + ')');
+  //         rulesExist = true
+  //       } catch (err) {
+  //         console.error('rules格式异常', err)
+  //         rulesExist = false
+  //       }
+  //     }
+  //     if (!rulesExist) {
+  //       return true
+  //     }
+  //     if (rules.length) {
+  //       $.each(rules, function (index, rule) {
+  //         var formItemVal = $formItem.find('input').val()
+  //         if (rule.required) {
+  //           if ($.trim(formItemVal) === '') {
+  //             console.error(rule.message)
+  //             $formItem.find('.' + prefix + 'form-item-input').addClass('wrong-input')
+  //             $formItem.find('.err-tips').addClass('show')
+  //             $formItem.find('.err-tips').html(rule.message)
+  //             isValid = false
+  //             return false
+  //           }
+  //         }
+  //         if (rule.type) {
+  //           if (!ruleRegex[rule.type].test(formItemVal)) {
+  //             console.error(rule.message)
+  //             $formItem.find('.' + prefix + 'form-item-input').addClass('wrong-input')
+  //             $formItem.find('.err-tips').addClass('show')
+  //             $formItem.find('.err-tips').html(rule.message)
+  //             isValid = false
+  //             return false
+  //           }
+  //         }
+  //       })
+  //     }
+  //   })
+
+  //   // 表单数据
+  //   var formItemData = {}
+  //   formRef.find('.' + prefix + 'form-item').each(function() {
+  //     var targetItem = null
+  //     if($(this).find('input').length > 0) {
+  //       targetItem = $(this).find('input')
+  //       if($(this).find('input').attr('name')) {
+  //         formItemData[$(this).attr('name')] = $(this).val()
+  //       }
+  //     } else if($(this).find('select').length > 0) {
+  //       targetItem = $(this).find('select')
+  //       if($(this).find('input').attr('name')) {
+  //         formItemData[$(this).attr('name')] = $(this).val()
+  //       }
+  //     }
+  //     if(targetItem.attr('name')) {
+  //       formItemData[$(this).attr('name')] = $(this).val()
+  //     }
+      
+  //   })
+
+  //   return  {
+  //     isValid,
+  //     data: formItemData
+  //   }
+  // }
+
+  // 表单校验
+  function formValidate(formRef) {
+    var prefix = 'el-'
+    var isValid = true // 是否通过校验
+    // formRef.find('.' + prefix + 'form-item').each(function () {
+    //   var $formItem = $(this)
+    //   $formItem.find('.' + prefix + 'form-item-input').removeClass('wrong-input')
+    //   $formItem.find('.err-tips').removeClass('show')
+    //   $formItem.find('.err-tips').html('')
+    //   var rules = $(this).data('rules')
+    //   var isMust = $(this).data('ismust')
+    //   var rulesExist = false
+    //   if ($(this).data('rules')) {
+    //     rulesExist = true
+    //   }
+    //   if (!rulesExist) {
+    //     return true
+    //   }
+    //   if (rules.length) {
+    //     $.each(rules, function (index, rule) {
+    //       var formItemVal = $formItem.find('input').val()
+    //       if (isMust) {
+    //         if ($.trim(formItemVal) === '') {
+    //           console.error(rule.message)
+    //           $formItem.find('.' + prefix + 'form-item-input').addClass('wrong-input')
+    //           $formItem.find('.err-tips').addClass('show')
+    //           $formItem.find('.err-tips').html(rule.message)
+    //           isValid = false
+    //           return false
+    //         }
+    //       }
+    //       if (rule.type) {
+    //         if (!ruleRegex[rule.type].test(formItemVal)) {
+    //           console.error(rule.message)
+    //           $formItem.find('.' + prefix + 'form-item-input').addClass('wrong-input')
+    //           $formItem.find('.err-tips').addClass('show')
+    //           $formItem.find('.err-tips').html(rule.message)
+    //           isValid = false
+    //           return false
+    //         }
+    //       }
+    //     })
+    //   }
+    // })
+
+    // 表单规则正则
+    var ruleRegex = {
+      // 邮箱
+      email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      // 手机号码
+      phone: /^1[3456789]\d{9}$/,
+      // 身份证
+      idcard: /^[1-9]\d{5}(18|19|20|(3\d))\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/,
+      // 数字
+      number: /^(\-|\+)?\d+(\.\d+)?$/,
+      // 汉字 
+      chinese: /^[\u4e00-\u9fa5]{0,}$/,
+      // 英文
+      english: /^[A-Za-z]+$/,
+    }
+
+    // 表单数据
+    var formItemData = {}
+    formRef.find('.' + prefix + 'form-item').each(function() {
+      var $formItem = $(this)
+      var targetItem = null
+      if($(this).find('input').length > 0) {
+        targetItem = $(this).find('input')
+      } else if($(this).find('select').length > 0) {
+        targetItem = $(this).find('select')
+      } else if($(this).find('textarea').length > 0) {
+        targetItem = $(this).find('textarea')
+      }
+      if(targetItem.attr('name')) {
+        var formItemVal = $.trim(targetItem.val())
+        formItemData[targetItem.attr('name')] = targetItem.val()
+
+        // radio特殊处理
+        if(targetItem.attr('type') === 'radio') {
+          $.each(targetItem, function(){
+           if($(this).prop('checked')) {
+            formItemData[targetItem.attr('name')] = $.trim($(this).val())
+            return false
+          }
+          });
+        }
+        // checkbox特殊处理
+        if(targetItem.attr('type') === 'checkbox') {
+          formItemData[targetItem.attr('name')] = []
+          $.each(targetItem, function(){
+           if($(this).prop('checked')) {
+            formItemData[targetItem.attr('name')].push($.trim($(this).val()))
+           }
+          });
+          formItemData[targetItem.attr('name')] = formItemData[targetItem.attr('name')].join(',')
+        }
+        
+
+        // 校验
+        var rules = $(this).data('rules') // 规则
+        var isMust = $(this).data('ismust') // 必填
+        $formItem.find('.' + prefix + 'form-item-input').removeClass('wrong-input')
+        $formItem.find('.err-tips').removeClass('show')
+        if (isMust) {
+          if ($.trim(formItemVal) === '') {
+            $formItem.find('.' + prefix + 'form-item-input').addClass('wrong-input')
+            $formItem.find('.err-tips').addClass('show')
+            $formItem.find('.err-tips').html($formItem.find('.el-form-item-label .text').text() + '不能为空')
+            isValid = false
+            return false
+          }
+        }
+        if (rules && rules !== 'none') {
+          if( $.trim(formItemVal) !== '') {
+            if (!ruleRegex[rules].test(formItemVal)) {
+              $formItem.find('.' + prefix + 'form-item-input').addClass('wrong-input')
+              $formItem.find('.err-tips').addClass('show')
+              $formItem.find('.err-tips').html($formItem.find('.el-form-item-label .text').text() + '格式错误')
+              isValid = false
+              return false
+            }
+          }
+        }
+      }
+    })
+
+    return  {
+      isValid,
+      data: formItemData
+    }
+  }
 
   // 导航滚动效果
   function navScroll() {
@@ -132,7 +371,6 @@ $(function () {
       }
     })
   }
-  navScroll()
 
   // 导航选中状态切换
   function navStatusScroller() {
@@ -174,7 +412,39 @@ $(function () {
     })
     hashNav[lastIndex].target.addClass('active')
   }
-  navStatusScroller()
+
+  // 移动端切换菜单
+  function navWapTriggerMenu() {
+    $('.navSection-navbar-right-menu-icon').each(function() {
+      var $that = $(this)
+      $(this).find('.menu-icon').on('click', function() {
+        if($(this).hasClass('menu-icon-close')) {
+          $(this).removeClass('menu-icon-close')
+          
+          $that.find('.menu-drop-down-wrap').css({
+            right: '-80px',
+            opacity: 0
+          })
+        } else {
+          $(this).addClass('menu-icon-close')
+          $that.find('.menu-drop-down-wrap').css({
+            right: '0px',
+            opacity: 1
+          })
+          
+        }
+        
+      })
+    })
+  }  
+
+  navScroll()
+  if(pageKind !== 'wap') {
+    navStatusScroller()
+  } else {
+    navWapTriggerMenu()
+  }
+  
   
 
 
@@ -247,17 +517,15 @@ $(function () {
         window.open(eventData.linkUrl)
       }
     } else if (eventData.type == 4 && eventData.popupId) { // 弹窗
-      // var target = new buildPopup(eventData.popupId)
-      // target.htmlShow()
-      // target.show()
-      applyPopup(eventData)
-
+      if(eventData.popupId == 10000 && eventData.videoUrl) { // 视频
+        videoPopup(eventData)
+      } else {
+        commonPopup(eventData)
+      }
     } else if (eventData.type == 2 && eventData.sitePage) { // 内页
       if (eventData.sitePage) {
         window.location.href = hostDomain + '/' + eventData.sitePage.identifer
       }
-    } else if (eventData.type == 5 && eventData.videoUrl) { // 视频
-      videoPopup(eventData)
     }
   }
 
@@ -277,76 +545,6 @@ $(function () {
     })
   }
   eventHandle()
-
-  // 表单规则正则
-  var ruleRegex = {
-    email: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-    phone: /^1[3456789]\d{9}$/
-  }
-
-  // 表单校验
-  function formValidate(formRef) {
-    var isValid = true // 是否通过校验
-    formRef.find('.form-item').each(function () {
-      var $formItem = $(this)
-      $formItem.find('.form-item-input').removeClass('wrong-input')
-      $formItem.find('.err-tips').removeClass('show')
-      $formItem.find('.err-tips').html('')
-      var rules = $(this).attr('rules')
-      var rulesExist = false
-      if ($(this).attr('rules')) {
-        try {
-          // rules = JSON.parse(rules)
-          rules = eval('(' + rules + ')');
-          rulesExist = true
-        } catch (err) {
-          console.error('rules格式异常', err)
-          rulesExist = false
-        }
-      }
-      if (!rulesExist) {
-        return true
-      }
-      if (rules.length) {
-        $.each(rules, function (index, rule) {
-          var formItemVal = $formItem.find('input').val()
-          if (rule.required) {
-            if ($.trim(formItemVal) === '') {
-              console.error(rule.message)
-              $formItem.find('.form-item-input').addClass('wrong-input')
-              $formItem.find('.err-tips').addClass('show')
-              $formItem.find('.err-tips').html(rule.message)
-              isValid = false
-              return false
-            }
-          }
-          if (rule.type) {
-            if (!ruleRegex[rule.type].test(formItemVal)) {
-              console.error(rule.message)
-              $formItem.find('.form-item-input').addClass('wrong-input')
-              $formItem.find('.err-tips').addClass('show')
-              $formItem.find('.err-tips').html(rule.message)
-              isValid = false
-              return false
-            }
-          }
-        })
-      }
-    })
-
-    // 表单数据
-    var formItemData = {}
-    formRef.find('.form-item input').each(function() {
-      if($(this).attr('name')) {
-        formItemData[$(this).attr('name')] = $(this).val()
-      }
-    })
-
-    return  {
-      isValid,
-      data: formItemData
-    }
-  }
 
   // 表单提交
   function formSubmit(opts) {
@@ -383,9 +581,9 @@ $(function () {
           width: 800,
           height: 450,
           borderRadius: 0,
-        },
-        outerCloseBtn: {
-          "show": true
+          outerCloseBtn: {
+            "show": true
+          }
         }
       }
     }
@@ -403,84 +601,134 @@ $(function () {
   }
 
   // 内置弹窗
-  function applyPopup(eventData) {
-    var jsonData = {
-      "type": "subscribePopup",
-      "identifer": "yuyue",
-      "label": "预约弹窗",
-      "data": {
-        "submitUrl": "",
-        "platForm": ["android"],
-        "outerCloseBtn": {
-          "show": false
-        },
-        "submitBtn": {
-          "imgUrl": "http://dl.gamdream.com//website/image/202009/5f5f21ea1c54b.png",
-          align: 'right',
-          "width": "",
-          "height": "",
-          marginTop: 70
-        },
-        "successPopup": {
-          "imgUrl": "http://oaa.uu.cc/manage/upload/image/oaa.uu.cc/2019-12-26/20191226_141900_325042.png"
-        },
-        "style": {
-          "width": 560,
-          "height": 551,
-          "borderRadius": 0,
-          "bg": {
-            "bgType": 1,
-            "bgColor": "#ffffff",
-            "bgImg": "",
-            "bgVideo": ""
-          }
-        }
-      },
-      "sectionId": "section_8XgObOUlLx"
-    }
-    jsonData.data.headerCloseUrl = hostDomain + '/static/images/close.png'
-    var targetPopup = new buildPopup({}, jsonData)
-    var tempData = ''
-    $.ajax({
-      url : '/static/temp/applyPopup.html',
-      type : 'get',
-      async: false, //使用同步的方式,true为异步方式
-      success : function(data){
-      //code here...
-        tempData = data
-      },
-      fail:function(){
-      //code here...
-      }
-    });
-    if(!tempData) {
+  function commonPopup(eventData) {
+    if(!eventData) {
       return
     }
-    var render = template.compile(tempData);
-    var tempStr = render(jsonData.data);
+    console.log('------eventData------', eventData)
+    // return
+    // var popupData = ''
+    // $.each(popupList, function(index, popupItem) {
+    //   if(popupItem.id == eventData.popupId) {
+    //     if(popupItem.config_json) {
+    //       popupData = popupItem.config_json
+    //     }
+    //   }
+    // })
+
+    $('#popup_wrapper_' + eventData.popupId).show()
+    return
+
     
-    targetPopup.htmlShow()
-    targetPopup.insertHtml(tempStr)
-    targetPopup.show()
-    // 提交事件
-    $('#popup-wrapper .submit-button img').click(function () {
-      var formValid = formValidate($("#popup-wrapper"))
-      if(formValid && formValid.isValid) {
-        formSubmit({
-          url: "http://cli.mobgi.com/Basic/Tourist/applyForTrail",
-          method: 'POST',
-          data: formValid.data,
-          successCB: function(res) {
-            $self.remove();
-            alert("提交申请成功");
-          },
-          errorCB: function(res) {
-            alert(res.message);
-          },
-        })
-      }
-    })
+    // var jsonData = {
+    //   "type": "subscribePopup",
+    //   "identifer": "yuyue",
+    //   "label": "预约弹窗",
+    //   "data": {
+    //     "submitUrl": "",
+    //     "platForm": ["android"],
+    //     "outerCloseBtn": {
+    //       "show": false
+    //     },
+    //     "submitBtn": {
+    //       "imgUrl": "http://dl.gamdream.com//website/image/202009/5f70337258d17.png",
+    //       align: 'right',
+    //       "width": "",
+    //       "height": "",
+    //       marginTop: 70
+    //     },
+    //     "successPopup": {
+    //       "imgUrl": "http://oaa.uu.cc/manage/upload/image/oaa.uu.cc/2019-12-26/20191226_141900_325042.png"
+    //     },
+    //     "style": {
+    //       "width": 560,
+    //       "height": 551,
+    //       "borderRadius": 0,
+    //       "bg": {
+    //         "bgType": 1,
+    //         "bgColor": "#ffffff",
+    //         "bgImg": "",
+    //         "bgVideo": ""
+    //       }
+    //     }
+    //   },
+    //   "sectionId": "section_8XgObOUlLx"
+    // }
+    // jsonData.data.headerCloseUrl = hostDomain + '/static/images/close.png'
+    
+    // applyPopup:申请  subscribePopup：预约
+    // var popupType = ''
+    // console.log('----popupData----', popupData)
+    // if(popupData) {
+    //   popupData = JSON.parse(popupData)
+    //   if(popupData.moduleList && popupData.moduleList.length) {
+    //     popupData = popupData.moduleList[0]
+    //     popupType = popupData.type
+    //   }
+    // } else {
+    //   return
+    // }
+    // var targetPopup = new buildPopup({}, popupData)
+    // if(!popupType) return
+    // var tempHtml = ''
+    // var submitEventFunc = null
+    // console.log('---popupType---', popupType)
+    // if(popupType === 'applyPopup') { // 申请
+    //   tempHtml = 'applyPopup'
+    //   submitEventFunc = function() {
+    //     $('#popup-wrapper .submit-button img').click(function () {
+    //       var formValid = formValidate($("#popup-wrapper"))
+    //       if(formValid && formValid.isValid) {
+    //         formSubmit({
+    //           url: "http://cli.mobgi.com/Basic/Tourist/applyForTrail",
+    //           method: 'POST',
+    //           data: formValid.data,
+    //           successCB: function(res) {
+    //             targetPopup.remove();
+    //             alert("提交申请成功");
+    //           },
+    //           errorCB: function(res) {
+    //             alert(res.message);
+    //           },
+    //         })
+    //       }
+    //     })
+    //   }
+    // } else if(popupType === 'subscribePopup') { // 预约
+    //   tempHtml = 'subscribePopup'
+    // }
+
+    // var tempData = ''
+    // $.ajax({
+    //   url : '/static/temp/' + tempHtml + '.html',
+    //   type : 'get',
+    //   async: false, //使用同步的方式,true为异步方式
+    //   success : function(data){
+    //   //code here...
+    //     tempData = data
+    //   },
+    //   fail:function(){
+    //   //code here...
+    //   }
+    // });
+    // if(!tempData) {
+    //   return
+    // }
+    // var render = template.compile(tempData);
+    // var tempStr = render(popupData.data);
+    
+    // targetPopup.htmlShow()
+    // targetPopup.insertHtml(tempStr)
+    // targetPopup.show()
+    // console.log('-----111222----', typeof submitEventFunc)
+    // // 提交事件
+    // if(submitEventFunc && typeof submitEventFunc === 'function') {
+      
+    //   submitEventFunc()
+    // }
   }
+
+
 
   // 构建弹窗
   function buildPopup(options, jsonData) {
@@ -511,7 +759,7 @@ $(function () {
         html[html.length] = 'margin:auto;">'
         html[html.length] = '<div class="popup-html-wrap" style="position:absolute;top:0;bottom:0;left:0;right:0;">'
         html[html.length] = '</div>';
-        if(jsonData.data.outerCloseBtn.show) {
+        if(jsonData.data.style && jsonData.data.style.outerCloseBtn && jsonData.data.style.outerCloseBtn.show) {
           html[html.length] = '<div class="popup-close-btn">';
           html[html.length] = '<img src="//dl.gamdream.com/activity/storm/gamemode/image/img_main_appointment_close.png">';
           html[html.length] = '</div>';

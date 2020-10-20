@@ -38,7 +38,9 @@ if($styleData['img']['width']) {
     if($styleData['swiper']['navBtn']['show']) {
       $wrap_outer_width = $wrap_width;
       if($styleData['type'] == 2) {
-        $wrap_outer_width = $wrap_width + 200;
+        if($pageKind === 'pc') {
+          $wrap_outer_width = $wrap_width + 200;
+        }
       }
       $wrap_outer_width_style = 'width: ' . $wrap_outer_width . 'px;';
     }

@@ -1,7 +1,7 @@
 <div>
   <div class='popup-box-header'>
       <span>申请试用</span>
-      <img class="icon-close" src="{{headerCloseUrl}}" alt="">
+      <img class="icon-close" src="{{style.closeBtn.imgUrl}}" alt="">
   </div>
   <div class="applyPopup-wrap-inner">
       
@@ -9,13 +9,14 @@
           <div class="form-item"
               rules="[{ required: true, message: '请留下您的姓名' }]"
           >
-              <div class="label">
-                  <span class="text">姓名</span>
-                  <span class="must">*</span></div>
-                  <div class="form-item-input">
-                  <input name="name" placeholder="请输入您的姓名" type="text">
-                  <div class="err-tips" ></div>
-              </div>
+            <div class="label">
+                <span class="text">姓名</span>
+                <span class="must">*</span>
+            </div>
+            <div class="form-item-input">
+                <input name="name" placeholder="请输入您的姓名" type="text">
+                <div class="err-tips" ></div>
+            </div>
           </div>
           <div class="form-item">
               <div class="label">
@@ -70,8 +71,8 @@
                   <div class="err-tips"></div>
               </div>
           </div>
-          <div class='submit-button' style='text-align:{{submitBtn.align}};margin-top:{{submitBtn.marginTop}}px;'>
-              <img src='{{submitBtn.imgUrl}}' alt='' />
+          <div class='submit-button' style='text-align:right;margin-top:70px;'>
+              <img src='{{style.submitBtn.imgUrl}}' alt='' />
           </div>
       </div>
   </div>
