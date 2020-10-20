@@ -74,7 +74,7 @@ class IndexController extends Controller{
         $file_name = '/themes/'.$this->directory_name.'/index';
         $this->layout = false;
         $this->set('site_id',$this->site_id);
-        $conditions['conditions'] = array('id' => strpos(base64_decode($this->params['id']),3));
+        $conditions['conditions'] = array('id' => substr(base64_decode($this->params['id']),3));
         $result = $this->WebsiteConfig->find('first', $conditions);
         $this->set('config_json', json_decode($result['WebsiteConfig']['config_json'],1));
         $this->set('type', $result['WebsiteConfig']['type']);
