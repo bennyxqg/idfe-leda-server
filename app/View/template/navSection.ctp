@@ -26,7 +26,7 @@
   }
 ?>
 <div class='module-item-wrap' id='section_<?php echo $module['sectionId'] ?>'>
-    <div class='<?php echo $sectionName ?>-wrap <?php echo $sectionName ?>-sticky-<?php echo $stickyType?>' >
+    <div class='<?php echo $sectionName ?>-wrap <?php echo $sectionName ?>-sticky-<?php echo $stickyType?> <?php echo $sectionName ?>-wrap-kind-<?php echo $pageKind ?>' >
       <div class='<?php echo $sectionName ?>-wrap-inner <?php echo $sectionName ?>-wrap-inner-<?php echo $module['sectionId'] ?>'
         style='<?php echo $bgStyleStr ?>'>
         <div class='<?php echo $sectionName ?>-wrap-item <?php echo ($styleData['screenType'] == 2?$sectionName.'-full-screen':'') ?>' 
@@ -37,35 +37,77 @@
           <div class='<?php echo $sectionName ?>-navbar-right'
             style='text-align: <?php echo $styleData['align'] ?>;margin-left: <?php echo $styleData['menuMargin']['left'] ?>px;margin-right: <?php echo $styleData['menuMargin']['right'] ?>px;'
           >
-            <ul>
-              <?php
-                $navList = $module['data']['navList'];
-                foreach ($navList as $key => $nav) :
-              ?>
-                <li
-                  style="line-height: <?php echo $styleData['height'] ?>px"
-                >
-                  <span
-                    data-active-color="<?php echo $styleData['selectFont']['color'] ?>"
-                    data-event-json='<?php echo json_encode($nav['event']) ?>'
-                    data-event-type='<?php echo $nav['event']['type'] ?>'
-                    class='nav-menu-item common-event-target <?php if($key == 0){ echo 'active ';} ?>'
-                    
+            <?php
+              if($pageKind === 'pc') {
+            ?>
+              <ul class="menu-horizontal">
+                <?php
+                  $navList = $module['data']['navList'];
+                  foreach ($navList as $key => $nav) :
+                ?>
+                  <li
+                    style="line-height: <?php echo $styleData['height'] ?>px"
                   >
-                    <span class='nav-label' style='color: <?php echo $styleData['fontColor'] ?>;'><?php echo $nav['label'] ?></span>
-                    <span class='nav-label active' style='color: <?php echo $styleData['selectFont']['color'] ?>;'><?php echo $nav['label'] ?></span>
-                    <span class='active-line <?php
-                      if ($styleData['selectLine']['show'] === false)
-                      {
-                        echo "hidden";
-                      }
-                    ?>'
-                      style='background-color: <?php echo $styleData['selectLine']['color'] ?>;height: <?php echo $styleData['selectLine']['height'] ?>px';
-                    ></span>
-                  </span>
-                </li>
-              <?php endforeach; ?>
-            </ul>
+                    <span
+                      data-active-color="<?php echo $styleData['selectFont']['color'] ?>"
+                      data-event-json='<?php echo json_encode($nav['event']) ?>'
+                      data-event-type='<?php echo $nav['event']['type'] ?>'
+                      class='nav-menu-item common-event-target <?php if($key == 0){ echo 'active ';} ?>'
+                      
+                    >
+                      <span class='nav-label' style='color: <?php echo $styleData['fontColor'] ?>;'><?php echo $nav['label'] ?></span>
+                      <span class='nav-label active' style='color: <?php echo $styleData['selectFont']['color'] ?>;'><?php echo $nav['label'] ?></span>
+                      <span class='active-line <?php
+                        if ($styleData['selectLine']['show'] === false)
+                        {
+                          echo "hidden";
+                        }
+                      ?>'
+                        style='background-color: <?php echo $styleData['selectLine']['color'] ?>;height: <?php echo $styleData['selectLine']['height'] ?>px';
+                      ></span>
+                    </span>
+                  </li>
+                <?php endforeach; ?>
+              </ul>
+            <?php } ?>
+            <?php
+              if($pageKind === 'wap') {
+            ?>
+              <div>
+                  <div class='<?php echo $sectionName ?>-navbar-right-menu-icon'>
+                    <span class='menu-icon'>
+                        <i class="menu-icon-line" title="导航开关">
+                        </i>
+                    </span>
+                    
+                    <div
+                      class='menu-drop-down-wrap'
+                      style='right: -80px;opacity: 0'
+                    >
+                      <div class="menu-drop-down">
+                        <div class="menu-drop-down-bg"></div>
+                          <ul>
+                            <?php
+                              $navList = $module['data']['navList'];
+                              foreach ($navList as $key => $nav) :
+                            ?>
+                              <li>
+                                <span
+                                  data-active-color="<?php echo $styleData['selectFont']['color'] ?>"
+                                  data-event-json='<?php echo json_encode($nav['event']) ?>'
+                                  data-event-type='<?php echo $nav['event']['type'] ?>'
+                                  class='common-event-target'
+                                >
+                                  <?php echo $nav['label'] ?>
+                                </span>
+                              </li>
+                            <?php endforeach; ?>
+                          </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            <?php } ?>
           </div>
           <div class='center-dot'>
             <?php

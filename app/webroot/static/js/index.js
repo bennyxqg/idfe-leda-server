@@ -371,7 +371,6 @@ $(function () {
       }
     })
   }
-  navScroll()
 
   // 导航选中状态切换
   function navStatusScroller() {
@@ -413,7 +412,39 @@ $(function () {
     })
     hashNav[lastIndex].target.addClass('active')
   }
-  navStatusScroller()
+
+  // 移动端切换菜单
+  function navWapTriggerMenu() {
+    $('.navSection-navbar-right-menu-icon').each(function() {
+      var $that = $(this)
+      $(this).find('.menu-icon').on('click', function() {
+        if($(this).hasClass('menu-icon-close')) {
+          $(this).removeClass('menu-icon-close')
+          
+          $that.find('.menu-drop-down-wrap').css({
+            right: '-80px',
+            opacity: 0
+          })
+        } else {
+          $(this).addClass('menu-icon-close')
+          $that.find('.menu-drop-down-wrap').css({
+            right: '0px',
+            opacity: 1
+          })
+          
+        }
+        
+      })
+    })
+  }  
+
+  navScroll()
+  if(pageKind !== 'wap') {
+    navStatusScroller()
+  } else {
+    navWapTriggerMenu()
+  }
+  
   
 
 

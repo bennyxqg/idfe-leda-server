@@ -22,8 +22,11 @@
         }
     }
 
-    // pc || wap
-    $pageKind = 'pc'
+    // 页面类型
+    $pageKind = 'pc';
+    if($type != 0) {
+        $pageKind = 'wap';
+    }
 ?>
 
 <head>
@@ -63,10 +66,7 @@
                 
                 foreach ($popupList as $popupListItem) {
                     if($popupListItem['config_json'] && count(json_decode($popupListItem['config_json'])) !== 0) {
-                        // 参数为true时可使用[]
                         $popupListItemObj = json_decode($popupListItem['config_json'], true);
-                        // var_dump($popupListItemObj->moduleList);
-                        // var_dump($popupListItemObj['moduleList']);
                         $popupModuleList = $popupListItemObj['moduleList'];
                         if($popupModuleList  && count($popupModuleList) > 0) {
                             foreach ($popupModuleList as $popupData) {
@@ -85,6 +85,7 @@
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7ae13368159d6a513eaa7a17b9413b4b"></script>
     <script src="//<?php echo $_SERVER['HTTP_HOST']; ?>/static/js/index.js"></script>
     <script>
+        var pageKind = "<?php echo $pageKind ?>"
         var hostDomain = "//<?php echo $_SERVER['HTTP_HOST']; ?>"
         // var_dump($site_id);
         // var popupList = []

@@ -12,6 +12,14 @@ body {
   min-width: 1200px;
 }
 
+body.body-page-kind-wap {
+  width: 375px;
+  min-width: 375px;
+  overflow: scroll;
+  overflow-x: hidden;
+  margin: auto;
+}
+
 .hidden {
   display: none !important;
 }
