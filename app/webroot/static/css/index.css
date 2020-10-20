@@ -245,7 +245,9 @@
 .navSection-wrap .navSection-navbar-right ul.menu-horizontal li span.nav-menu-item.active .nav-label.active{
   display: inline;
 }
-
+.navSection-wrap-kind-wap.navSection-sticky-fixed  {
+  width: 375px;
+}
 .navSection-wrap-kind-wap .navSection-wrap-item {
   width: 375px;
 }
