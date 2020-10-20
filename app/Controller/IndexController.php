@@ -71,7 +71,7 @@ class IndexController extends Controller{
     }
 
     public function download(){
-        $file_name = '/themes/'.$this->directory_name.'/download';
+        $file_name = '/themes/'.$this->directory_name.'/index';
         $this->layout = false;
         $this->set('site_id',$this->site_id);
         $conditions['conditions'] = array('id' => strpos(base64_decode($this->params['id']),3));
