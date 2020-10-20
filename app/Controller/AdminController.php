@@ -1743,7 +1743,7 @@ class AdminController extends Controller{
         }
     }
 
-    public function website_cofig_list(){
+    public function website_config_list(){
         try{
             $conditions['conditions'] = array('site_id'=>$this->site_id);
             $result = $this->WebsiteConfig->find('all', $conditions);
