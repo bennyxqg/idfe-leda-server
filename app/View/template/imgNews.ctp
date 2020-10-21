@@ -39,25 +39,29 @@
 
 ?>
 <div class='module-item-wrap' id='section_<?php echo $module['sectionId'] ?>'>
-    <div class='<?php echo $sectionName ?>-wrap' style='<?php echo $base_bg_style ?><?php echo $wrap_styleStr ?>'>
+    <div class='<?php echo $sectionName ?>-wrap <?php echo $sectionName ?>-sticky-<?php echo $stickyType?> <?php echo $sectionName ?>-wrap-kind-<?php echo $pageKind ?>' style='<?php echo $base_bg_style ?><?php echo $wrap_styleStr ?>'>
         <div class="<?php echo $sectionName ?>-wrap-inner <?php echo $sectionName ?>-wrap-inner-<?php echo $module['sectionId'] ?>">
         <div class='<?php echo $sectionName ?>-wrap-item' >
-            <div class="imgNews-wrap-inner-carousel">
-                <div class="swiper-imgNews swiper-container" data-json='<?php echo json_encode($styleData['swiper']) ?>' data-sectionId='<?php echo $module['sectionId'] ?>'>
-                    <div class="swiper-wrapper">
-                        <?php
-                        $imgs = $this->Base->showImgs($site_id, $module['data']['imgs']['groupId']);
-                        foreach ($imgs as $img) :
-                        ?>
-                            <div class="swiper-slide">
-                                <img src='<?php echo $img['url'] ?>' />
-                            </div>
-                        <?php endforeach; ?>
+            <?php
+              if($pageKind === 'pc') {
+            ?>
+                <div class="imgNews-wrap-inner-carousel">
+                    <div class="swiper-imgNews swiper-container" data-json='<?php echo json_encode($styleData['swiper']) ?>' data-sectionId='<?php echo $module['sectionId'] ?>'>
+                        <div class="swiper-wrapper">
+                            <?php
+                            $imgs = $this->Base->showImgs($site_id, $module['data']['imgs']['groupId']);
+                            foreach ($imgs as $img) :
+                            ?>
+                                <div class="swiper-slide">
+                                    <img src='<?php echo $img['url'] ?>' />
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                        <!-- 如果需要分页器 -->
+                        <div class="swiper-pagination swiper-pagination-<?php echo $module['sectionId'] ?>"></div>
                     </div>
-                    <!-- 如果需要分页器 -->
-                    <div class="swiper-pagination swiper-pagination-<?php echo $module['sectionId'] ?>"></div>
                 </div>
-            </div>
+            <?php } ?>
             <div class="imgNews-wrap-inner-news" style='<?php echo $news_bg_style ?>'>
                 <div class="imgNews-news-nav">
                     <ul style='color: <?php echo $styleData['news']['nav']['fontColor'] ?>;font-size: <?php echo $styleData['news']['nav']['fontSize'] ?>px;font-weight: <?php echo $styleData['news']['nav']['isBold'] ? 'bold' : 'normal' ?>;'>
@@ -100,10 +104,10 @@
                             foreach ($newsArr as $news) :
                             ?>
                                 <li>
-                                    <span class="imgNews-news-list-text">
+                                    <span class="imgNews-news-list-text" style="color: <?php echo $styleData['news']['list']['fontColor'] ?>;font-size: <?php echo $styleData['news']['list']['fontSize'] ?>px; font-weight: <?php echo $styleData['news']['list']['isBold'] ? 'bold' : 'normal' ?>;letter-spacing: <?php echo $styleData['news']['list']['letterSpacing'] ?>px;">
                                         <?php echo $news['title'] ?>
                                     </span>
-                                    <span class="imgNews-news-list-time">
+                                    <span class="imgNews-news-list-time" style="font-size: <?php echo $styleData['news']['list']['fontSize'] ?>px;">
                                         <?php echo date('m-d', $news['created']); ?>
                                     </span>
                                 </li>

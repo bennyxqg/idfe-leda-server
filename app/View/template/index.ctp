@@ -21,13 +21,21 @@
             $icon = $baseInfo['icon'];
         }
     }
+
+    // 页面类型
+    $pageKind = 'pc';
+    if($type != 0) {
+        $pageKind = 'wap';
+    }
 ?>
 
 <head>
-    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <!-- <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"> -->
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta name="viewport" content="width=375, user-scalable=no, minimal-ui, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="telephone=no" name="format-detection">
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <link rel="stylesheet" href="//dl.gamdream.com/activity/storm/mob100/js/swiper.min.css">
     <link rel="stylesheet" href="//<?php echo $_SERVER['HTTP_HOST']; ?>/static/css/style.css">
     <link rel="stylesheet" href="//<?php echo $_SERVER['HTTP_HOST']; ?>/static/css/index.css">
@@ -38,7 +46,7 @@
 
 </head>
 
-<body>
+<body class="body-page-kind-<?php echo $pageKind ?>">
     <div class="pcreserve">
         <div class="warp warp02">
             <div class='module-list-wrap'>
@@ -51,6 +59,24 @@
                 ?>
             </div>
         </div>
+
+        <div class="popup-list">
+            <?php
+                $popupList = $this->Base->getPopupInfo($site_id);
+                
+                foreach ($popupList as $popupListItem) {
+                    if($popupListItem['config_json'] && count(json_decode($popupListItem['config_json'])) !== 0) {
+                        $popupListItemObj = json_decode($popupListItem['config_json'], true);
+                        $popupModuleList = $popupListItemObj['moduleList'];
+                        if($popupModuleList  && count($popupModuleList) > 0) {
+                            foreach ($popupModuleList as $popupData) {
+                                require 'popup/index.ctp';
+                            }
+                        }
+                    }
+                }
+            ?>
+        </div>
     </div>
 
     <script type="text/javascript" src="//dl.gamdream.com/activity/storm/legend/js/jquery.min.js"></script>
@@ -59,77 +85,17 @@
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7ae13368159d6a513eaa7a17b9413b4b"></script>
     <script src="//<?php echo $_SERVER['HTTP_HOST']; ?>/static/js/index.js"></script>
     <script>
+        var pageKind = "<?php echo $pageKind ?>"
         var hostDomain = "//<?php echo $_SERVER['HTTP_HOST']; ?>"
         // var_dump($site_id);
-        var popupList = []
-        <?php 
-            $popupList = $this->Base->getPopupInfo($site_id);
-            if($popupList && count($popupList) > 0) {
-                echo 'popupList='.json_encode($popupList);
-            }
-        ?>
+        // var popupList = []
+        // <php 
+        //     $popupList = $this->Base->getPopupInfo($site_id);
+        //     if($popupList && count($popupList) > 0) {
+        //         echo 'popupList='.json_encode($popupList);
+        //     }
+        // ?>
         
-    </script>
-    <script>
-        
-        $(function() {
-            // var mySwiper = new Swiper( '.swiper-imgNews', {
-            //         // loop: true, // 循环模式选项
-            //         // 如果需要分页器
-            //         pagination: {
-            //             el: '.swiper-pagination',
-            //         },
-            //     })
-        })
-
-
-        // setTimeout(function() {
-
-        //     var mySwiper = new Swiper('.warp01 .news-swiper', {
-        //         pagination: {
-        //             el: '.swiper-pagination',
-        //         },
-        //         observer: true,
-        //         observeParents: true
-
-        //     });
-
-        //     var feature = new Swiper('.feature-swiper', {
-        //         // initialSlide :0,
-        //         effect: 'coverflow',
-        //         // grabCursor: true,
-        //         centeredSlides: true,
-        //         slidesPerView: 'auto',
-        //         // autoplay : true,
-        //         loop: true,
-        //         navigation: {
-        //             nextEl: '.swiper-button-next',
-        //             prevEl: '.swiper-button-prev',
-        //         },
-        //         pagination: {
-        //             el: '.swiper-pagination',
-        //         },
-        //         // pagination: '.feature-paination',
-        //         coverflow: {
-        //             rotate: 50,
-        //             stretch: 20,
-        //             depth: 120,
-        //             modifier: 1,
-        //             slideShadows: true
-        //         },
-        //         observer: true, //修改swiper自己或子元素时，自动初始化swiper 
-        //         observeParents: false, //修改swiper的父元素时，自动初始化swiper 
-        //         grabCursor: false,
-        //         onSlideChangeEnd: function(swiper) {
-        //             swiper.update();
-        //             swiper.startAutoplay();
-        //             swiper.reLoop();
-        //         }
-        //     })
-
-
-
-        // }, 600);
     </script>
 </body>
 
