@@ -1288,6 +1288,8 @@ class AdminController extends Controller{
                 array('site_id'=>$site_id,'type'=>0,'identifer'=>'news_detail','name'=>'新闻详情页','desc'=>'新闻详情页','created'=>time()),
                 array('site_id'=>$site_id,'type'=>1,'identifer'=>'yuyue','name'=>'预约弹窗','desc'=>'预约弹窗','created'=>time()),
                 array('site_id'=>$site_id,'type'=>1,'identifer'=>'application','name'=>'申请弹窗','desc'=>'申请弹窗','created'=>time()),
+                array('site_id'=>$site_id,'type'=>3,'identifer'=>'index','name'=>'首页','desc'=>'首页','created'=>time()),
+                array('site_id'=>$site_id,'type'=>3,'identifer'=>'news_detail','name'=>'新闻详情页','desc'=>'新闻详情页','created'=>time()),
             );
             foreach ($webConfig as $config){
                 $this->WebsiteConfig->saveAll($config);
