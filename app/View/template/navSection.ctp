@@ -71,7 +71,7 @@
               </ul>
             <?php } ?>
             <?php
-              if($pageKind === 'wap') {
+              if($pageKind === 'wap' && count($module['data']['navList']) > 0) {
             ?>
               <div>
                   <div class='<?php echo $sectionName ?>-navbar-right-menu-icon'>
