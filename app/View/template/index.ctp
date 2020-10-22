@@ -21,7 +21,6 @@
             $icon = $baseInfo['icon'];
         }
     }
-
     // 页面类型
     $pageKind = 'pc';
     if($type != 0) {
@@ -32,14 +31,14 @@
 <head>
     <!-- <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"> -->
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
-    <meta name="viewport" content="width=375, user-scalable=no, minimal-ui, viewport-fit=cover">
+    <meta name="viewport" content="width=375,  <?php if($pageKind === 'wap') {?> user-scalable=no, <?php }?>minimal-ui, viewport-fit=cover">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta content="yes" name="apple-mobile-web-app-capable">
     <meta content="telephone=no" name="format-detection">
     <link rel="stylesheet" href="//dl.gamdream.com/activity/storm/mob100/js/swiper.min.css">
     <link rel="stylesheet" href="//<?php echo $_SERVER['HTTP_HOST']; ?>/static/css/style.css">
     <link rel="stylesheet" href="//<?php echo $_SERVER['HTTP_HOST']; ?>/static/css/index.css">
-    <link rel="icon" href="http:<?php echo($icon);?>" type="image/x-icon">
+    <link rel="icon" href="<?php echo($icon);?>" type="image/x-icon">
     <title><?php echo($title);?></title>
     <meta name="keywords" content="<?php echo($keywords);?>">
     <meta name="description" content="<?php echo($description);?>">
@@ -82,7 +81,7 @@
     <script type="text/javascript" src="//dl.gamdream.com/activity/storm/legend/js/jquery.min.js"></script>
     <script src="//dl.gamdream.com/activity/storm/mob100/js/swiper.min.js"></script>
     <script src="//dl.gamdream.com/idfe/leda/js/template-web.min.js"></script>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=7ae13368159d6a513eaa7a17b9413b4b"></script>
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=7ae13368159d6a513eaa7a17b9413b4b"></script>
     <script src="//<?php echo $_SERVER['HTTP_HOST']; ?>/static/js/index.js"></script>
     <script>
         var pageKind = "<?php echo $pageKind ?>"
