@@ -8,8 +8,8 @@
     $description = '';
     $icon = '';
     if($baseInfo) {
-        if($baseInfo['name']) {
-            $title = $baseInfo['name'];
+        if($baseInfo['title']) {
+            $title = $baseInfo['title'];
         }
         if($baseInfo['keywords']) {
             $keywords = $baseInfo['keywords'];
