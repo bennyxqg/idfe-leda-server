@@ -1790,5 +1790,46 @@ class AdminController extends Controller{
             $this->echoJson('server error',-1000);
         }
     }
+
+    public function website_config__edit(){
+        try{
+            $id=isset($this->params["id"])?$this->params["id"]:"";
+            if(empty($id)){
+                $this->echoJson('id参数不能为空', -7);
+            }
+            $name=isset($this->params["name"])?$this->params["name"]:"";
+            if(empty($name)){
+                $this->echoJson('name参数不能为空', -1);
+            }
+            $type=isset($this->params["type"])?$this->params["type"]:"";
+            
+            $identifer=isset($this->params["identifer"])?$this->params["identifer"]:"";
+            if(empty($identifer)){
+                $this->echoJson('identifer参数不能为空', -3);
+            }
+            $desc=isset($this->params["desc"])?$this->params["desc"]:"";
+            if(empty($desc)){
+                $this->echoJson('desc参数不能为空', -4);
+            }
+
+            $conditions['conditions'] = array('id'=>$id);
+            $info = $this->WebsiteConfig->find('first', $conditions);
+            if(empty($info)){
+                $this->echoJson('id数据错误', -8);
+            }
+            $db = $this->WebsiteConfig->getDataSource();
+            $data = array(
+                'name' => $db->value($name, 'string'),
+                'identifer' => $db->value($identifer, 'string'),
+                'desc' => $db->value($desc, 'string'),
+                'type' => $type
+            );
+            $ret = $this->WebsiteConfig->updateAll($data,array('id'=>$id));
+            $this->echoJson('success', 0);
+        }catch(Exception $e){
+            var_dump($e->getMessage());
+            $this->echoJson('server error',-1000);
+        }
+    }
 }
 

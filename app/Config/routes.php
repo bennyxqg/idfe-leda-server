@@ -41,6 +41,9 @@
     Router::connect('/download', array('controller' => 'Index', 'action' => 'download'));
     Router::connect('/preview/*', array('controller' => 'Index', 'action' => 'preview'));
     Router::connect('/pages/*', array('controller' => 'Index', 'action' => 'routes'));
+    Router::connect('/wap', array('controller' => 'Index', 'action' => 'wap_index'));
+    Router::connect('/wap/preview/*', array('controller' => 'Index', 'action' => 'wap_preview'));
+    Router::connect('/wap/pages/*', array('controller' => 'Index', 'action' => 'wap_routes'));
 
 
     //Router::connect('/jnh_news', array('controller' => 'Online', 'action' => 'jnh_news'));

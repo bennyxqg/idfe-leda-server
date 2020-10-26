@@ -93,5 +93,40 @@ class IndexController extends Controller{
         $this->set('type', $result['WebsiteConfig']['type']);
         $this->render($file_name);
     }
+
+    public function wap_index(){
+        $file_name = '/themes/'.$this->directory_name.'/index';
+        $this->layout = false;
+        $this->set('site_id',$this->site_id);
+        $conditions['conditions'] = array('site_id' => $this->site_id, 'type'=>3);
+        $result = $this->WebsiteConfig->find('first', $conditions);
+        $this->set('config_json', json_decode($result['WebsiteConfig']['config_json'],1));
+        $this->set('type', $result['WebsiteConfig']['type']);
+        $this->render($file_name);
+    }
+
+    public function wap_preview(){
+        $file_name = '/themes/'.$this->directory_name.'.pre/index';
+        $this->layout = false;
+        $this->set('site_id',$this->site_id);
+        $urlParams = explode('/', $this->params['url']);
+        $conditions['conditions'] = array('site_id' => $this->site_id,'identifer'=>$urlParams[2], 'type'=>3);
+        $result = $this->WebsiteConfig->find('first', $conditions);
+        $this->set('config_json', json_decode($result['WebsiteConfig']['config_json_pre'],1));
+        $this->set('type', $result['WebsiteConfig']['type']);
+        $this->render($file_name);
+    }
+
+    public function wap_routes(){
+        $file_name = '/themes/'.$this->directory_name.'/index';
+        $this->layout = false;
+        $this->set('site_id',$this->site_id);
+        $urlParams = explode('/', $this->params['url']);
+        $conditions['conditions'] = array('site_id' => $this->site_id,'identifer'=>$urlParams[2], 'type'=>3);
+        $result = $this->WebsiteConfig->find('first', $conditions);
+        $this->set('config_json', json_decode($result['WebsiteConfig']['config_json_pre'],1));
+        $this->set('type', $result['WebsiteConfig']['type']);
+        $this->render($file_name);
+    }
 }   
 
