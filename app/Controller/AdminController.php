@@ -1760,5 +1760,35 @@ class AdminController extends Controller{
             $this->echoJson('server error',-1000);
         }
     }
+
+    public function website_config_add(){
+        try{
+            $name=isset($this->params["name"])?$this->params["name"]:"";
+            if(empty($name)){
+                $this->echoJson('name参数不能为空', -1);
+            }
+            $type=isset($this->params["type"])?$this->params["type"]:"";
+            
+            $identifer=isset($this->params["identifer"])?$this->params["identifer"]:"";
+            if(empty($identifer)){
+                $this->echoJson('identifer参数不能为空', -3);
+            }
+            $desc=isset($this->params["desc"])?$this->params["desc"]:"";
+            if(empty($desc)){
+                $this->echoJson('desc参数不能为空', -4);
+            }
+            $data = array(
+                'name'=>$name,
+                'type'=>$type,
+                'site_id'=>$this->site_id,
+                'identifer'=>$identifer,
+                'desc'=>$desc,
+            );
+            $ret = $this->WebsiteConfig->save($data);
+            $this->echoJson('success', 0, $ret);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }
+    }
 }
 

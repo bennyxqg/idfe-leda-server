@@ -48,17 +48,6 @@ class IndexController extends Controller{
         $this->render($file_name);
     }
 
-    public function index_pre(){
-        $file_name = '/themes/'.$this->directory_name.'.pre/index';
-        $this->layout = false;
-        $this->set('site_id',$this->site_id);
-        $conditions['conditions'] = array('site_id' => $this->site_id);
-        $result = $this->WebsiteConfig->find('first', $conditions);
-        $this->set('config_json', json_decode($result['WebsiteConfig']['config_json_pre'],1));
-        $this->set('type', $result['WebsiteConfig']['type']);
-        $this->render($file_name);
-    }
-
     public function news_detail(){
         $file_name = '/themes/'.$this->directory_name.'/index';
         $this->layout = false;
@@ -77,6 +66,30 @@ class IndexController extends Controller{
         $conditions['conditions'] = array('id' => substr(base64_decode($this->params['id']),3));
         $result = $this->WebsiteConfig->find('first', $conditions);
         $this->set('config_json', json_decode($result['WebsiteConfig']['config_json'],1));
+        $this->set('type', $result['WebsiteConfig']['type']);
+        $this->render($file_name);
+    }
+
+    public function preview(){
+        $file_name = '/themes/'.$this->directory_name.'.pre/index';
+        $this->layout = false;
+        $this->set('site_id',$this->site_id);
+        $urlParams = explode('/', $this->params['url']);
+        $conditions['conditions'] = array('site_id' => $this->site_id,'identifer'=>$urlParams[1]);
+        $result = $this->WebsiteConfig->find('first', $conditions);
+        $this->set('config_json', json_decode($result['WebsiteConfig']['config_json_pre'],1));
+        $this->set('type', $result['WebsiteConfig']['type']);
+        $this->render($file_name);
+    }
+
+    public function routes(){
+        $file_name = '/themes/'.$this->directory_name.'/index';
+        $this->layout = false;
+        $this->set('site_id',$this->site_id);
+        $urlParams = explode('/', $this->params['url']);
+        $conditions['conditions'] = array('site_id' => $this->site_id,'identifer'=>$urlParams[1]);
+        $result = $this->WebsiteConfig->find('first', $conditions);
+        $this->set('config_json', json_decode($result['WebsiteConfig']['config_json_pre'],1));
         $this->set('type', $result['WebsiteConfig']['type']);
         $this->render($file_name);
     }
