@@ -539,7 +539,7 @@ class BaseHelper extends Helper
         $result = $News->find('first', $conditions);;
         $ret = array();
         if(!empty($result)){
-            return $result['Website'];
+            return $result['News'];
         }
         return $ret;
     }
