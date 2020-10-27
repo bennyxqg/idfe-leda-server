@@ -99,7 +99,7 @@
 }
 
 .imgNews-wrap-inner-news .imgNews-news-nav ul li{
-  width: 80px;
+  min-width: 80px;
   text-align: center;
   display: inline-block;
   line-height: 50px;
