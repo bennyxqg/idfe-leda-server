@@ -37,6 +37,12 @@
         }
     }
 
+    // 详情地址
+    $detailUrl = '/pages/news_detail?newsId=';
+    if($pageKind === 'wap') {
+        $detailUrl = '/wap' .$detailUrl;
+    }
+
 ?>
 <div class='module-item-wrap' id='section_<?php echo $module['sectionId'] ?>'>
     <div class='<?php echo $sectionName ?>-wrap <?php echo $sectionName ?>-sticky-<?php echo $stickyType?> <?php echo $sectionName ?>-wrap-kind-<?php echo $pageKind ?>' style='<?php echo $base_bg_style ?><?php echo $wrap_styleStr ?>'>
@@ -87,7 +93,7 @@
                         ?>
                             <li>
                                 <span class="imgNews-news-list-text" style="color: <?php echo $styleData['news']['list']['fontColor'] ?>;font-size: <?php echo $styleData['news']['list']['fontSize'] ?>px; font-weight: <?php echo $styleData['news']['list']['isBold'] ? 'bold' : 'normal' ?>;letter-spacing: <?php echo $styleData['news']['list']['letterSpacing'] ?>px;">
-                                    <?php echo $news['title'] ?>
+                                    <a href='<?php echo $detailUrl.$news['id'] ?>' target='_blank'><?php echo $news['title'] ?></a>
                                 </span>
                                 <span class="imgNews-news-list-time" style="font-size: <?php echo $styleData['news']['list']['fontSize'] ?>px;">
                                     <?php echo date('m-d', $news['created']); ?>
@@ -105,7 +111,7 @@
                             ?>
                                 <li>
                                     <span class="imgNews-news-list-text" style="color: <?php echo $styleData['news']['list']['fontColor'] ?>;font-size: <?php echo $styleData['news']['list']['fontSize'] ?>px; font-weight: <?php echo $styleData['news']['list']['isBold'] ? 'bold' : 'normal' ?>;letter-spacing: <?php echo $styleData['news']['list']['letterSpacing'] ?>px;">
-                                        <?php echo $news['title'] ?>
+                                        <a href='<?php echo $detailUrl.$news['id'] ?>' target='_blank'><?php echo $news['title'] ?></a>
                                     </span>
                                     <span class="imgNews-news-list-time" style="font-size: <?php echo $styleData['news']['list']['fontSize'] ?>px;">
                                         <?php echo date('m-d', $news['created']); ?>
