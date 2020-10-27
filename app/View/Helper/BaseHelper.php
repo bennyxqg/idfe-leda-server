@@ -532,10 +532,10 @@ class BaseHelper extends Helper
         return $ret;
     }
 
-    public function showNewsInfo($newsId){
+    public function showNewsInfo($siteId,$newsId){
         App::uses("News", "Model");
         $News = new News();
-        $conditions['conditions'] = array('id' => $newsId);
+        $conditions['conditions'] = array('id' => $newsId,'site_id'=>$siteId);
         $result = $News->find('first', $conditions);;
         $ret = array();
         if(!empty($result)){
