@@ -1791,7 +1791,7 @@ class AdminController extends Controller{
         }
     }
 
-    public function website_config__edit(){
+    public function website_config_edit(){
         try{
             $id=isset($this->params["id"])?$this->params["id"]:"";
             if(empty($id)){
