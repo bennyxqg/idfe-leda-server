@@ -26,6 +26,14 @@
     if($type != 0) {
         $pageKind = 'wap';
     }
+
+    // 是否为预览状态
+    $sitePreview = false;
+    if($_SERVER['REQUEST_URI']) {
+        if(preg_match('/\/preview\//', $_SERVER['REQUEST_URI']) === 1) {
+            $sitePreview = true;
+        }
+    }
 ?>
 
 <head>
@@ -85,6 +93,7 @@
     <script src="//<?php echo $_SERVER['HTTP_HOST']; ?>/static/js/index.js"></script>
     <script>
         var pageKind = "<?php echo $pageKind ?>"
+        var sitePreview = "<?php echo $sitePreview ?>"
         var hostDomain = "//<?php echo $_SERVER['HTTP_HOST']; ?>"
         // var_dump($site_id);
         // var popupList = []
