@@ -3,7 +3,10 @@
   $sectionName = 'newsDetailSection';
   // var_dump($styleData);
   // 样式字符串拼接
-  $styleStr = 'height: ' . $styleData['height'] . 'px;';
+  $styleStr = '';
+  if($styleData['height']) {
+    $styleStr = $styleStr . 'height: ' . $styleData['height'] . 'px;';
+  }
   // 背景
   if($styleData['bg']['bgColor']) {
     $styleStr .= 'background-color: ' . $styleData['bg']['bgColor'] . ';';
