@@ -17,10 +17,18 @@
   // 处理换行符
   $text = str_replace("\n","<br/>",$element['data']['text']);
 
+  // 事件数据
+  $el_eventDataStr = '';
+  if ($element['data']['event']) {
+    $el_eventData = $element['data']['event'];
+    $el_eventDataStr = json_encode($el_eventData);
+  }
 ?>
 <div style='position: absolute;<?php echo $el_wrap_styleStr ?>'>
   <div style='position: relative;display: inline-block;<?php echo $el_font_styleStr ?>'>
-    <div>
+    <div 
+      class='common-event-target' 
+      data-event-json='<?php echo $el_eventDataStr ?>'>
     <?php echo $text ?>
     </div>
   </div>
