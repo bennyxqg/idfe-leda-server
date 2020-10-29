@@ -1373,7 +1373,7 @@ class AdminController extends Controller{
             $conditions2['conditions'] = array('status'=>1);
             $conditions2['offset'] = $offset;
             $conditions2['limit'] = $limit;
-            $conditions2['fields'] = array('id','name','site_id','status');
+            $conditions2['fields'] = array('id','name','site_id','status','phone','email');
             $result = $this->Users->find('all', $conditions2);
             if(!empty($result)){
                 foreach($result as $val){
@@ -1402,12 +1402,16 @@ class AdminController extends Controller{
                 $this->echoJson('site_id参数不能为空', -3);
             }
             $status=isset($this->params["status"])?$this->params["status"]:"0";
+            $phone=isset($this->params["phone"])?$this->params["phone"]:"";
+            $email=isset($this->params["email"])?$this->params["email"]:"";
 
             $data = array(
                 'name'=>$name,
                 'password'=>md5($password),
                 'site_id'=>$site_id,
-                'status'=>$status
+                'status'=>$status,
+                'phone' => $phone,
+                'email' => $email
             );
             $ret = $this->Users->save($data);
             $this->echoJson('success', 0, $ret);
@@ -1432,7 +1436,8 @@ class AdminController extends Controller{
                 $this->echoJson('site_id参数不能为空', -3);
             }
             $status=isset($this->params["status"])?$this->params["status"]:"0";
-
+            $phone=isset($this->params["phone"])?$this->params["phone"]:"";
+            $email=isset($this->params["email"])?$this->params["email"]:"";
             $conditions['conditions'] = array('id'=>$id);
             $info = $this->Users->find('first', $conditions);
             if(empty($info)){
@@ -1442,6 +1447,8 @@ class AdminController extends Controller{
             $data = array(
                 'name' => $db->value($name, 'string'),
                 'site_id' => $db->value($site_id, 'string'),
+                'phone' => $db->value($phone, 'string'),
+                'email' => $db->value($email, 'string'),
                 'status' => $status
             );
             if(!empty($password)){
