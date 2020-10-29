@@ -1,4 +1,4 @@
-# **乐搭服务器部署文档2**
+# **乐搭服务器部署文档**
 
 **环境资源**
 
@@ -24,13 +24,11 @@
 
 1. git clone http://git.ids111.com/idreamsky/platform/frontend/idfe-leda-backend.git
 
-2. 更新官网dgc\_comm数据库，执行leda.sql，见末尾附件
+2. 更新官网dgc\_comm数据库，执行leda.sql
 
 3. cp app/Config/database.php.default app/Config/database.php 修改leda数据库的配置
 
-4. nginx 的 server\_name 是 : api.leda.uu.cc
-
-5. chmod -R 777 app/tmp
+4. chmod -R 777 app/tmp
 
 **乐搭官网前端展示部署**
 
@@ -44,28 +42,28 @@
 
 server {
 
-listen 80;
+	listen 80;
 
-server\_name api.leda.uu.cc ;
+	server\_name api.leda.uu.cc ;
 
-root /data/wwwroot/leda/app/webroot;
+	root /data/wwwroot/leda/app/webroot;
 
-index index.html index.htm index.php;
+	index index.html index.htm index.php;
 
-access\_log /data/wwwlogs/leda.access.log;
+	access\_log /data/wwwlogs/leda.access.log;
 
-error\_log /data/wwwlogs/leda.error.log;
+	error\_log /data/wwwlogs/leda.error.log;
 
-location / {
+	location / {
 
-try\_files $uri $uri/ /index.php?$query\_string;
+		try\_files $uri $uri/ /index.php?$query\_string;
 
-}
+	}
 
-location ~ /(\.ht|\.git|\.svn) {
+	location ~ /(\.ht|\.git|\.svn) {
 
-deny all;
+		deny all;
 
-}
+	}
 
 }
