@@ -1,72 +1,40 @@
-乐搭服务器部署文档
-后端架构
+# 文档信息
 
+**编撰：** benny.xu
 
+本文档由`IDFE 前端开发团队`审校发布。
 
-环境资源
+名称 | 产品说明
+--------|------|
+当前版本 | v1.0.2
+参与人群 | IDFE 前端开发团队
+最后更新 | 2020.10.26
 
-*
+# 什么是乐搭
 
-云服务商	资源类型	模块说明	CPU核数	内存容量	磁盘容量	外网IP需求	资源数量	带宽	操作系统
-腾讯云	云主机	web模块	2	4G					
-是	1	100M	Centos 7						
-腾讯云	redis	redis缓存	2	2G	　	否	1	　	redis 标准版 4.0
-腾讯云	mysql	数据库	2	4G	200G	否	1	　	mysql 5.7
-部署需求
+游戏官网的开发包括电脑端的开发，手机端的开发，以及活动落地页的开发，一直以来是比较头疼的事情，痛点在于需求比较繁琐，而且大多是重复技术难度较低的劳动。在此之前尝试做过一个可配置后台，但是因为其灵活性较低，可配置项较少，不支持seo等原因，不能很好的解决问题，在此背景下就产生了 **乐搭** 这个产品。
 
-每台web机，安装Nginx+PHP5.3+mysql扩展
+**帮助文档** http://frontend.idreamsky.com/idfe/#/5?page_id=51
 
-*
+# 乐搭的价值
 
-扩展名称	下载地址及编译注意事项
-Php-fpm.conf 配置	pm = static pm.max_children = 150
-乐搭后台** API **部署步骤：
+* 方便运营按照自身的需求，自主搭建游戏官网，游戏活动页面；
+* 降低每个项目的开发投入成本；
+* 提高项目的迭代效率，以及页面调整的便捷性；
+* 形成统一的设计语言和UI视觉风格；
+* 提供一套的可视化配置官网管理后台。
 
-git clone http://git.ids111.com/idreamsky/platform/frontend/idfe-leda-backend.git
+以《金翎奖》为例，单独开发一个页面需要0.5天的时间，另外还要部署和发布。而通过乐搭，只需要30分钟的时间即可完成搭建和发布的操作，重要的是不需要开发介入，将开放同事完全释放出来。
 
-更新官网dgc_comm数据库，执行leda.sql，见末尾附件
+# 当前进度
 
-cp app/Config/database.php.default app/Config/database.php 修改leda数据库的配置
+当前版本```v1.0.2```, 已经完成pc端官网模板开发，移动官网模板的开发，并且实现了页面自定义的功能，满足落地页的需求。
 
-nginx 的 server_name 是 : api.leda.uu.cc
+# 案例说明
 
-chmod -R 777 app/tmp
+1. 《金翎奖》投票页面 https://leda.uu.cc/news_detail
+2. 《创量》官网 *（未发布）*
 
-乐搭官网前端展示部署
+# 未来的规划
 
-1.git clone http://git.ids111.com/idreamsky/platform/frontend/idfe-leda-backend.git
-
-nginx 的 server_name 是网站的域名 : leda.uu.cc等等
-Nginx 配置示例
-
-##ledaApi.conf
-
-server {
-
-listen 80;
-
-server_name api.leda.uu.cc ;
-
-root /data/wwwroot/leda/app/webroot;
-
-index index.html index.htm index.php;
-
-access_log /data/wwwlogs/leda.access.log;
-
-error_log /data/wwwlogs/leda.error.log;
-
-location / {
-
-try_files $uri $uri/ /index.php?$query_string;
-
-}
-
-location ~ /(.ht|.git|.svn) {
-
-deny all;
-
-}
-
-}
-
-leda** 数据库**
+将乐搭推向业务场景，在业务场景中不断的验证，针对业务的实际需求不断的模块扩展，完善产品。
