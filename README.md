@@ -2,8 +2,6 @@
 
 **环境资源**
 
-\*
-
 | 云服务商 | 资源类型 | 模块说明 | CPU核数 | 内存容量 | 磁盘容量 | 外网IP需求 | 资源数量 | 带宽 | 操作系统 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 腾讯云 | 云主机 | web模块 | 2 | 4G | | 是 | 1 | 100M | Centos 7 |
@@ -14,13 +12,12 @@
 
 每台web机，安装Nginx+PHP5.3+mysql扩展
 
-\*
 
 | 扩展名称 | 下载地址及编译注意事项 |
 | --- | --- |
 | Php-fpm.conf 配置 | pm = static pm.max\_children = 150 |
 
-**乐搭后台**** API ****部署步骤：**
+**乐搭后台API部署步骤：**
 
 1. git clone http://git.ids111.com/idreamsky/platform/frontend/idfe-leda-backend.git
 
@@ -30,16 +27,18 @@
 
 4. chmod -R 777 app/tmp
 
+
 **乐搭官网前端展示部署**
 
-1.git clone http://git.ids111.com/idreamsky/platform/frontend/idfe-leda-backend.git
+1. git clone http://git.ids111.com/idreamsky/platform/frontend/idfe-leda-backend.git
 
 2. nginx 的 server\_name 是网站的域名 : leda.uu.cc等等
 
-**Nginx**  **配置示例**
+**Nginx配置示例**
 
-##ledaApi.conf
+## ledaApi.conf
 
+```
 server {
 
 	listen 80;
@@ -67,3 +66,4 @@ server {
 	}
 
 }
+```
