@@ -534,7 +534,7 @@ $(function () {
     $('.common-event-target').each(function (index) {
       var eventJson = $(this).data('event-json')
       if (eventJson) {
-        if(!eventJson.disabled) {
+        if(eventJson.enabled) {
           $(this).css('cursor', 'pointer')
           $(this).click(function () {
             

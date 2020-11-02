@@ -7,11 +7,19 @@
     $keywords = '';
     $description = '';
     $icon = '';
+    
+    $pageTitle = $website_config['titile'];
+    
+    $pageKeywords = $website_config['keywords'];
     if($baseInfo) {
-        if($baseInfo['title']) {
+        if($pageTitle) {
+            $title = $pageTitle;
+        } else if($baseInfo['title']) {
             $title = $baseInfo['title'];
         }
-        if($baseInfo['keywords']) {
+        if($pageKeywords) {
+            $keywords = $pageKeywords;
+        } else if($baseInfo['keywords']) {
             $keywords = $baseInfo['keywords'];
         }
         if($baseInfo['description']) {
@@ -37,6 +45,7 @@
 ?>
 
 <head>
+
     <!-- <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"> -->
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta name="viewport" content="width=375,  <?php if($pageKind === 'wap') {?> user-scalable=no, <?php }?>minimal-ui, viewport-fit=cover">
@@ -54,6 +63,7 @@
 </head>
 
 <body class="body-page-kind-<?php echo $pageKind ?>">
+    
     <div class="pcreserve">
         <div class="warp warp02">
             <div class='module-list-wrap'>
