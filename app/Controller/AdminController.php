@@ -1273,12 +1273,11 @@ class AdminController extends Controller{
                 $this->echoJson('directory_name参数不能为空', -3);
             }
             $status=isset($this->params["status"])?$this->params["status"]:"0";
-
             $data = array(
                 'name'=>$name,
                 'domain_name'=>$domain_name,
                 'directory_name'=>$directory_name,
-                'status'=>$status
+                'status'=>$status,
             );
             $ret = $this->Website->save($data);
             $site_id = $ret['Website']['id'];
@@ -1784,12 +1783,16 @@ class AdminController extends Controller{
             if(empty($desc)){
                 $this->echoJson('desc参数不能为空', -4);
             }
+            $title=isset($this->params["title"])?$this->params["title"]:"";
+            $keywords=isset($this->params["keywords"])?$this->params["keywords"]:"";
             $data = array(
                 'name'=>$name,
                 'type'=>$type,
                 'site_id'=>$this->site_id,
                 'identifer'=>$identifer,
                 'desc'=>$desc,
+                'title' =>$title,
+                'keywords' => $keywords
             );
             $ret = $this->WebsiteConfig->save($data);
             $this->echoJson('success', 0, $ret);
@@ -1818,7 +1821,8 @@ class AdminController extends Controller{
             if(empty($desc)){
                 $this->echoJson('desc参数不能为空', -4);
             }
-
+            $title=isset($this->params["title"])?$this->params["title"]:"";
+            $keywords=isset($this->params["keywords"])?$this->params["keywords"]:"";
             $conditions['conditions'] = array('id'=>$id);
             $info = $this->WebsiteConfig->find('first', $conditions);
             if(empty($info)){
@@ -1829,7 +1833,9 @@ class AdminController extends Controller{
                 'name' => $db->value($name, 'string'),
                 'identifer' => $db->value($identifer, 'string'),
                 'desc' => $db->value($desc, 'string'),
-                'type' => $type
+                'type' => $type,
+                'title' => $db->value($title, 'string'),
+                'keywords' => $db->value($keywords, 'string')
             );
             $ret = $this->WebsiteConfig->updateAll($data,array('id'=>$id));
             $this->echoJson('success', 0);
