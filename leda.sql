@@ -205,3 +205,7 @@ INSERT INTO `users` (`id`, `name`, `password`, `site_id`, `role_id`, `status`) V
 ALTER TABLE `users`
 ADD COLUMN `phone`  varchar(20) NOT NULL DEFAULT '' AFTER `status`,
 ADD COLUMN `email`  varchar(50) NOT NULL DEFAULT '' AFTER `phone`;
+
+ALTER TABLE `website_config`
+ADD COLUMN `title`  varchar(50) NOT NULL DEFAULT '' COMMENT '页面标题' AFTER `desc`,
+ADD COLUMN `keywords`  varchar(500) NOT NULL DEFAULT '' COMMENT '页面keywords' AFTER `title`;
