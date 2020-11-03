@@ -8,9 +8,11 @@
     $description = '';
     $icon = '';
     
-    $pageTitle = $website_config['titile'];
+    $pageTitle = $website_config['title'];
     
     $pageKeywords = $website_config['keywords'];
+    // var_dump($website_config);
+
     if($baseInfo) {
         if($pageTitle) {
             $title = $pageTitle;
@@ -22,9 +24,12 @@
         } else if($baseInfo['keywords']) {
             $keywords = $baseInfo['keywords'];
         }
-        if($baseInfo['description']) {
+        if($website_config['desc']) {
+            $description = $website_config['desc'];
+        } else if($baseInfo['description']) {
             $description = $baseInfo['description'];
         }
+
         if($baseInfo['icon']) {
             $icon = $baseInfo['icon'];
         }
