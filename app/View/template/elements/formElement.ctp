@@ -1,13 +1,10 @@
 <?php
-  $el_styleData = $element['data']['style'];
+
   $el_itemConfig = $element['data']['itemConfig'];
   // var_dump(json_encode($el_itemConfig));
 
-  $el_wrap_styleStr = 'width: '. ($el_styleData['width']?$el_styleData['width'].'px;':'auto;');
-  $el_wrap_styleStr .= 'height: '. ($el_styleData['height']?$el_styleData['height'].'px;':'auto;');
-  $el_wrap_styleStr .= 'left: '.$el_styleData['left'].'px;';
-  $el_wrap_styleStr .= 'top: '.$el_styleData['top'].'px;';
-  $el_wrap_styleStr .= 'z-index: '.($element['data']['zIndex']?$element['data']['zIndex']:1).';';
+  $el_wrap_inner_styleStr = 'width: '. ($el_styleData['width']?$el_styleData['width'].'px;':'auto;');
+  $el_wrap_inner_styleStr .= 'height: '. ($el_styleData['height']?$el_styleData['height'].'px;':'auto;');
 
   $el_btn_styleData = $el_styleData['submitBtn'];
   $el_btn_styleStr = 'width: '.($el_btn_styleData['width']?$el_btn_styleData['width'].'px;':'auto;');
@@ -17,7 +14,8 @@
   id="el_form_wrap_<?php echo $element['elementId'] ?>"
   class="el-form-wrap" 
   data-req-url="<?php echo $element['data']['reqUrl'] ?>"
-  style='position: absolute;<?php echo $el_wrap_styleStr ?>'>
+  style='<?php echo $el_wrap_inner_styleStr ?>'
+  >
   <div style='position: relative;'>
     <ul>
       <?php

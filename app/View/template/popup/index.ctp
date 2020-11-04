@@ -42,15 +42,10 @@
           <div>
             <div class='center-dot'>
               <?php
-              if($popupData['data']['elements']) {
-                  foreach($popupData['data']['elements'] as $element){
-                    $eType = $element['type'];
-                    // var_dump($eType);
-                    // include('elements/'.$eType.'.ctp');
-                    // require 'elements/'.$eType.'.ctp';
-                    include(dirname(__FILE__) . '/../elements/'.$eType.'.ctp');
-                  }
-              }
+                if($popupData['data']['elements']) {
+                  $elementList = $popupData['data']['elements'];
+                  include(dirname(__FILE__) . '/../elements/common.ctp');
+                }
               ?>
             </div>
           </div>

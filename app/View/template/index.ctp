@@ -68,7 +68,6 @@
 </head>
 
 <body class="body-page-kind-<?php echo $pageKind ?>">
-    
     <div class="pcreserve">
         <div class="warp warp02">
             <div class='module-list-wrap'>
@@ -100,12 +99,6 @@
             ?>
         </div>
     </div>
-
-    <script type="text/javascript" src="//dl.gamdream.com/activity/storm/legend/js/jquery.min.js"></script>
-    <script src="//dl.gamdream.com/activity/storm/mob100/js/swiper.min.js"></script>
-    <script src="//dl.gamdream.com/idfe/leda/js/template-web.min.js"></script>
-    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=7ae13368159d6a513eaa7a17b9413b4b"></script>
-    <script src="//<?php echo $_SERVER['HTTP_HOST']; ?>/static/js/index.js"></script>
     <script>
         var pageKind = "<?php echo $pageKind ?>"
         var sitePreview = "<?php echo $sitePreview ?>"
@@ -119,7 +112,15 @@
         //     }
         // ?>
         
-    </script>
+    </script>           
+    <script type="text/javascript" src="//dl.gamdream.com/activity/storm/legend/js/jquery.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/lodash.js/4.17.20/lodash.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/velocity/1.5.0/velocity.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/velocity/1.5.0/velocity.ui.min.js"></script>
+    <script src="//dl.gamdream.com/activity/storm/mob100/js/swiper.min.js"></script>
+    <script src="//dl.gamdream.com/idfe/leda/js/template-web.min.js"></script>
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=7ae13368159d6a513eaa7a17b9413b4b"></script>
+    <script src="//<?php echo $_SERVER['HTTP_HOST']; ?>/static/js/index.js"></script>
+    <script src="//<?php echo $_SERVER['HTTP_HOST']; ?>/static/js/animation.js"></script>
 </body>
-
 </html>
