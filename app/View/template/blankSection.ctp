@@ -24,10 +24,8 @@
           <div class='center-dot'>
             <?php
               if($module['data']['elements']) {
-                foreach($module['data']['elements'] as $element){
-                  $eType = $element['type'];
-                  require 'elements/'.$eType.'.ctp';
-                }
+                $elementList = $module['data']['elements'];
+                require 'elements/common.ctp';
               }
             ?>
           </div>

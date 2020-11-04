@@ -1,5 +1,4 @@
 <?php
-  $el_styleData = $element['data']['style'];
   // var_dump($el_styleData);
 
   $el_font_styleStr = 'width: '. ($el_styleData['width']?$el_styleData['width'].'px;':'auto;');
@@ -11,9 +10,6 @@
   $el_font_styleStr .= 'letter-spacing: '. ($el_styleData['font']['letterSpacing']?$el_styleData['font']['letterSpacing'].'px;':'normal;');
   $el_font_styleStr .= 'text-align: '. ($el_styleData['align']?$el_styleData['align']:'left;');
 
-  $el_wrap_styleStr = 'left: '.$el_styleData['left'].'px;';
-  $el_wrap_styleStr .= 'top: '.$el_styleData['top'].'px;';
-  $el_wrap_styleStr .= 'z-index: '.($element['data']['zIndex']?$element['data']['zIndex']:1);
   // 处理换行符
   $text = str_replace("\n","<br/>",$element['data']['text']);
 
@@ -24,7 +20,7 @@
     $el_eventDataStr = json_encode($el_eventData);
   }
 ?>
-<div style='position: absolute;<?php echo $el_wrap_styleStr ?>'>
+<div>
   <div style='position: relative;display: inline-block;<?php echo $el_font_styleStr ?>'>
     <div 
       class='common-event-target' 
