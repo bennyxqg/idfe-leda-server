@@ -2,8 +2,8 @@
 $sectionName = 'carouselSection';
 $styleData = $module['data']['style'];
 
-$el_img_styleStr = 'width: ' . ($styleData['img']['width'] ? $styleData['img']['width'] . 'px;' : 'auto;');
-$el_img_styleStr .= 'height: ' . ($styleData['img']['height'] ? $styleData['img']['height'] . 'px;' : 'auto;');
+$sec_img_styleStr = 'width: ' . ($styleData['img']['width'] ? $styleData['img']['width'] . 'px;' : 'auto;');
+$sec_img_styleStr .= 'height: ' . ($styleData['img']['height'] ? $styleData['img']['height'] . 'px;' : 'auto;');
 
 // 背景
 $bg_styleStr = '';
@@ -46,7 +46,9 @@ if($styleData['img']['width']) {
     }
   }
 }
-$imgs = $this->Base->showImgs($site_id, $module['data']['imgs']['groupId'])
+$imgs = $this->Base->showImgs($site_id, $module['data']['imgs']['groupId']);
+
+$imgElements = $module['data']['imgs']['elements'];
 
 ?>
 <div class='module-item-wrap' id='section_<?php echo $module['sectionId'] ?>'>
@@ -66,12 +68,24 @@ $imgs = $this->Base->showImgs($site_id, $module['data']['imgs']['groupId'])
               data-json='<?php echo json_encode($styleData['swiper']) ?>' 
               data-sectionId='<?php echo $module['sectionId'] ?>'>
               <div class="swiper-wrapper" 
-                style="<?php echo $el_img_styleStr ?>" >
+                style="<?php echo $sec_img_styleStr ?>" >
                 <?php
-                  foreach ($imgs as $img) :
+                  foreach ($imgs as $imgIndex=>$img) :
                 ?>
-                  <div class="swiper-slide" style="<?php echo $el_img_styleStr ?>">
-                    <img src='<?php echo $img['url'] ?>' style="<?php echo $el_img_styleStr ?>" />
+                  <div class="swiper-slide" style="<?php echo $sec_img_styleStr ?>">
+                    <div class="swiper-slide-inner" style="position: relative">
+                      <img src='<?php echo $img['url'] ?>' style="<?php echo $sec_img_styleStr ?>" />
+                      <div class='center-dot'>
+                        <?php
+                          if($imgElements) {
+                            if($imgElements['index_'.$imgIndex]) {
+                              $elementList = $imgElements['index_'.$imgIndex];
+                              require 'elements/common.ctp';
+                            }
+                          }
+                        ?>
+                      </div>
+                    </div>
                   </div>
                 <?php endforeach; ?>
               </div>

@@ -389,10 +389,10 @@
   height: 70px;
 }
 .carouselSection-wrap .swiper-buttons .swiper-button-prev {
-  left: 0;
+  left: 10px;
 }
 .carouselSection-wrap .swiper-buttons .swiper-button-next {
-  right: 0;
+  right: 10px;
 }
 
 /*** 模块--新闻详情 ***/
