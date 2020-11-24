@@ -328,9 +328,6 @@ $(function () {
     navWapTriggerMenu()
   }
   
-  
-
-
   // 百度地图
   function initBMap() {
     $('.map-bd-item').each(function (index) {
@@ -520,8 +517,9 @@ $(function () {
         html[html.length] = 'margin:auto;">'
         html[html.length] = '<div class="popup-html-wrap" style="position:absolute;top:0;bottom:0;left:0;right:0;">'
         html[html.length] = '</div>';
-        if(jsonData.data.style && jsonData.data.style.outerCloseBtn && jsonData.data.style.outerCloseBtn.show) {
-          html[html.length] = '<div class="popup-close-btn">';
+        //if(jsonData.data.style && jsonData.data.style.outerCloseBtn && jsonData.data.style.outerCloseBtn.show) {
+        if(true) {
+          html[html.length] = '<div class="popup-close-btn" style="position: absolute;right: -84px;cursor: pointer;">';
           html[html.length] = '<img src="//dl.gamdream.com/activity/storm/gamemode/image/img_main_appointment_close.png">';
           html[html.length] = '</div>';
         }
