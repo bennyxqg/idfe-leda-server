@@ -29,7 +29,7 @@
 
 5. 修改bootstrap.php 中的ftp server配置
 
-6. chmod -R 777 app/tmp
+6. chmod -R 777 app/tmp   chmod -R 777 app/tmpView/themes
 
 
 
