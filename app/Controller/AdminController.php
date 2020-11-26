@@ -1361,7 +1361,7 @@ class AdminController extends Controller{
         try{
             $ret = array();
             $conditions['conditions'] =  array('status'=>1);
-            $conditions['fields'] = array('id','name','site_id','status');
+            $conditions['fields'] = array('id','name','site_id','status','phone','email');
             $count = $this->Users->find('count', $conditions);
             $page=isset($this->params["page"])?$this->params["page"]:"1";
             $limit=isset($this->params["limit"])?$this->params["limit"]:"10";
