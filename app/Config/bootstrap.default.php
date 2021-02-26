@@ -144,11 +144,11 @@ if(!function_exists('array_column')){
     }
 }
 Configure::write("ftp_config", array(
-    'host' => 'txy.ftp.idreamsky.com',    //ip地址
+    'host' => '*****',    //ip地址
     'port' => '21',            //端口
     'ssl' => '0',                //http模式,0=http  1=https
-    'username' => 'idreamsky-gamdream-gimg',        //ftp用户名
-    'password' => 'dblBJG7ULX',        //ftp密码
+    'username' => '****',        //ftp用户名
+    'password' => '*****',        //ftp密码
     'timeout' => '30',            //超时时间
     'attachdir' => '/website/image/',    //远程附件目录的绝对路径或相对于 FTP 主目录的相对路径，结尾不要加斜杠“/”，“.”表示 FTP 主目录
     'pasv' => '1',

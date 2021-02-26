@@ -568,6 +568,18 @@ class BaseHelper extends Helper
         }
         return $ret;
     }
+
+    public function getWebsiteConfig($id){
+        App::uses("WebsiteConfig", "Model");
+        $WebsiteConfig = new WebsiteConfig();
+        $conditions['conditions'] = array('id' => $id);
+        $result = $WebsiteConfig->find('first', $conditions);;
+        $ret = array();
+        if(!empty($result)){
+            return $result['WebsiteConfig'];
+        }
+        return $ret;
+    }
 }
 
 

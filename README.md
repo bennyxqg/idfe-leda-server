@@ -25,7 +25,13 @@
 
 3. cp app/Config/database.php.default app/Config/database.php 修改leda数据库的配置
 
-4. chmod -R 777 app/tmp
+4. cp app/Config/bootstrap.default.php app/Config/bootstrap.php 修改redis的配置
+
+5. 修改bootstrap.php 中的ftp server配置
+
+6. chmod -R 777 app/tmp   chmod -R 777 app/tmpView/themes
+
+
 
 
 **乐搭官网前端展示部署**
