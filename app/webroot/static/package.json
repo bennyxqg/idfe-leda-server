@@ -2,7 +2,6 @@
   "scripts": {
     "dev": "webpack --config scripts/webpack.dev.js",
     "build": "webpack --config scripts/webpack.prod.js",
-    "public": "cross-env CURRENT_ENV=public webpack --config scripts/webpack.public.js",
     "clean": "rimraf node_modules"
   },
   "devDependencies": {
