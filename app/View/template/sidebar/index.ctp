@@ -11,7 +11,7 @@
   $el_wrap_styleStr .= 'border-radius: '. (handleWidth($el_styleData['borderRadius'])).';';
 
   // 背景
-  $el_wrap_styleStr .= 'background-position: center;';
+  $el_wrap_styleStr .= 'background-position: center;background-repeat: no-repeat;background-position: center center;';
   if($el_styleData['bg']['bgType'] == 1 && $el_styleData['bg']['bgColor']) {
     $el_wrap_styleStr .= 'background-color: ' . $el_styleData['bg']['bgColor'] . ';';
   }
@@ -25,7 +25,7 @@
   data-status="<?php echo $configProps['sidebarStatus'] ?>"
   class="sidebar-wrapper ">
   <div style="<?php echo $el_wrap_styleStr ?>position:fixed;z-index:998;display:none;<?php echo $el_outer_styleStr ?>">
-    <div class="sidebar-html-wrap" style="<?php echo $el_wrap_styleStr ?>position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px; background-color: rgb(255, 255, 255);">
+    <div class="sidebar-html-wrap" style="width: 100%;height:100%;position: absolute; top: 0px; bottom: 0px; left: 0px; right: 0px;">
       <div>
         <div class="sidebar-wrap-inner">
           <div>
