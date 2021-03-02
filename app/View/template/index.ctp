@@ -119,9 +119,9 @@ require 'tools.ctp';
         </div>
     </div>
     <script>
-        var pageKind = "<?php echo $pageKind ?>"
-        var sitePreview = "<?php echo $sitePreview ?>"
-        var hostDomain = "//<?php echo $_SERVER['HTTP_HOST']; ?>"
+        var pageKind = "<?php echo $pageKind ?>";
+        var sitePreview = "<?php echo $sitePreview ?>";
+        var hostDomain = "//<?php echo $_SERVER['HTTP_HOST']; ?>";
     </script>
     <script type="text/javascript" src="//dl.gamdream.com/activity/storm/legend/js/jquery.min.js"></script>
     <script src="//dl.gamdream.com/idfe/leda/js/lodash.min.js"></script>
