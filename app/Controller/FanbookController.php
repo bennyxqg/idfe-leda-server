@@ -112,6 +112,11 @@ class FanbookController extends Controller{
             if(empty($info)){
                 $this->echoJson('id数据错误', -2);
             }
+            $conditions2['conditions'] = array('dir_id'=>$id);
+            $info2 = $this->DocMenu->find('all', $conditions2);
+            if(!empty($info)){
+                $this->echoJson('目录有文档不能删除', -3);
+            }
             $ret = $this->DocDir->deleteAll(array('id'=>$id));
             $this->echoJson('success', 0);
         }catch(Exception $e){
