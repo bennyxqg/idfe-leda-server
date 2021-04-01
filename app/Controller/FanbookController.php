@@ -114,7 +114,7 @@ class FanbookController extends Controller{
             }
             $conditions2['conditions'] = array('dir_id'=>$id);
             $info2 = $this->DocMenu->find('all', $conditions2);
-            if(!empty($info)){
+            if(!empty($info2)){
                 $this->echoJson('目录有文档不能删除', -3);
             }
             $ret = $this->DocDir->deleteAll(array('id'=>$id));
