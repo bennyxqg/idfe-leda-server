@@ -18,7 +18,7 @@ class FanbookController extends Controller{
 
     protected function echoJson($msg, $code = 0, $data = array()){
         $return_data['msg']         = $msg;
-        $return_data['error_code']  = $code;
+        $return_data['status']  = $code;
         $return_data['data']        = $data;
 
         $ret = json_encode($return_data);
