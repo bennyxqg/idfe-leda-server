@@ -157,7 +157,7 @@ class FanbookController extends Controller{
             if(empty($dir_id)){
                 $this->echoJson('dir_id参数不能为空', -3);
             }
-            $content=isset($_FILES["content"]['tmp_name'])?$_FILES["content"]['tmp_name']:"";
+            $content=isset($this->params["content"])?$this->params["content"]:"";
             if(empty($content)){
                 $this->echoJson('文件不能为空', -4);
             }
@@ -166,7 +166,7 @@ class FanbookController extends Controller{
                 'name' => $name,
                 'author' => $author,
                 'dir_id' => $dir_id,
-                'content' => file_get_contents($content),
+                'content' => $content,
                 'sort' => $sort,
             );
             $ret = $this->DocMenu->save($data);
@@ -207,8 +207,8 @@ class FanbookController extends Controller{
                 'dir_id' => $dir_id,
                 'sort' => $sort
             );
-            if(!empty($_FILES["content"]['tmp_name'])){
-                $data['content'] = $db->value(file_get_contents($_FILES["content"]['tmp_name']));
+            if(isset($this->params["content"])){
+                $data['content'] = $db->value($this->params["content"]);
             }
             $ret = $this->DocMenu->updateAll($data,array('id'=>$id));
             $this->echoJson('success', 0);
