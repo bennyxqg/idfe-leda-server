@@ -153,10 +153,7 @@ class FanbookController extends Controller{
             if(empty($author)){
                 $this->echoJson('author参数不能为空', -2);
             }
-            $dir_id=isset($this->params["dir_id"])?$this->params["dir_id"]:"";
-            if(empty($dir_id)){
-                $this->echoJson('dir_id参数不能为空', -3);
-            }
+            $dir_id=isset($this->params["dir_id"])?$this->params["dir_id"]:0;
             $content=isset($this->params["content"])?$this->params["content"]:"";
             if(empty($content)){
                 $this->echoJson('文件不能为空', -4);
@@ -190,10 +187,7 @@ class FanbookController extends Controller{
             if(empty($author)){
                 $this->echoJson('author参数不能为空', -2);
             }
-            $dir_id=isset($this->params["dir_id"])?$this->params["dir_id"]:"";
-            if(empty($dir_id)){
-                $this->echoJson('dir_id参数不能为空', -3);
-            }
+            $dir_id=isset($this->params["dir_id"])?$this->params["dir_id"]:0;
             $sort=isset($this->params["sort"])?$this->params["sort"]:0;
             $conditions['conditions'] = array('id'=>$id);
             $info = $this->DocMenu->find('first', $conditions);
