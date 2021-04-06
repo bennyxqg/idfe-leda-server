@@ -242,15 +242,26 @@ class FanbookController extends Controller{
             }
             $ret = array();
             foreach ($res as $item) {
-                $conditions['conditions'] = array('dir_id'=>$item['id']);
-                $conditions['fields'] = array('id','name');
-                $menuList = $this->DocMenu->find('all', $conditions);
+                $conditions2['conditions'] = array('dir_id'=>$item['id']);
+                $conditions2['fields'] = array('id','name');
+                $menuList = $this->DocMenu->find('all', $conditions2);
                 $menuInfo = array_column($menuList, 'DocMenu');
                 $res[$item['id']]['menu_info'] = $menuInfo;
+                $res[$item['id']]['type'] = 'dir';
                 if (isset($res[$item['parent_id']])) {
                     $res[$item['parent_id']]['children'][] = &$res[$item['id']];
                 } else {
                     $ret[] = &$res[$item['id']];
+                }
+            }
+            $conditions3['conditions'] = array('dir_id'=>0);
+            $conditions3['fields'] = array('id','name','author','dir_id','sort','created','updated');
+            $menuList3 = $this->DocMenu->find('all', $conditions3);
+            $menuInfo3 = array_column($menuList3, 'DocMenu');
+            if(!empty($menuInfo3)){
+                foreach($menuInfo3 as $menuInfo){
+                    $menuInfo['type'] = 'menu';
+                    $ret[] = $menuInfo;
                 }
             }
             $this->echoJson('success', 0, $ret);
