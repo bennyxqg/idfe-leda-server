@@ -38,6 +38,11 @@ class IndexController extends Controller{
     }
 
     public function index(){
+        $conditions2['conditions'] = array('site_id' => $this->site_id, 'type'=>3);
+        $result2 = $this->WebsiteConfig->find('first', $conditions2);
+        if(!empty($result2) && $this->isWap()){
+            $this->redirect('/wap');
+        }
         $file_name = '/themes/'.$this->directory_name.'/index';
         $this->layout = false;
         $this->set('site_id',$this->site_id);
@@ -136,5 +141,14 @@ class IndexController extends Controller{
         $this->set('website_config', $result['WebsiteConfig']);
         $this->render($file_name);
     }
+
+    private function isWap(){
+        if(stripos($_SERVER['HTTP_USER_AGENT'],"android")!=flase||stripos($_SERVER['HTTP_USER_AGENT'],"ios")!=flase||stripos($_SERVER['HTTP_USER_AGENT'],"wp")!=flase){
+            return true;
+        }
+        return false;
+    }
+
+
 }   
 
