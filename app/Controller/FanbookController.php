@@ -13,7 +13,8 @@ class FanbookController extends Controller{
         header("Access-Control-Allow-Headers:X-Requested-With");
         header('Access-Control-Allow-Headers:x-requested-with,content-type');
         header("Access-Control-Allow-Methods:PUT,POST,GET,DELETE,OPTIONS"); //请求方式
-        $this->params = array_merge((array)$this->request->query, (array)$this->request->data);
+        $data = file_get_contents("php://input");
+        $this->params = json_decode($data,1);
     }
 
     protected function echoJson($msg, $code = 0, $data = array()){
