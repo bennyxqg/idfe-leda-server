@@ -49,7 +49,7 @@
           } else {
         ?>
           <div class="popup-outer-close-btn popup-close-btn">
-            <img src="//dl.gamdream.com/activity/storm/gamemode/image/img_main_appointment_close.png">
+            <img src="<?php echo $el_styleData['closeBtn']['imgUrl'] ?>">
           </div>
         <?php
           }
