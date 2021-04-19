@@ -14,6 +14,7 @@
   
   if($styleData['bg']['bgType'] == 2 && $styleData['bg']['bgImg']) {
     $styleStr .= 'background-image: url(' . $styleData['bg']['bgImg'] . ');';
+    $styleStr .= 'background-repeat: no-repeat;background-position: center;';
     if($styleData['width'] && $styleData['height']) {
       $styleStr .= 'backgroun-size:'. $styleData['width'] .'px ' .$styleData['height']. 'px';
     }
