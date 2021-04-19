@@ -10,6 +10,7 @@
     
     if($styleData['base']['bg']['bgType'] == 2 && $styleData['base']['bg']['bgImg']) {
         $base_bg_style .= 'background-image: url(' . $styleData['base']['bg']['bgImg'] . ');';
+        $base_bg_style .= 'background-repeat: no-repeat;background-position: center;';
         if($styleData['width'] && $styleData['height']) {
             $base_bg_style .= 'backgroun-size:'. $styleData['width'] .'px ' .$styleData['height']. 'px';
         }
