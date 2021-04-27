@@ -82,7 +82,7 @@
                     
                     <div
                       class='menu-drop-down-wrap'
-                      style='right: -80px;opacity: 0'
+                      style='right: 0;opacity: 0'
                     >
                       <div class="menu-drop-down">
                         <div class="menu-drop-down-bg"></div>
