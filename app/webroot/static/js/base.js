@@ -305,7 +305,8 @@ $(function () {
           $(this).removeClass('menu-icon-close')
           
           $that.find('.menu-drop-down-wrap').css({
-            right: '-80px',
+            // right: '-80px', // 移除动画效果，动画会影响ios的显示
+            right: '0px',
             opacity: 0
           })
         } else {
