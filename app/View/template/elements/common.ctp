@@ -7,7 +7,7 @@
 
       $el_wrap_styleStr = 'left: '.$el_styleData['left'].'px;';
       $el_wrap_styleStr .= 'top: '.$el_styleData['top'].'px;';
-      $el_wrap_styleStr .= 'z-index: '.($element['data']['zIndex']?$element['data']['zIndex']:1);
+      $el_wrap_styleStr .= 'z-index: '.(strlen($element['data']['zIndex'])?$element['data']['zIndex']:1);
 
       $aniamtion_json = '';
       if($element['data']['animation']) {

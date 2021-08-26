@@ -31,19 +31,33 @@ class FanbookController extends Controller{
         try{
             $conditions['conditions'] = array();
             $result = $this->DocDir->find('all', $conditions);
-            $res = array();
-            if(!empty($result)){
-                foreach($result as $v){
-                    $res[$v['DocDir']['id']] = $v['DocDir'];
+            // $res = array();
+            // if(!empty($result)){
+            //     foreach($result as $v){
+            //         $res[$v['DocDir']['id']] = $v['DocDir'];
                    
-                }
-            }
+            //     }
+            // }
+            // $ret = array();
+            // foreach ($res as $item) {
+            //     if (isset($res[$item['parent_id']])) {
+            //         $res[$item['parent_id']]['children'][] = &$res[$item['id']];
+            //     } else {
+            //         $ret[] = &$res[$item['id']];
+            //     }
+            // }
             $ret = array();
-            foreach ($res as $item) {
-                if (isset($res[$item['parent_id']])) {
-                    $res[$item['parent_id']]['children'][] = &$res[$item['id']];
-                } else {
-                    $ret[] = &$res[$item['id']];
+            if(!empty($result)){
+                foreach($result as $k=>$v){
+                    if($v['DocDir']['parent_id'] > 0){
+                        $conditions['conditions'] = array('id'=>$v['DocDir']['parent_id']);
+                        $res2 = $this->DocDir->find('first', $conditions);
+                        $v['DocDir']['parent_name'] = $res2['DocDir']['name'];
+                    }else{
+                        $v['DocDir']['parent_name'] = '';
+                    }
+                    $ret[] = $v['DocDir'];
+                   
                 }
             }
             $this->echoJson('success', 0, $ret);
@@ -120,6 +134,23 @@ class FanbookController extends Controller{
             }
             $ret = $this->DocDir->deleteAll(array('id'=>$id));
             $this->echoJson('success', 0);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }
+    }
+
+    public function dir_get(){
+        try{
+            $id=isset($this->params["id"])?$this->params["id"]:"";
+            if(empty($id)){
+                $this->echoJson('id参数不能为空', -1);
+            }
+            $conditions['conditions'] = array('id'=>$id);
+            $info = $this->DocDir->find('first', $conditions);
+            if(empty($info)){
+                $this->echoJson('id数据错误', -2);
+            }
+            $this->echoJson('success', 0, $info['DocDir']);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
         }
@@ -225,6 +256,23 @@ class FanbookController extends Controller{
             }
             $ret = $this->DocMenu->deleteAll(array('id'=>$id));
             $this->echoJson('success', 0);
+        }catch(Exception $e){
+            $this->echoJson('server error',-1000);
+        }
+    }
+
+    public function menu_get(){
+        try{
+            $id=isset($this->params["id"])?$this->params["id"]:"";
+            if(empty($id)){
+                $this->echoJson('id参数不能为空', -1);
+            }
+            $conditions['conditions'] = array('id'=>$id);
+            $info = $this->DocMenu->find('first', $conditions);
+            if(empty($info)){
+                $this->echoJson('id数据错误', -2);
+            }
+            $this->echoJson('success', 0, $info['DocMenu']);
         }catch(Exception $e){
             $this->echoJson('server error',-1000);
         }

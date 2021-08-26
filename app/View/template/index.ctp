@@ -130,7 +130,7 @@ require 'tools.ctp';
     <script src="//dl.gamdream.com/activity/storm/mob100/js/swiper.min.js"></script>
     <script src="//dl.gamdream.com/idfe/leda/js/template-web.min.js"></script>
     <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=7ae13368159d6a513eaa7a17b9413b4b"></script>
-    <script src="//<?php echo $_SERVER['HTTP_HOST']; ?>/static/dist/js/index.bundle.js?v=2021042701"></script>
+    <script src="//<?php echo $_SERVER['HTTP_HOST']; ?>/static/dist/js/index.bundle.js?v=20210826"></script>
 </body>
 
 </html>

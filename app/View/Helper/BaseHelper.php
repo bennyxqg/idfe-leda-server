@@ -506,6 +506,7 @@ class BaseHelper extends Helper
         App::uses("News", "Model");
         $News = new News();
         $conditions['conditions'] = array('news_categories_id' => $categoryId);
+        $conditions['order'] = array('id desc');
         $conditions['limit'] = $limit;
         $result = $News->find('all', $conditions);;
         $ret = array();
@@ -521,6 +522,7 @@ class BaseHelper extends Helper
         App::uses("News", "Model");
         $News = new News();
         $conditions['conditions'] = array('site_id' => $siteId);
+        $conditions['order'] = array('id desc');
         $conditions['limit'] = $limit;
         $result = $News->find('all', $conditions);;
         $ret = array();
